@@ -16,12 +16,16 @@
 | G3 — Endpoints publics + formulaires | ✅ fait & vérifié |
 | G4 — Auth réelle | ✅ fait & vérifié |
 | G5 — Interconnexion + seed | ✅ API/CORS vérifiés · ⚠️ rendu navigateur bloqué (SWC) |
-| G6 — CRUD admin | ✅ backend vérifié · 🔵 front : API + suppression câblées ; **reste : formulaires create/edit (6b)** |
-| G7 — Uploads | ✅ backend vérifié · 🔵 front : helper upload |
+| G6 — CRUD admin | ✅ backend vérifié · 🔵 front : API + suppression + **formulaires create/edit (6b)** |
+| G7 — Uploads | ✅ backend vérifié · 🔵 front : helper + composant d'upload (dialog) |
+| G8 — Emails/settings/seed | ✅ accusés, bienvenue, **notif admin**, settings éditables, seed |
 | G9 — Sécurité (rate-limit, validation, honeypot, uploads durcis) | ✅ fait & vérifié |
-| G8 — Emails/settings/seed | 🟡 seed ✅, settings ✅, emails transactionnels ✅ (accusés/bienvenue) · reste : notif admin |
-| G10 — UI/UX · G12 — Responsive | ⏳ frontend (à valider navigateur) |
-| G11 — Tests/docs/déploiement | 🟡 README ✅ · reste : tests, CI |
+| G10 — UI/UX | ✅ toasts, skeletons, états vides, confirmations, dashboard 1-requête typé · 🔵 polish navigateur |
+| G11 — Tests/docs/déploiement | ✅ README, 15 tests unitaires (vérifiés), CI GitHub Actions |
+| G12 — Responsive | ✅ admin (drawer mobile) + public (header burger) · 🔵 à valider navigateur |
+
+> Légende : ✅ fait/vérifié · 🔵 code-complete, validation navigateur en attente (SWC bloque `next dev` ici).
+> Reste hors code : whitelister SWC pour lancer le front, configurer SMTP/SPF/DKIM, déployer cPanel.
 
 ---
 

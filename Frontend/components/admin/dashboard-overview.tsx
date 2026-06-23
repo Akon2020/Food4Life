@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations, useLocale } from "next-intl"
-import { useQueries } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import {
   Newspaper,
   Package,
@@ -13,16 +13,12 @@ import {
 } from "lucide-react"
 
 import { Link } from "@/i18n/navigation"
-import {
-  getArticles,
-  getProducts,
-  getPartners,
-  getTeam,
-} from "@/lib/api/content"
-import { getAdminMessages, getAdminSubscribers } from "@/lib/api/admin"
+import { getDashboard } from "@/lib/api/admin"
 import { formatDate } from "@/lib/format"
+import type { Locale } from "@/lib/types"
 import { StatCard } from "@/components/admin/stat-card"
 import { StatusBadge, statusTone } from "@/components/admin/status-badge"
+import { TableSkeleton } from "@/components/admin/table-skeleton"
 
 const messageStatusKey: Record<string, string> = {
   new: "msgNew",
@@ -38,35 +34,28 @@ const messageTypeKey: Record<string, string> = {
 
 export function DashboardOverview() {
   const t = useTranslations("adminUI")
-  const locale = useLocale()
+  const locale = useLocale() as Locale
 
-  const results = useQueries({
-    queries: [
-      { queryKey: ["articles", "all"], queryFn: () => getArticles() },
-      { queryKey: ["products"], queryFn: getProducts },
-      { queryKey: ["partners"], queryFn: getPartners },
-      { queryKey: ["team"], queryFn: getTeam },
-      { queryKey: ["admin", "messages"], queryFn: getAdminMessages },
-      { queryKey: ["admin", "subscribers"], queryFn: getAdminSubscribers },
-    ],
+  const { data, isLoading } = useQuery({
+    queryKey: ["admin", "dashboard"],
+    queryFn: getDashboard,
   })
 
-  const [articles, products, partners, team, messages, subscribers] = results.map(
-    (r) => r.data
-  )
+  const c = data?.counts
+  const recent = data?.recentMessages ?? []
 
   const stats = [
-    { key: "statArticles", icon: Newspaper, value: articles?.length, href: "/admin/actualites" },
-    { key: "statProducts", icon: Package, value: products?.length, href: "/admin/produits" },
-    { key: "statPartners", icon: Handshake, value: partners?.length, href: "/admin/partenaires" },
-    { key: "statTeam", icon: Users, value: team?.length, href: "/admin/equipe" },
-    { key: "statMessages", icon: Inbox, value: messages?.length, href: "/admin/messages" },
-    { key: "statSubscribers", icon: Mail, value: subscribers?.length, href: "/admin/newsletter" },
+    { key: "statArticles", icon: Newspaper, value: c?.articles, href: "/admin/actualites" },
+    { key: "statProducts", icon: Package, value: c?.products, href: "/admin/produits" },
+    { key: "statPartners", icon: Handshake, value: c?.partners, href: "/admin/partenaires" },
+    { key: "statTeam", icon: Users, value: c?.team, href: "/admin/equipe" },
+    { key: "statMessages", icon: Inbox, value: c?.messages, href: "/admin/messages" },
+    { key: "statSubscribers", icon: Mail, value: c?.subscribers, href: "/admin/newsletter" },
   ] as const
 
-  const recent = [...(messages ?? [])]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 5)
+  if (isLoading) {
+    return <TableSkeleton columns={3} rows={4} />
+  }
 
   return (
     <div className="grid gap-8">
