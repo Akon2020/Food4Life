@@ -2,10 +2,12 @@
 
 import { useMemo, useState } from "react"
 import Image from "next/image"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
+import { toast } from "sonner"
 
 import { getProducts } from "@/lib/api/content"
+import { deleteProduct } from "@/lib/api/admin"
 import { pick } from "@/lib/i18n-field"
 import type { Locale } from "@/lib/types"
 import {
@@ -27,9 +29,19 @@ export function ProductsList() {
   const locale = useLocale() as Locale
   const [search, setSearch] = useState("")
 
+  const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
+  })
+
+  const removeMutation = useMutation({
+    mutationFn: (id: string) => deleteProduct(id),
+    onSuccess: () => {
+      toast.success(t("deleted"))
+      queryClient.invalidateQueries({ queryKey: ["products"] })
+    },
+    onError: () => toast.error(t("deleteError")),
   })
 
   const rows = useMemo(() => {
@@ -87,7 +99,14 @@ export function ProductsList() {
                   </Td>
                   <Td className="text-ink-muted">{p.order}</Td>
                   <Td>
-                    <RowActions viewHref={`/produits/${p.slug}`} />
+                    <RowActions
+                      viewHref={`/produits/${p.slug}`}
+                      onDelete={() => removeMutation.mutate(p.id)}
+                      deleting={
+                        removeMutation.isPending &&
+                        removeMutation.variables === p.id
+                      }
+                    />
                   </Td>
                 </Tr>
               ))

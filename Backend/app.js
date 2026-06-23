@@ -16,6 +16,7 @@ import abonneRouter from "./routes/abonne.route.js";
 import newsletterRouter from "./routes/newsletter.route.js";
 import contentRouter from "./routes/content.route.js";
 import formsRouter from "./routes/forms.route.js";
+import adminRouter from "./routes/admin.route.js";
 
 const app = express();
 
@@ -61,7 +62,8 @@ app.use("/api/newsletters", newsletterRouter);
 // Domaine FFL — lectures publiques + formulaires (contrat Frontend/lib/types.ts)
 app.use("/api", contentRouter);
 app.use("/api", formsRouter);
-// Routes admin (CRUD) montées au Goal 6.
+// Admin (CRUD protégé par JWT + rôles)
+app.use("/api/admin", adminRouter);
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);
