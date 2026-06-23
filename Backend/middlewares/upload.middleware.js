@@ -29,6 +29,40 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+// Types autorisés par champ
+const IMAGE_MIMES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+const CV_MIMES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const imageFields = ["avatar", "image", "logo", "photo", "cover", "gallery"];
+
+const uploadError = (msg) => {
+  const e = new Error(msg);
+  e.status = 400;
+  e.name = "UploadValidationError";
+  return e;
+};
+
+const fileFilter = (req, file, cb) => {
+  if (file.fieldname === "cv") {
+    return CV_MIMES.includes(file.mimetype)
+      ? cb(null, true)
+      : cb(uploadError("Format de CV non autorisé (PDF ou Word uniquement)."));
+  }
+  if (imageFields.includes(file.fieldname)) {
+    return IMAGE_MIMES.includes(file.mimetype)
+      ? cb(null, true)
+      : cb(uploadError("Format d'image non autorisé."));
+  }
+  return cb(null, true);
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 Mo
+});
 
 export default upload;

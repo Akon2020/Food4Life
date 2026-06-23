@@ -57,6 +57,37 @@ const errorMiddleware = (err, req, res, next) => {
     return next(err);
   }
 
+  // Erreur portant un code HTTP explicite (ex: filtre d'upload)
+  if (err.status || err.statusCode) {
+    return res.status(err.status || err.statusCode).json({ message: err.message });
+  }
+
+  // Erreurs Multer (taille, etc.)
+  if (err.name === "MulterError") {
+    const message =
+      err.code === "LIMIT_FILE_SIZE"
+        ? "Fichier trop volumineux (max 5 Mo)."
+        : "Erreur lors de l'envoi du fichier.";
+    return res.status(400).json({ message });
+  }
+
+  // Erreurs Sequelize
+  if (typeof err.name === "string" && err.name.startsWith("Sequelize")) {
+    if (err.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({ message: "Entrée dupliquée." });
+    }
+    if (err.name === "SequelizeValidationError") {
+      const message = err.errors?.[0]?.message ?? "Données invalides.";
+      return res.status(400).json({ message });
+    }
+    if (err.name === "SequelizeForeignKeyConstraintError") {
+      return res.status(400).json({ message: "Référence invalide." });
+    }
+    if (err.name === "SequelizeDatabaseError") {
+      return res.status(400).json({ message: "Requête invalide (données)." });
+    }
+  }
+
   if (err.sql) {
     return handleDatabaseError(err, res);
   }

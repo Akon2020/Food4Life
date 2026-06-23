@@ -24,6 +24,10 @@ async function sendMailSafe(mailOptions) {
 // POST /messages -> persiste un message (contact|partenariat|candidature)
 export const createMessage = async (req, res, next) => {
   try {
+    // Honeypot anti-spam : champ caché `_hp`. Rempli => bot, on ignore silencieusement.
+    if (req.body._hp) {
+      return res.status(201).json({ ok: true, id: "ignored" });
+    }
     const {
       type = "contact",
       name,

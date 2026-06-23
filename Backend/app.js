@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import path from "path";
 import logger from "morgan";
-import { PORT, HOST_URL } from "./config/env.js";
+import { PORT, HOST_URL, JWT_SECRET, NODE_ENV } from "./config/env.js";
 import { syncModels } from "./models/index.model.js";
 import { bootstrapAdmin } from "./utils/bootstrap.js";
 import errorMiddleware, { errorLogs } from "./middlewares/error.middleware.js";
@@ -67,6 +67,16 @@ app.use("/api/admin", adminRouter);
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);
+
+// Contrôle de robustesse du secret JWT au démarrage.
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+  const msg =
+    "JWT_SECRET manquant ou trop court (< 32 caractères). Définissez un secret fort.";
+  if (NODE_ENV === "production") {
+    throw new Error(msg);
+  }
+  console.warn(`⚠️  ${msg}`);
+}
 
 app.listen(PORT, async (err) => {
   if (err) {

@@ -13,6 +13,7 @@ import {
 } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/upload.middleware.js";
 import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
+import { loginLimiter } from "../middlewares/rateLimit.middleware.js";
 
 const authRouter = Router();
 
@@ -131,7 +132,7 @@ authRouter.post(
  *       401:
  *         description: Email ou mot de passe incorrect
  */
-authRouter.post("/login", login);
+authRouter.post("/login", loginLimiter, login);
 
 /**
  * @swagger
