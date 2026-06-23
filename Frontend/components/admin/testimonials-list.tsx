@@ -6,10 +6,19 @@ import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
 import { getTestimonials } from "@/lib/api/content"
-import { deleteTestimonial } from "@/lib/api/admin"
+import {
+  deleteTestimonial,
+  createTestimonial,
+  updateTestimonial,
+} from "@/lib/api/admin"
 import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
 import { pick } from "@/lib/i18n-field"
-import type { Locale } from "@/lib/types"
+import type { Locale, Testimonial } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -35,6 +44,22 @@ export function TestimonialsList() {
 
   const del = useRowDelete(deleteTestimonial, ["testimonials"])
 
+  const form = useEntityForm<Testimonial>({
+    create: (v) => createTestimonial(v as Partial<Testimonial>),
+    update: (id, v) => updateTestimonial(id, v as Partial<Testimonial>),
+    queryKey: ["testimonials"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "authorName", label: t("authorName"), type: "text", required: true },
+    { name: "authorRoleFr", label: `${t("authorRole")} (FR)`, type: "text" },
+    { name: "authorRoleEn", label: `${t("authorRole")} (EN)`, type: "text" },
+    { name: "quoteFr", label: `${t("quote")} (FR)`, type: "textarea" },
+    { name: "quoteEn", label: `${t("quote")} (EN)`, type: "textarea" },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "photoUrl", label: t("photo"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((m) => m.authorName.toLowerCase().includes(search.toLowerCase()))
@@ -43,7 +68,7 @@ export function TestimonialsList() {
 
   return (
     <div className="grid gap-4">
-      <AdminToolbar search={search} onSearch={setSearch} />
+      <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
 
       {isLoading ? (
         <TableSkeleton columns={3} />
@@ -90,6 +115,7 @@ export function TestimonialsList() {
                   <Td className="text-ink-muted">{m.order}</Td>
                   <Td>
                     <RowActions
+                      onEdit={() => form.openEdit(m)}
                       onDelete={() => del.mutate(m.id)}
                       deleting={del.isPending && del.variables === m.id}
                     />
@@ -100,6 +126,16 @@ export function TestimonialsList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }

@@ -6,8 +6,14 @@ import { useTranslations } from "next-intl"
 import { ExternalLink } from "lucide-react"
 
 import { getPartners } from "@/lib/api/content"
-import { deletePartner } from "@/lib/api/admin"
+import { deletePartner, createPartner, updatePartner } from "@/lib/api/admin"
 import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
+import type { Partner } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -42,6 +48,29 @@ export function PartnersList() {
 
   const del = useRowDelete(deletePartner, ["partners"])
 
+  const form = useEntityForm<Partner>({
+    create: (v) => createPartner(v as Partial<Partner>),
+    update: (id, v) => updatePartner(id, v as Partial<Partner>),
+    queryKey: ["partners"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "name", label: t("name"), type: "text", required: true },
+    {
+      name: "category",
+      label: t("category"),
+      type: "select",
+      options: ["financier", "technique", "formation", "institutionnel"].map(
+        (c) => ({ value: c, label: tp(c) })
+      ),
+    },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "websiteUrl", label: t("website"), type: "text" },
+    { name: "descriptionFr", label: `${t("description")} (FR)`, type: "textarea" },
+    { name: "descriptionEn", label: `${t("description")} (EN)`, type: "textarea" },
+    { name: "logoUrl", label: t("logo"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((p) => {
@@ -57,6 +86,7 @@ export function PartnersList() {
       <AdminToolbar
         search={search}
         onSearch={setSearch}
+        onAdd={form.openCreate}
         filters={
           <FilterPills
             options={categories.map((c) => ({
@@ -107,6 +137,7 @@ export function PartnersList() {
                   <Td className="text-ink-muted">{p.order}</Td>
                   <Td>
                     <RowActions
+                      onEdit={() => form.openEdit(p)}
                       onDelete={() => del.mutate(p.id)}
                       deleting={del.isPending && del.variables === p.id}
                     />
@@ -117,6 +148,16 @@ export function PartnersList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }

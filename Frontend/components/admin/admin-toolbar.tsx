@@ -10,11 +10,13 @@ export function AdminToolbar({
   onSearch,
   filters,
   showAdd = true,
+  onAdd,
 }: {
   search: string
   onSearch: (value: string) => void
   filters?: React.ReactNode
   showAdd?: boolean
+  onAdd?: () => void
 }) {
   const t = useTranslations("adminUI")
 
@@ -36,10 +38,14 @@ export function AdminToolbar({
         {showAdd ? (
           <button
             type="button"
-            disabled
-            title={t("comingSoonAction")}
+            onClick={onAdd}
+            disabled={!onAdd}
+            title={onAdd ? t("add") : t("comingSoonAction")}
             className={cn(
-              "inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg bg-green-700/40 px-4 py-2 text-sm font-semibold text-white opacity-70"
+              "inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors",
+              onAdd
+                ? "bg-green-700 hover:bg-green-800"
+                : "cursor-not-allowed bg-green-700/40 opacity-70"
             )}
           >
             <Plus className="size-4" />

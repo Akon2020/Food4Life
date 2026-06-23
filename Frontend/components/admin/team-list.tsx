@@ -6,10 +6,19 @@ import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
 import { getTeam } from "@/lib/api/content"
-import { deleteTeamMember } from "@/lib/api/admin"
+import {
+  deleteTeamMember,
+  createTeamMember,
+  updateTeamMember,
+} from "@/lib/api/admin"
 import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
 import { pick } from "@/lib/i18n-field"
-import type { Locale } from "@/lib/types"
+import type { Locale, TeamMember } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -35,6 +44,23 @@ export function TeamList() {
 
   const del = useRowDelete(deleteTeamMember, ["team"])
 
+  const form = useEntityForm<TeamMember>({
+    create: (v) => createTeamMember(v as Partial<TeamMember>),
+    update: (id, v) => updateTeamMember(id, v as Partial<TeamMember>),
+    queryKey: ["team"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "name", label: t("name"), type: "text", required: true },
+    { name: "roleFr", label: `${t("role")} (FR)`, type: "text" },
+    { name: "roleEn", label: `${t("role")} (EN)`, type: "text" },
+    { name: "bioFr", label: `${t("bio")} (FR)`, type: "textarea" },
+    { name: "bioEn", label: `${t("bio")} (EN)`, type: "textarea" },
+    { name: "linkedinUrl", label: t("linkedin"), type: "text" },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "photoUrl", label: t("photo"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((m) => m.name.toLowerCase().includes(search.toLowerCase()))
@@ -43,7 +69,7 @@ export function TeamList() {
 
   return (
     <div className="grid gap-4">
-      <AdminToolbar search={search} onSearch={setSearch} />
+      <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
 
       {isLoading ? (
         <TableSkeleton columns={3} />
@@ -81,6 +107,7 @@ export function TeamList() {
                   <Td className="text-ink-muted">{m.order}</Td>
                   <Td>
                     <RowActions
+                      onEdit={() => form.openEdit(m)}
                       onDelete={() => del.mutate(m.id)}
                       deleting={del.isPending && del.variables === m.id}
                     />
@@ -91,6 +118,16 @@ export function TeamList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }

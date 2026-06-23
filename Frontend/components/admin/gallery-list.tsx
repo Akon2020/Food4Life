@@ -7,10 +7,19 @@ import { useLocale, useTranslations } from "next-intl"
 import { Play, ImageIcon } from "lucide-react"
 
 import { getGallery } from "@/lib/api/content"
-import { deleteGalleryItem } from "@/lib/api/admin"
+import {
+  deleteGalleryItem,
+  createGalleryItem,
+  updateGalleryItem,
+} from "@/lib/api/admin"
 import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
 import { pick } from "@/lib/i18n-field"
-import type { Locale } from "@/lib/types"
+import type { GalleryItem, Locale } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -40,6 +49,40 @@ export function GalleryList() {
 
   const del = useRowDelete(deleteGalleryItem, ["gallery"])
 
+  const form = useEntityForm<GalleryItem>({
+    create: (v) => createGalleryItem(v as Partial<GalleryItem>),
+    update: (id, v) => updateGalleryItem(id, v as Partial<GalleryItem>),
+    queryKey: ["gallery"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "titleFr", label: `${t("title")} (FR)`, type: "text" },
+    { name: "titleEn", label: `${t("title")} (EN)`, type: "text" },
+    {
+      name: "category",
+      label: t("category"),
+      type: "select",
+      options: ["terrain", "produits", "evenements", "equipe"].map((c) => ({
+        value: c,
+        label: tg(c),
+      })),
+    },
+    {
+      name: "type",
+      label: t("mediaType"),
+      type: "select",
+      options: [
+        { value: "image", label: t("image") },
+        { value: "video", label: t("video") },
+      ],
+    },
+    { name: "captionFr", label: `${t("caption")} (FR)`, type: "text" },
+    { name: "captionEn", label: `${t("caption")} (EN)`, type: "text" },
+    { name: "videoUrl", label: t("videoUrl"), type: "text" },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "imageUrl", label: t("image"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((g) => {
@@ -56,6 +99,7 @@ export function GalleryList() {
       <AdminToolbar
         search={search}
         onSearch={setSearch}
+        onAdd={form.openCreate}
         filters={
           <FilterPills
             options={categories.map((c) => ({
@@ -115,6 +159,7 @@ export function GalleryList() {
                   </Td>
                   <Td>
                     <RowActions
+                      onEdit={() => form.openEdit(g)}
                       onDelete={() => del.mutate(g.id)}
                       deleting={del.isPending && del.variables === g.id}
                     />
@@ -125,6 +170,16 @@ export function GalleryList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }
