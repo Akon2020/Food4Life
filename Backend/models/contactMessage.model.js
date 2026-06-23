@@ -22,6 +22,8 @@ const ContactMessage = db.define(
       allowNull: false,
       validate: { isEmail: true },
     },
+    // Objet (formulaire de contact) — conservé pour l'admin, hors type front strict
+    subject: { type: DataTypes.STRING(255), allowNull: true },
     phone: { type: DataTypes.STRING(50), allowNull: true },
     organization: { type: DataTypes.STRING(255), allowNull: true },
     partnershipType: { type: DataTypes.STRING(255), allowNull: true },

@@ -13,6 +13,8 @@ import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/utilisateur.route.js";
 import abonneRouter from "./routes/abonne.route.js";
 import newsletterRouter from "./routes/newsletter.route.js";
+import contentRouter from "./routes/content.route.js";
+import formsRouter from "./routes/forms.route.js";
 
 const app = express();
 
@@ -55,8 +57,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/abonnes", abonneRouter);
 app.use("/api/newsletters", newsletterRouter);
-// Routes du domaine FFL (articles, products, partners, team, testimonials,
-// gallery, settings, messages, admin) montées au Goal 3.
+// Domaine FFL — lectures publiques + formulaires (contrat Frontend/lib/types.ts)
+app.use("/api", contentRouter);
+app.use("/api", formsRouter);
+// Routes admin (CRUD) montées au Goal 6.
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);
