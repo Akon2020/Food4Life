@@ -7,6 +7,24 @@
 
 ---
 
+## ✅ Avancement (mis à jour)
+
+| Goal | État |
+|---|---|
+| G1 — Backend démarre | ✅ fait & vérifié |
+| G2 — Modèles UUID bilingues | ✅ fait & vérifié |
+| G3 — Endpoints publics + formulaires | ✅ fait & vérifié |
+| G4 — Auth réelle | ✅ fait & vérifié |
+| G5 — Interconnexion + seed | ✅ API/CORS vérifiés · ⚠️ rendu navigateur bloqué (SWC) |
+| G6 — CRUD admin | ✅ backend vérifié · 🔵 front : API + suppression câblées ; **reste : formulaires create/edit (6b)** |
+| G7 — Uploads | ✅ backend vérifié · 🔵 front : helper upload |
+| G9 — Sécurité (rate-limit, validation, honeypot, uploads durcis) | ✅ fait & vérifié |
+| G8 — Emails/settings/seed | 🟡 seed ✅, settings ✅, emails transactionnels ✅ (accusés/bienvenue) · reste : notif admin |
+| G10 — UI/UX · G12 — Responsive | ⏳ frontend (à valider navigateur) |
+| G11 — Tests/docs/déploiement | 🟡 README ✅ · reste : tests, CI |
+
+---
+
 ## 0. Décisions verrouillées (ne plus rediscuter)
 
 Ces choix sont actés et conditionnent tous les goals ci-dessous :
