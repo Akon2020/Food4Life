@@ -34,6 +34,22 @@ authRouter.get("/status", authenticationJWT, checkAuthStatus);
 
 /**
  * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Renvoie l'utilisateur connecté ({ user })
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Utilisateur courant
+ *       401:
+ *         description: Non authentifié
+ */
+authRouter.get("/me", authenticationJWT, (req, res) => {
+  return res.status(200).json({ user: req.user });
+});
+
+/**
+ * @swagger
  * /api/auth/profile:
  *   get:
  *     summary: Récupère les informations de l'utilisateur connecté

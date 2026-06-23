@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/env.js";
+import { SESSION_COOKIE } from "../config/cookie.js";
 import { Utilisateur } from "../models/index.model.js";
 import { getUserWithoutPassword } from "../utils/user.utils.js";
 
@@ -11,8 +12,8 @@ export const authenticationJWT = async (req, res, next) => {
     token = authHeader.split(" ")[1];
   }
 
-  if (!token && req.cookies && req.cookies.token) {
-    token = req.cookies.token;
+  if (!token && req.cookies && req.cookies[SESSION_COOKIE]) {
+    token = req.cookies[SESSION_COOKIE];
   }
 
   if (!token) {

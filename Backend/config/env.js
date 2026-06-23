@@ -19,4 +19,7 @@ export const {
   HOST_URL,
   FRONT_URL,
   DEFAULT_PASSWD,
+  DB_SYNC_FORCE,
+  ADMIN_EMAIL,
+  ADMIN_NAME,
 } = process.env;

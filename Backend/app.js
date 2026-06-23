@@ -7,16 +7,15 @@ import path from "path";
 import logger from "morgan";
 import { PORT, HOST_URL } from "./config/env.js";
 import { syncModels } from "./models/index.model.js";
+import { bootstrapAdmin } from "./utils/bootstrap.js";
 import errorMiddleware, { errorLogs } from "./middlewares/error.middleware.js";
 import { setupSwagger } from "./swagger.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/utilisateur.route.js";
-import contactRouter from "./routes/contact.route.js";
-import categorieRouter from "./routes/categorie.route.js";
-import blogRouter from "./routes/blog.route.js";
-import commentaireRouter from "./routes/commentaire.route.js";
 import abonneRouter from "./routes/abonne.route.js";
 import newsletterRouter from "./routes/newsletter.route.js";
+import contentRouter from "./routes/content.route.js";
+import formsRouter from "./routes/forms.route.js";
 
 const app = express();
 
@@ -57,12 +56,12 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
-app.use("/api/contacts", contactRouter);
-app.use("/api/categories", categorieRouter);
-app.use("/api/blogs", blogRouter);
-app.use("/api/commentaires", commentaireRouter);
 app.use("/api/abonnes", abonneRouter);
 app.use("/api/newsletters", newsletterRouter);
+// Domaine FFL — lectures publiques + formulaires (contrat Frontend/lib/types.ts)
+app.use("/api", contentRouter);
+app.use("/api", formsRouter);
+// Routes admin (CRUD) montées au Goal 6.
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);
@@ -73,6 +72,7 @@ app.listen(PORT, async (err) => {
   } else {
     try {
       await syncModels();
+      await bootstrapAdmin();
       console.log(`Le serveur est lancé au http://localhost:${PORT}/`);
       console.log(`Documentation Swagger sur ${HOST_URL}/api-docs/`);
     } catch (error) {

@@ -16,18 +16,30 @@ function fakeId() {
 }
 
 export function submitContact(payload: ContactPayload): Promise<SubmitResult> {
-  return apiSend("/messages", payload, () => ({ ok: true, id: fakeId() }))
+  return apiSend(
+    "/messages",
+    { type: "contact", ...payload },
+    () => ({ ok: true, id: fakeId() })
+  )
 }
 
 export function submitPartner(payload: PartnerPayload): Promise<SubmitResult> {
-  return apiSend("/messages", payload, () => ({ ok: true, id: fakeId() }))
+  return apiSend(
+    "/messages",
+    { type: "partenariat", ...payload },
+    () => ({ ok: true, id: fakeId() })
+  )
 }
 
 export function submitApplication(
   payload: ApplicationPayload
 ): Promise<SubmitResult> {
   // In mock mode the CV upload is simulated (no real file is sent).
-  return apiSend("/messages", payload, () => ({ ok: true, id: fakeId() }))
+  return apiSend(
+    "/messages",
+    { type: "candidature", ...payload },
+    () => ({ ok: true, id: fakeId() })
+  )
 }
 
 export function subscribeNewsletter(

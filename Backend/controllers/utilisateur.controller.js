@@ -1,4 +1,4 @@
-import { Utilisateur, Blog, Commentaire } from "../models/index.model.js";
+import { Utilisateur, Article } from "../models/index.model.js";
 import { Op } from "sequelize";
 import bcrypt from "bcryptjs";
 import { DEFAULT_PASSWD, EMAIL, FRONT_URL } from "../config/env.js";
@@ -32,14 +32,9 @@ export const getSingleUtilisateur = async (req, res, next) => {
         .json({ message: "Cet utilisateur n'existe pas dans notre système" });
     }
 
-    // Récupérer les blogs écrits par l'utilisateur
-    const blogs = await Blog.findAll({
-      where: { idAuteur: id },
-    });
-
-    // Récupérer les commentaires de l'utilisateur
-    const commentaires = await Commentaire.findAll({
-      where: { idUtilisateur: id },
+    // Récupérer les articles écrits par l'utilisateur
+    const articles = await Article.findAll({
+      where: { authorId: id },
     });
 
     const userWithoutPassword = getUserWithoutPassword(user);
@@ -48,11 +43,9 @@ export const getSingleUtilisateur = async (req, res, next) => {
       user: {
         ...userWithoutPassword,
         stats: {
-          blogsEcrits: blogs.length,
-          commentairesEcrits: commentaires.length,
+          articlesEcrits: articles.length,
         },
-        blogs: blogs.slice(0, 5),
-        commentaires: commentaires.slice(0, 5),
+        articles: articles.slice(0, 5),
       },
     });
   } catch (error) {
