@@ -17,6 +17,7 @@ import newsletterRouter from "./routes/newsletter.route.js";
 import contentRouter from "./routes/content.route.js";
 import formsRouter from "./routes/forms.route.js";
 import adminRouter from "./routes/admin.route.js";
+import profileRouter from "./routes/profile.route.js";
 
 const app = express();
 
@@ -64,6 +65,8 @@ app.use("/api", contentRouter);
 app.use("/api", formsRouter);
 // Admin (CRUD protégé par JWT + rôles)
 app.use("/api/admin", adminRouter);
+// Profil de l'utilisateur connecté
+app.use("/api/profile", profileRouter);
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);

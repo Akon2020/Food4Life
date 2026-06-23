@@ -97,3 +97,25 @@
 - [x] Pages détail produit/article : OG + canonical + alternates par locale.
 - [x] Bonus : `pick()` élargi (object) → **frontend 0 erreur TypeScript** (28 → 0),
       build/CI au vert ; `not-found` et `admin-sidebar` nettoyés.
+
+### Étape 10 — Profil + Sécurité (changement de mot de passe) ✅
+- [x] Backend `profile.controller` + `/api/profile` (GET/PUT infos, PUT password avec
+      vérification du mot de passe actuel + force + **email informatif** aux couleurs du site).
+      Vérifié (401 mauvais actuel, 400 faible).
+- [x] Frontend : `profile-view` (carte Profil avec avatar + carte Sécurité), page
+      `/admin/profil`, lien depuis le bloc utilisateur de la sidebar, MAJ du user en cache.
+
+### Étape 11 — Désabonnement newsletter ✅
+- [x] Backend `POST /newsletter/unsubscribe` (statut `desabonne` + date, réponse neutre).
+- [x] Frontend : page publique `/desabonnement` (email pré-rempli depuis le lien) +
+      `unsubscribe-form`. Lien des campagnes pointant désormais vers cette page (locale-aware).
+
+### Étape 12 — Éditeur riche TipTap ✅
+- [x] `rich-text-editor` réécrit avec **TipTap v3** (StarterKit + Placeholder) : gras, italique,
+      souligné, titres, listes, citation, lien, annuler/rétablir. Interface inchangée
+      (value HTML / onChange) → actualités + campagnes en bénéficient.
+
+### Étape 13 — Refonte page article + partage ✅
+- [x] `article-detail` redesignée : hero plus immersif, méta (date + temps de lecture),
+      chapeau accentué, corps `.ffl-prose`, blocs de **partage** (haut + bas).
+- [x] `share-buttons` : Facebook, X, LinkedIn, WhatsApp + **copier le lien**.

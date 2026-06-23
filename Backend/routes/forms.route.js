@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createMessage,
   subscribeNewsletter,
+  unsubscribeNewsletter,
 } from "../controllers/forms.controller.js";
 import upload from "../middlewares/upload.middleware.js";
 import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
@@ -30,5 +31,6 @@ formsRouter.post(
   validate(subscribeSchema),
   subscribeNewsletter,
 );
+formsRouter.post("/newsletter/unsubscribe", formLimiter, unsubscribeNewsletter);
 
 export default formsRouter;

@@ -45,7 +45,7 @@ async function dispatchCampaign(campaign, subject, html, abonnes) {
           ab.nomComplet || ab.email,
           subject,
           html,
-          `${FRONT_URL}/fr/contact?unsubscribe=${encodeURIComponent(ab.email)}`,
+          `${FRONT_URL}/${ab.locale || "fr"}/desabonnement?email=${encodeURIComponent(ab.email)}`,
         ),
       });
     } catch (err) {

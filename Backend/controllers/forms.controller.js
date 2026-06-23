@@ -160,3 +160,25 @@ export const subscribeNewsletter = async (req, res, next) => {
     next(error);
   }
 };
+
+// POST /newsletter/unsubscribe -> désinscription d'un abonné
+export const unsubscribeNewsletter = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email || !valideEmail(email)) {
+      return res.status(400).json({ message: "Adresse email invalide." });
+    }
+    const ab = await Abonne.findOne({ where: { email } });
+    if (ab) {
+      await ab.update({
+        statut: "desabonne",
+        confirmed: false,
+        dateDesabonnement: new Date(),
+      });
+    }
+    // Réponse identique que l'email existe ou non (pas de fuite d'information)
+    return res.status(200).json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+};

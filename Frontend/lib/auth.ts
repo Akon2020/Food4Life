@@ -97,6 +97,10 @@ export async function logout() {
   }
 }
 
+export function setStoredUser(user: AdminUser) {
+  cacheUser(user)
+}
+
 export function getCurrentUser(): AdminUser | null {
   if (typeof window === "undefined") return null
   const raw = window.localStorage.getItem(ADMIN_USER_KEY)

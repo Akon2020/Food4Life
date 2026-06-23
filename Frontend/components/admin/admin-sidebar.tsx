@@ -160,10 +160,14 @@ export function AdminSidebar({
         </a>
 
         {!collapsed && user ? (
-          <div className="mb-2 rounded-lg bg-white/5 px-3 py-2">
+          <Link
+            href="/admin/profil"
+            onClick={onClose}
+            className="mb-2 block rounded-lg bg-white/5 px-3 py-2 transition-colors hover:bg-white/10"
+          >
             <p className="truncate text-sm font-semibold capitalize text-white">{user.name}</p>
             <p className="truncate text-xs text-cream/60">{user.email}</p>
-          </div>
+          </Link>
         ) : null}
 
         <button

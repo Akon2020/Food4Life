@@ -909,3 +909,31 @@ export const eventRegistrationWithPDFTemplate = (
   </table>
   `;
 };
+
+export const passwordChangedEmailTemplate = (nom, url) => {
+  const currentYear = new Date().getFullYear();
+  return `
+  <div style="font-family: Arial, sans-serif; background-color: #f7f4ec; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 24px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.06);">
+      <div style="text-align:center; margin-bottom: 8px;">
+        <img src="https://foodforlifedrc.org/logo-green.jpeg" alt="Food For Life" style="height: 56px; width:auto;" />
+      </div>
+      <h2 style="color:#14422a; text-align:center;">Mot de passe modifié 🔐</h2>
+      <p style="color:#555555; line-height:1.6;">Bonjour ${nom || ""},</p>
+      <p style="color:#555555; line-height:1.6;">
+        Nous vous confirmons que le mot de passe de votre compte <strong>Food For Life</strong> vient d'être modifié avec succès.
+      </p>
+      <div style="background-color:#eef6ef; border-left:4px solid #14422a; padding:12px 16px; border-radius:6px; margin:16px 0;">
+        <p style="color:#14422a; margin:0;">Si vous êtes à l'origine de ce changement, aucune action n'est requise.</p>
+      </div>
+      <p style="color:#a42; color:#b00020; line-height:1.6;">
+        <strong>Vous n'êtes pas à l'origine de ce changement ?</strong> Contactez immédiatement notre équipe pour sécuriser votre compte.
+      </p>
+      <div style="text-align:center; margin: 20px 0;">
+        <a href="${url}" style="background-color:#14422a; color:#fff; padding:10px 22px; border-radius:8px; text-decoration:none; font-weight:bold; display:inline-block;">Accéder à mon compte</a>
+      </div>
+      <hr style="border:0; border-top:1px solid #eeeeee; margin:20px 0;" />
+      <p style="color:#999999; font-size:12px; text-align:center;">&copy; ${currentYear} Food For Life – Tous droits réservés</p>
+    </div>
+  </div>`;
+};
