@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useTranslations, useLocale } from "next-intl"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import Image from "next/image"
-import { Loader2 } from "lucide-react"
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import Image from "next/image";
+import { Loader2 } from "lucide-react";
 
-import { login } from "@/lib/auth"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { login } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -19,35 +19,35 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 
 export default function AdminLoginPage() {
-  const t = useTranslations("admin")
-  const tc = useTranslations("common")
-  const locale = useLocale()
-  const router = useRouter()
-  const params = useSearchParams()
-  const [error, setError] = useState<string | null>(null)
+  const t = useTranslations("admin");
+  const tc = useTranslations("common");
+  const locale = useLocale();
+  const router = useRouter();
+  const params = useSearchParams();
+  const [error, setError] = useState<string | null>(null);
 
   const schema = z.object({
     email: z.string().email(t("emailInvalid")),
     password: z.string().min(1, t("passwordRequired")),
-  })
+  });
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { email: "", password: "" },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof schema>) {
-    setError(null)
+    setError(null);
     try {
-      await login(values.email, values.password)
-      const from = params.get("from")
-      router.push(from && from.includes("/admin") ? from : `/${locale}/admin`)
-      router.refresh()
+      await login(values.email, values.password);
+      const from = params.get("from");
+      router.push(from && from.includes("/admin") ? from : `/${locale}/admin`);
+      router.refresh();
     } catch (e) {
-      setError(e instanceof Error && e.message ? e.message : t("loginError"))
+      setError(e instanceof Error && e.message ? e.message : t("loginError"));
     }
   }
 
@@ -69,7 +69,10 @@ export default function AdminLoginPage() {
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 grid gap-5">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-8 grid gap-5"
+          >
             <FormField
               control={form.control}
               name="email"
@@ -77,7 +80,12 @@ export default function AdminLoginPage() {
                 <FormItem>
                   <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
-                    <Input type="email" autoComplete="email" placeholder="admin@foodforlife.cd" {...field} />
+                    <Input
+                      type="email"
+                      autoComplete="email"
+                      placeholder="admin@foodforlifedrc.org"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -90,7 +98,12 @@ export default function AdminLoginPage() {
                 <FormItem>
                   <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
-                    <Input type="password" autoComplete="current-password" placeholder="••••••••" {...field} />
+                    <Input
+                      type="password"
+                      autoComplete="current-password"
+                      placeholder="••••••••"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,7 +116,11 @@ export default function AdminLoginPage() {
               </p>
             ) : null}
 
-            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
@@ -127,5 +144,5 @@ export default function AdminLoginPage() {
         </p>
       </div>
     </main>
-  )
+  );
 }

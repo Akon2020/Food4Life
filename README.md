@@ -60,17 +60,17 @@ npm run dev        # http://localhost:5000  (Swagger: /api-docs)
 
 Variables clés (`.env.development.local`) :
 
-| Variable | Rôle |
-|---|---|
-| `PORT` | Port API (def. 5000) |
-| `DB_HOST/DB_USER/DB_PASS/DB_NAME` | Connexion MySQL |
-| `DB_SYNC_FORCE` | `true` = DROP & RECREATE au boot/seed (**dev only**) ; sinon `false` |
-| `JWT_SECRET` | Secret JWT (≥ 32 caractères, obligatoire en prod) |
-| `EMAIL/EMAIL_PASSWORD/EMAIL_HOST` | SMTP perso (accusés, bienvenue, notifications) |
-| `ADMIN_EMAIL/ADMIN_NAME/DEFAULT_PASSWD` | Compte admin initial (seedé si base vide) |
-| `FRONT_URL` | URL du frontend (liens emails, CORS) |
+| Variable                                | Rôle                                                                 |
+| --------------------------------------- | -------------------------------------------------------------------- |
+| `PORT`                                  | Port API (def. 5000)                                                 |
+| `DB_HOST/DB_USER/DB_PASS/DB_NAME`       | Connexion MySQL                                                      |
+| `DB_SYNC_FORCE`                         | `true` = DROP & RECREATE au boot/seed (**dev only**) ; sinon `false` |
+| `JWT_SECRET`                            | Secret JWT (≥ 32 caractères, obligatoire en prod)                    |
+| `EMAIL/EMAIL_PASSWORD/EMAIL_HOST`       | SMTP perso (accusés, bienvenue, notifications)                       |
+| `ADMIN_EMAIL/ADMIN_NAME/DEFAULT_PASSWD` | Compte admin initial (seedé si base vide)                            |
+| `FRONT_URL`                             | URL du frontend (liens emails, CORS)                                 |
 
-**Compte admin par défaut** (dev) : `admin@foodforlife.cd` / `Food4Life@2026`
+**Compte admin par défaut** (dev) : `admin@foodforlifedrc.org` / `Food4Life@2026`
 (affiché dans la console au premier démarrage).
 
 Scripts : `npm run dev` · `npm run seed` · `npm run seed:reset` (vide puis re-seed) ·
@@ -93,8 +93,8 @@ npm run dev        # http://localhost:3000  (→ /fr ou /en)
 
 #### ⚠️ Note environnement Windows (binaire SWC bloqué)
 
-Si `next dev` échoue avec *« Une stratégie de contrôle d'application a bloqué ce fichier :
-swc.win32-x64-msvc.node »*, c'est une **politique de sécurité Windows** (AppLocker/WDAC/
+Si `next dev` échoue avec _« Une stratégie de contrôle d'application a bloqué ce fichier :
+swc.win32-x64-msvc.node »_, c'est une **politique de sécurité Windows** (AppLocker/WDAC/
 antivirus) qui bloque le binaire natif SWC. Autoriser/whitelister
 `Frontend/node_modules/@swc/**` puis relancer.
 
@@ -104,14 +104,14 @@ antivirus) qui bloque le binaire natif SWC. Autoriser/whitelister
 
 1. Le frontend protège `/admin/*` via `proxy.ts` (présence du cookie `ffl_admin_session`).
 2. `POST /api/auth/login` pose ce cookie **httpOnly** (Secure en prod, SameSite=Lax).
-3. En prod, front et API doivent être **same-site** (ex. `foodforlife.cd` et
-   `api.foodforlife.cd`) ; ajouter `domain: ".foodforlife.cd"` au cookie pour le partage.
+3. En prod, front et API doivent être **same-site** (ex. `foodforlifedrc.org` et
+   `api.foodforlifedrc.org`) ; ajouter `domain: ".foodforlifedrc.org"` au cookie pour le partage.
 
 ---
 
 ## Déploiement (cPanel)
 
-- **Backend** : *Application Node.js* cPanel (Passenger). Renseigner les variables
+- **Backend** : _Application Node.js_ cPanel (Passenger). Renseigner les variables
   d'environnement via l'UI cPanel (ne pas committer les `.env.*.local`). Base **MySQL**
   du cPanel. Dossier `uploads/` sur disque persistant (servi en statique sur `/uploads`).
   Mettre `DB_SYNC_FORCE=false` en prod ; exécuter `npm run seed` une seule fois si besoin.

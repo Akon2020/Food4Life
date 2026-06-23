@@ -1,4 +1,4 @@
-import type { SiteSetting } from "@/lib/types"
+import type { SiteSetting } from "@/lib/types";
 
 export const mockSettings: SiteSetting = {
   impact: {
@@ -10,7 +10,7 @@ export const mockSettings: SiteSetting = {
   contact: {
     address: "Avenue du Lac, Bukavu, Sud-Kivu, RDC",
     phone: "+243 990 000 000",
-    email: "contact@foodforlife.cd",
+    email: "contact@foodforlifedrc.org",
     mapUrl: "https://maps.google.com/?q=Bukavu+Sud-Kivu+RDC",
   },
   socials: {
@@ -20,4 +20,4 @@ export const mockSettings: SiteSetting = {
     x: "https://x.com/foodforlife",
     youtube: "https://youtube.com/@foodforlife",
   },
-}
+};

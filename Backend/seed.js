@@ -48,7 +48,7 @@ async function run() {
         contact: {
           address: "Avenue du Lac, Bukavu, Sud-Kivu, RDC",
           phone: "+243 990 000 000",
-          email: "contact@foodforlife.cd",
+          email: "contact@foodforlifedrc.org",
           mapUrl: "https://maps.google.com/?q=Bukavu+Sud-Kivu+RDC",
         },
         socials: {
@@ -75,7 +75,13 @@ async function run() {
           "Farine infantile enrichie à base de céréales et légumineuses locales, conçue pour combattre la malnutrition des jeunes enfants.",
         descriptionEn:
           "Enriched infant flour made from local cereals and legumes, designed to fight malnutrition in young children.",
-        ingredients: ["Maïs", "Soja", "Sorgho", "Arachide", "Vitamines & minéraux"],
+        ingredients: [
+          "Maïs",
+          "Soja",
+          "Sorgho",
+          "Arachide",
+          "Vitamines & minéraux",
+        ],
         benefitsFr: [
           "Riche en protéines et en énergie",
           "Enrichie en vitamines et minéraux",
@@ -301,8 +307,8 @@ async function run() {
   await seedIfEmpty(
     Abonne,
     [
-      { email: "demo1@foodforlife.cd", locale: "fr", confirmed: true },
-      { email: "demo2@foodforlife.cd", locale: "en", confirmed: true },
+      { email: "demo1@foodforlifedrc.org", locale: "fr", confirmed: true },
+      { email: "demo2@foodforlifedrc.org", locale: "en", confirmed: true },
     ],
     "Abonne (newsletter)",
   );

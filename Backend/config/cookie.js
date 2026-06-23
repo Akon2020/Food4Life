@@ -6,7 +6,7 @@ export const SESSION_COOKIE = "ffl_admin_session";
 // Options du cookie de session JWT.
 // secure uniquement en prod (sinon le navigateur refuse le cookie sur http://localhost).
 // sameSite "lax" : suffisant car front et API sont "same-site" (localhost en dev,
-// *.foodforlife.cd en prod). En prod, ajouter `domain: ".foodforlife.cd"` pour le
+// *.foodforlifedrc.org en prod). En prod, ajouter `domain: ".foodforlifedrc.org"` pour le
 // partager entre le site et l'API (voir README déploiement).
 export const sessionCookieOptions = {
   httpOnly: true,

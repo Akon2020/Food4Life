@@ -1,6 +1,6 @@
 // CRUD admin — protégé par JWT + rôles (voir admin.route.js).
 import slugify from "slugify";
-import { Op } from "sequelize";
+// import { Op } from "sequelize";
 import {
   Article,
   Product,

@@ -1,7 +1,7 @@
 // Soumissions publiques (formulaires) — réponses { ok: true, id }.
 import { ContactMessage, Abonne } from "../models/index.model.js";
 import transporter from "../config/nodemailer.js";
-import { EMAIL, FRONT_URL, HOST_URL } from "../config/env.js";
+import { EMAIL, FRONT_URL, HOST_URL, CONTACT_EMAIL } from "../config/env.js";
 import { valideEmail } from "../middlewares/email.middleware.js";
 import {
   confirmationReceptionEmailTemplate,
@@ -83,6 +83,29 @@ export const createMessage = async (req, res, next) => {
         FRONT_URL,
       ),
     });
+
+    // Notification interne à l'équipe (best-effort, non bloquant)
+    const adminRecipient = CONTACT_EMAIL || EMAIL;
+    if (adminRecipient) {
+      void sendMailSafe({
+        from: `"Food For Life" <${EMAIL}>`,
+        to: adminRecipient,
+        replyTo: email,
+        subject: `[${finalType}] Nouveau message de ${name}`,
+        html: `
+          <h2>Nouveau message (${finalType})</h2>
+          <p><strong>Nom :</strong> ${name}</p>
+          <p><strong>Email :</strong> ${email}</p>
+          ${phone ? `<p><strong>Téléphone :</strong> ${phone}</p>` : ""}
+          ${organization ? `<p><strong>Organisation :</strong> ${organization}</p>` : ""}
+          ${partnershipType ? `<p><strong>Type de partenariat :</strong> ${partnershipType}</p>` : ""}
+          ${position ? `<p><strong>Poste :</strong> ${position}</p>` : ""}
+          ${subject ? `<p><strong>Objet :</strong> ${subject}</p>` : ""}
+          <p><strong>Message :</strong></p>
+          <p>${String(message).replace(/\n/g, "<br/>")}</p>
+        `,
+      });
+    }
 
     return res.status(201).json({ ok: true, id: record.id });
   } catch (error) {
