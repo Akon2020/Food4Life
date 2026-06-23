@@ -7,6 +7,18 @@ import upload from "../middlewares/upload.middleware.js";
 import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
 import { uploadFile } from "../controllers/upload.controller.js";
 import {
+  listCampaigns,
+  getCampaign,
+  createCampaign,
+  deleteCampaign,
+} from "../controllers/campaign.controller.js";
+import {
+  listUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/adminUser.controller.js";
+import {
   productsCrud,
   partnersCrud,
   teamCrud,
@@ -80,6 +92,18 @@ adminRouter.delete("/messages/:id", adminOnly, deleteMessage);
 // Abonnés newsletter
 adminRouter.get("/subscribers", adminOnly, listSubscribers);
 adminRouter.delete("/subscribers/:id", adminOnly, deleteSubscriber);
+
+// Campagnes newsletter (composition, envoi, suivi des destinataires)
+adminRouter.get("/newsletters", adminOnly, listCampaigns);
+adminRouter.get("/newsletters/:id", adminOnly, getCampaign);
+adminRouter.post("/newsletters", adminOnly, createCampaign);
+adminRouter.delete("/newsletters/:id", adminOnly, deleteCampaign);
+
+// Gestion des utilisateurs
+adminRouter.get("/users", adminOnly, listUsers);
+adminRouter.post("/users", adminOnly, createUser);
+adminRouter.put("/users/:id", adminOnly, updateUser);
+adminRouter.delete("/users/:id", adminOnly, deleteUser);
 
 // Paramètres du site
 adminRouter.get("/settings", adminOnly, getAdminSettings);

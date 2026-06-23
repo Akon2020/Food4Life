@@ -72,3 +72,18 @@
 ### Étape 6 — Images partenaires ✅
 - [x] `partners-carousel` et `partners-directory` affichent le **logo** (`logoUrl`) s'il existe,
       avec repli sur le nom.
+
+### Étape 7 — Campagnes newsletter (envoi + suivi) ✅
+- [x] Backend `campaign.controller` + routes `/admin/newsletters` : créer (sanitisé) +
+      **envoi en arrière-plan** vers les abonnés actifs, traçabilité par abonné via
+      `NewsletterAbonne` (statut attente→envoye/echec + `dateEnvoi`). Détail = liste des
+      destinataires + dates. Vérifié (création 0.1s, 5 destinataires).
+- [x] Frontend : `campaign-composer` (éditeur riche), `campaigns-list`, `campaign-detail`
+      (qui a reçu quoi et quand), pages `/admin/newsletter/nouvelle-campagne` et
+      `/admin/newsletter/campagnes/[id]` ; intégrées à la page Newsletter.
+
+### Étape 8 — Gestion des utilisateurs ✅
+- [x] Backend `adminUser.controller` + routes `/admin/users` (list/create/update/delete,
+      admin only, hash bcrypt, garde anti-auto-suppression). Vérifié (création éditeur).
+- [x] Frontend : `users-list` (table + create/edit bilingue + delete), page
+      `/admin/utilisateurs`, entrée sidebar. Champ `password` ajouté au dialog générique.

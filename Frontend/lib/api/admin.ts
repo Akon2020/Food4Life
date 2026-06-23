@@ -3,8 +3,10 @@ import { mockMessages, mockSubscribers } from "@/lib/mock-data/messages"
 import { mockArticles } from "@/lib/mock-data/articles"
 import type {
   Article,
+  Campaign,
   ContactMessage,
   GalleryItem,
+  ManagedUser,
   MessageStatus,
   NewsletterSubscriber,
   Partner,
@@ -181,3 +183,52 @@ export function updateSettings(payload: SiteSetting): Promise<SiteSetting> {
     "PUT"
   )
 }
+
+// ---- Users (gestion) ----
+export function getUsers(): Promise<ManagedUser[]> {
+  return apiGet("/admin/users", () => [])
+}
+
+export const createUser = (p: Input<ManagedUser> & { password?: string }) =>
+  createEntity<ManagedUser>("users", p)
+export const updateUser = (
+  id: string,
+  p: Input<ManagedUser> & { password?: string }
+) => updateEntity<ManagedUser>("users", id, p)
+export const deleteUser = (id: string) => deleteEntity("users", id)
+
+// ---- Campagnes newsletter ----
+export function getCampaigns(): Promise<Campaign[]> {
+  return apiGet("/admin/newsletters", () => [])
+}
+
+export function getCampaign(id: string): Promise<Campaign> {
+  return apiGet(`/admin/newsletters/${id}`, () => {
+    throw new Error("Campagne introuvable")
+  })
+}
+
+export interface CampaignPayload {
+  title?: string
+  subject: string
+  content: string
+}
+
+export function createCampaign(payload: CampaignPayload): Promise<Campaign> {
+  return apiSend<Campaign, CampaignPayload>(
+    "/admin/newsletters",
+    payload,
+    (b) => ({
+      id: `mock-${Math.random().toString(36).slice(2, 10)}`,
+      title: b.title ?? b.subject,
+      subject: b.subject,
+      content: b.content,
+      status: "envoye",
+      sentAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+    }),
+    "POST"
+  )
+}
+
+export const deleteCampaign = (id: string) => deleteEntity("newsletters", id)

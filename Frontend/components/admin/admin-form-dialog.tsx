@@ -17,6 +17,7 @@ import { uploadImage } from "@/lib/api/upload"
 
 export type FieldType =
   | "text"
+  | "password"
   | "textarea"
   | "number"
   | "select"
@@ -204,7 +205,14 @@ export function AdminFormDialog({
                     </div>
                   ) : (
                     <input
-                      type={f.type === "number" ? "number" : "text"}
+                      type={
+                        f.type === "number"
+                          ? "number"
+                          : f.type === "password"
+                            ? "password"
+                            : "text"
+                      }
+                      autoComplete={f.type === "password" ? "new-password" : undefined}
                       className={inputCls}
                       placeholder={f.placeholder}
                       value={

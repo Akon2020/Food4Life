@@ -153,6 +153,41 @@ export interface SiteSetting {
   }
 }
 
+export type UserRole = "admin" | "editeur"
+
+export interface ManagedUser {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+  avatar?: string | null
+  lastLogin: string | null
+  createdAt: string | null
+}
+
+export type CampaignStatus = "brouillon" | "envoye" | "programme"
+
+export interface CampaignRecipient {
+  id: string
+  name: string | null
+  email: string | null
+  status: "envoye" | "echec" | "attente"
+  sentAt: string | null
+}
+
+export interface Campaign {
+  id: string
+  title: string
+  subject: string
+  content: string
+  status: CampaignStatus
+  sentAt: string | null
+  recipientCount?: number
+  sentCount?: number
+  createdAt: string | null
+  recipients?: CampaignRecipient[]
+}
+
 // ---- Form payloads ----
 
 export interface ContactPayload {
