@@ -8,7 +8,8 @@
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
     "seed": "cross-env NODE_ENV=development node seed.js",
-    "seed:reset": "cross-env NODE_ENV=development DB_SYNC_FORCE=true node seed.js"
+    "seed:reset": "cross-env NODE_ENV=development DB_SYNC_FORCE=true node seed.js",
+    "test": "node --test \"tests/**/*.test.js\""
   },
   "keywords": [
     ""
