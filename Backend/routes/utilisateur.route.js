@@ -32,7 +32,7 @@ const userRouter = Router();
 userRouter.get(
   "/",
   authenticationJWT,
-  authorizeRoles("admin", "membre"),
+  authorizeRoles("admin"),
   getAllUtilisateurs,
 );
 
@@ -58,7 +58,7 @@ userRouter.get(
 userRouter.get(
   "/:id",
   authenticationJWT,
-  authorizeRoles("admin", "editeur", "membre"),
+  authorizeRoles("admin", "editeur"),
   getSingleUtilisateur,
 );
 
@@ -173,7 +173,7 @@ userRouter.post(
 userRouter.patch(
   "/update/:id",
   authenticationJWT,
-  authorizeRoles("admin", "editeur", "membre"),
+  authorizeRoles("admin", "editeur"),
   upload.single("avatar"),
   normalizeUploadPaths,
   updateUtilisateur,
@@ -215,7 +215,7 @@ userRouter.patch(
 userRouter.patch(
   "/update/:id/password",
   authenticationJWT,
-  authorizeRoles("admin", "editeur", "membre"),
+  authorizeRoles("admin", "editeur"),
   updateUtilisateurPassword,
 );
 

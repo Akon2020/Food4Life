@@ -49,8 +49,8 @@ export function AuthMenu({
     return () => document.removeEventListener("mousedown", onClick)
   }, [open])
 
-  function handleLogout() {
-    logout()
+  async function handleLogout() {
+    await logout()
     setUser(null)
     setOpen(false)
     router.push("/")

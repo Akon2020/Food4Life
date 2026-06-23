@@ -7,6 +7,7 @@ import path from "path";
 import logger from "morgan";
 import { PORT, HOST_URL } from "./config/env.js";
 import { syncModels } from "./models/index.model.js";
+import { bootstrapAdmin } from "./utils/bootstrap.js";
 import errorMiddleware, { errorLogs } from "./middlewares/error.middleware.js";
 import { setupSwagger } from "./swagger.js";
 import authRouter from "./routes/auth.route.js";
@@ -71,6 +72,7 @@ app.listen(PORT, async (err) => {
   } else {
     try {
       await syncModels();
+      await bootstrapAdmin();
       console.log(`Le serveur est lancé au http://localhost:${PORT}/`);
       console.log(`Documentation Swagger sur ${HOST_URL}/api-docs/`);
     } catch (error) {

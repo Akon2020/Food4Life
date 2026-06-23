@@ -2,6 +2,7 @@ import { Utilisateur } from "../models/index.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { DEFAULT_PASSWD, EMAIL, FRONT_URL, JWT_SECRET } from "../config/env.js";
+import { SESSION_COOKIE, sessionCookieOptions } from "../config/cookie.js";
 import transporter from "../config/nodemailer.js";
 import {
   resetPasswordEmailTemplate,
@@ -67,10 +68,7 @@ export const register = async (req, res, next) => {
 
     const userWithoutPassword = getUserWithoutPassword(newUser);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-    });
+    res.cookie(SESSION_COOKIE, token, sessionCookieOptions);
 
     res.status(201).json({
       message: "Utilisateur créé avec succès",
@@ -110,16 +108,14 @@ export const login = async (req, res, next) => {
     await user.save();
 
     const loginToken = generateToken(user);
-    res.cookie("token", loginToken, {
-      httpOnly: true,
-      secure: true,
-    });
+    res.cookie(SESSION_COOKIE, loginToken, sessionCookieOptions);
 
     const userWithoutPassword = getUserWithoutPassword(user);
 
     res.status(200).json({
       message: `Bienvenu ${userWithoutPassword.nomComplet} 👋`,
       data: { token: loginToken, userInfo: userWithoutPassword },
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.error("Erreur lors de la connexion :", error);
@@ -221,15 +217,12 @@ export const updatePassword = async (req, res, next) => {
 
 export const logout = (req, res) => {
   try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-    });
+    res.clearCookie(SESSION_COOKIE, sessionCookieOptions);
 
     return res.status(200).json({
       success: true,
       message: "Déconnexion réussie",
+      ok: true,
     });
   } catch (error) {
     console.error("Erreur lors de la déconnexion:", error);

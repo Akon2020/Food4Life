@@ -46,8 +46,8 @@ export default function AdminLoginPage() {
       const from = params.get("from")
       router.push(from && from.includes("/admin") ? from : `/${locale}/admin`)
       router.refresh()
-    } catch {
-      setError(t("loginError"))
+    } catch (e) {
+      setError(e instanceof Error && e.message ? e.message : t("loginError"))
     }
   }
 
