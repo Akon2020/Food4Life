@@ -56,3 +56,19 @@
 - [x] `newsletter-form` : saisie email → **modal** demandant le nom complet → l'envoi
       déclenche la sauvegarde + l'email de bienvenue. Smoke test backend : 201 ✓.
 - [x] Email admin par défaut aligné sur `admin@foodforlifedrc.org`.
+
+### Étape 5 — Actualités : éditeur riche en page dédiée ✅
+- [x] `rich-text-editor.tsx` : éditeur WYSIWYG sans dépendance (contenteditable + toolbar :
+      gras, italique, titres, listes, citation, lien, annuler/rétablir) → produit du HTML.
+- [x] Styles `.ffl-prose` (globals.css) partagés éditeur + rendu public.
+- [x] `article-editor.tsx` + pages `/admin/actualites/nouveau` et `/admin/actualites/[id]`
+      (création/édition **en page**, plus de modal) : méta bilingue, upload de couverture,
+      2 éditeurs riches (FR/EN).
+- [x] `articles-list` : « Ajouter » et « Modifier » **naviguent** vers les pages.
+- [x] Backend : sanitisation HTML du corps (`utils/sanitize.js`) à la création/édition.
+- [x] Rendu public : `article-detail` affiche le HTML (`.ffl-prose`), repli texte brut pour
+      l'ancien contenu.
+
+### Étape 6 — Images partenaires ✅
+- [x] `partners-carousel` et `partners-directory` affichent le **logo** (`logoUrl`) s'il existe,
+      avec repli sur le nom.

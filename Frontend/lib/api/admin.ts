@@ -23,6 +23,14 @@ export function getAdminArticles(): Promise<Article[]> {
   )
 }
 
+export function getAdminArticle(id: string): Promise<Article> {
+  return apiGet(`/admin/articles/${id}`, () => {
+    const a = mockArticles.find((x) => x.id === id)
+    if (!a) throw new Error("Article introuvable")
+    return a
+  })
+}
+
 export function getAdminMessages(): Promise<ContactMessage[]> {
   return apiGet("/admin/messages", () =>
     [...mockMessages].sort((a, b) => b.createdAt.localeCompare(a.createdAt))

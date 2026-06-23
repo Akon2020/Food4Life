@@ -1,6 +1,6 @@
 // CRUD admin — protégé par JWT + rôles (voir admin.route.js).
 import slugify from "slugify";
-// import { Op } from "sequelize";
+import { sanitizeHtml } from "../utils/sanitize.js";
 import {
   Article,
   Product,
@@ -176,6 +176,9 @@ function pickArticle(body) {
   for (const key of ARTICLE_FIELDS) {
     if (body[key] !== undefined) data[key] = body[key];
   }
+  // Le corps est du HTML riche -> on le sanitise (défense en profondeur).
+  if (data.bodyFr !== undefined) data.bodyFr = sanitizeHtml(data.bodyFr);
+  if (data.bodyEn !== undefined) data.bodyEn = sanitizeHtml(data.bodyEn);
   return data;
 }
 

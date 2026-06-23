@@ -4,21 +4,12 @@ import { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
-import {
-  getAdminArticles,
-  deleteArticle,
-  createArticle,
-  updateArticle,
-} from "@/lib/api/admin"
+import { getAdminArticles, deleteArticle } from "@/lib/api/admin"
 import { useRowDelete } from "@/components/admin/use-row-delete"
-import {
-  AdminFormDialog,
-  type FieldDef,
-} from "@/components/admin/admin-form-dialog"
-import { useEntityForm } from "@/components/admin/use-entity-form"
+import { useRouter } from "@/i18n/navigation"
 import { pick } from "@/lib/i18n-field"
 import { formatDate } from "@/lib/format"
-import type { Article, Locale } from "@/lib/types"
+import type { Locale } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -48,42 +39,7 @@ export function ArticlesList() {
   })
 
   const del = useRowDelete(deleteArticle, ["admin", "articles"])
-
-  const form = useEntityForm<Article>({
-    create: (v) => createArticle(v as Partial<Article>),
-    update: (id, v) => updateArticle(id, v as Partial<Article>),
-    queryKey: ["admin", "articles"],
-  })
-
-  const fields: FieldDef[] = [
-    { name: "titleFr", label: `${t("title")} (FR)`, type: "text", required: true },
-    { name: "titleEn", label: `${t("title")} (EN)`, type: "text", required: true },
-    { name: "slug", label: t("slug"), type: "text" },
-    {
-      name: "category",
-      label: t("category"),
-      type: "select",
-      options: [
-        { value: "impact", label: tc("impact") },
-        { value: "evenement", label: tc("evenement") },
-        { value: "presse", label: tc("presse") },
-      ],
-    },
-    {
-      name: "status",
-      label: t("status"),
-      type: "select",
-      options: [
-        { value: "draft", label: t("draft") },
-        { value: "published", label: t("published") },
-      ],
-    },
-    { name: "excerptFr", label: `${t("excerpt")} (FR)`, type: "textarea" },
-    { name: "excerptEn", label: `${t("excerpt")} (EN)`, type: "textarea" },
-    { name: "bodyFr", label: `${t("body")} (FR)`, type: "textarea" },
-    { name: "bodyEn", label: `${t("body")} (EN)`, type: "textarea" },
-    { name: "coverImageUrl", label: t("cover"), type: "image" },
-  ]
+  const router = useRouter()
 
   const rows = useMemo(() => {
     return (data ?? []).filter((a) => {
@@ -99,7 +55,7 @@ export function ArticlesList() {
       <AdminToolbar
         search={search}
         onSearch={setSearch}
-        onAdd={form.openCreate}
+        onAdd={() => router.push("/admin/actualites/nouveau")}
         filters={
           <FilterPills
             options={categories.map((c) => ({
@@ -145,7 +101,7 @@ export function ArticlesList() {
                   <Td>
                     <RowActions
                       viewHref={`/actualites/${a.slug}`}
-                      onEdit={() => form.openEdit(a)}
+                      onEdit={() => router.push(`/admin/actualites/${a.id}`)}
                       onDelete={() => del.mutate(a.id)}
                       deleting={del.isPending && del.variables === a.id}
                     />
@@ -156,16 +112,6 @@ export function ArticlesList() {
           </Tbody>
         </TableCard>
       )}
-
-      <AdminFormDialog
-        open={form.open}
-        onOpenChange={form.setOpen}
-        title={form.editing ? t("editTitle") : t("createTitle")}
-        fields={fields}
-        initial={form.editing as Record<string, unknown> | null}
-        onSubmit={form.submit}
-        submitting={form.submitting}
-      />
     </div>
   )
 }

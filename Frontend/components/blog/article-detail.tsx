@@ -17,6 +17,9 @@ export function ArticleDetail({ article }: { article: Article }) {
 
   const title = pick(article, "title", locale)
   const body = pick(article, "body", locale)
+  // Le contenu produit par l'éditeur riche est du HTML (sanitisé côté backend) ;
+  // l'ancien contenu en texte brut est rendu en paragraphes.
+  const isHtml = /<[a-z][\s\S]*>/i.test(body)
   const paragraphs = body.split(/\n\s*\n/).filter(Boolean)
 
   return (
@@ -63,11 +66,18 @@ export function ArticleDetail({ article }: { article: Article }) {
           <p className="mt-8 text-lg font-medium leading-relaxed text-foreground">
             {pick(article, "excerpt", locale)}
           </p>
-          <div className="mt-6 flex flex-col gap-5 leading-relaxed text-muted-foreground">
-            {paragraphs.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
+          {isHtml ? (
+            <div
+              className="ffl-prose mt-6 leading-relaxed text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: body }}
+            />
+          ) : (
+            <div className="mt-6 flex flex-col gap-5 leading-relaxed text-muted-foreground">
+              {paragraphs.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          )}
         </Reveal>
       </div>
     </article>

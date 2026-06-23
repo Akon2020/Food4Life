@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
 import { ArrowUpRight } from "lucide-react"
@@ -44,9 +45,19 @@ export function PartnersDirectory() {
                     className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="flex h-16 items-center">
-                      <span className="font-heading text-xl font-bold text-foreground">
-                        {partner.name}
-                      </span>
+                      {partner.logoUrl ? (
+                        <Image
+                          src={partner.logoUrl}
+                          alt={partner.name}
+                          width={160}
+                          height={56}
+                          className="max-h-14 w-auto max-w-[70%] object-contain"
+                        />
+                      ) : (
+                        <span className="font-heading text-xl font-bold text-foreground">
+                          {partner.name}
+                        </span>
+                      )}
                     </div>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                       {pick(partner, "description", locale)}
