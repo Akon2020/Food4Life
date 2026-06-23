@@ -116,7 +116,8 @@ export const createMessage = async (req, res, next) => {
 // POST /newsletter/subscribe -> inscription simple (confirmed=true) + bienvenue
 export const subscribeNewsletter = async (req, res, next) => {
   try {
-    const { email, locale = "fr" } = req.body;
+    const { email, locale = "fr", name, nomComplet } = req.body;
+    const fullName = (nomComplet || name || "").trim() || null;
 
     if (!email || !valideEmail(email)) {
       return res.status(400).json({ message: "Adresse email invalide." });
@@ -127,6 +128,7 @@ export const subscribeNewsletter = async (req, res, next) => {
     let abonne;
     if (existing) {
       abonne = await existing.update({
+        nomComplet: fullName ?? existing.nomComplet,
         locale: finalLocale,
         confirmed: true,
         statut: "actif",
@@ -134,6 +136,7 @@ export const subscribeNewsletter = async (req, res, next) => {
       });
     } else {
       abonne = await Abonne.create({
+        nomComplet: fullName,
         email,
         locale: finalLocale,
         confirmed: true,
@@ -146,7 +149,10 @@ export const subscribeNewsletter = async (req, res, next) => {
       from: `"Food For Life" <${EMAIL}>`,
       to: email,
       subject: "Bienvenue dans la newsletter Food For Life",
-      html: newsletterSubscriptionConfirmationTemplate(email, FRONT_URL),
+      html: newsletterSubscriptionConfirmationTemplate(
+        fullName || abonne.nomComplet || email,
+        FRONT_URL,
+      ),
     });
 
     return res.status(201).json({ ok: true, id: abonne.idAbonne });

@@ -70,5 +70,6 @@ export const messageSchema = [
 
 export const subscribeSchema = [
   { field: "email", required: true, type: "email" },
+  { field: "name", type: "string", max: 100 },
   { field: "locale", type: "enum", enum: ["fr", "en"] },
 ];

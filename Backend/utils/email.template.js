@@ -17,7 +17,7 @@ export const welcomeEmailTemplate = (nom, email, url) => {
 
       <!-- Logo Centré en Haut -->
       <div style="text-align: center; margin-bottom: 20px;">
-        <img src="https://food4life.vercel.app/logo-white.png" 
+        <img src="https://foodforlifedrc.org/logo-white.png" 
              alt="Food For Life Logo" 
              style="max-width: 120px; height: auto;" />
       </div>
@@ -28,7 +28,7 @@ export const welcomeEmailTemplate = (nom, email, url) => {
         Votre compte a été créé avec succès pour l'adresse email :
       </p>
 
-      <p style="text-align: center; font-size: 16px; font-weight: bold; color: #a42223; margin: 8px 0;">
+      <p style="text-align: center; font-size: 16px; font-weight: bold; color: #14422a; margin: 8px 0;">
         ${email}
       </p>
 
@@ -46,7 +46,7 @@ export const welcomeEmailTemplate = (nom, email, url) => {
 
       <div style="text-align: center; margin: 15px 0;">
         <a href="mailto:contact@foodforlidedrc.org" 
-           style="background-color: #a42223; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+           style="background-color: #14422a; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
           contact@foodforlidedrc.org
         </a>
       </div>
@@ -56,7 +56,7 @@ export const welcomeEmailTemplate = (nom, email, url) => {
       </p>
 
       <p style="color: #555555; line-height: 1.5;">
-        L'équipe de <a href="${url}" style="color: #a42223; text-decoration: none; font-weight: bold;">Food For Life</a>
+        L'équipe de <a href="${url}" style="color: #14422a; text-decoration: none; font-weight: bold;">Food For Life</a>
       </p>
 
       <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 20px 0;" />
@@ -78,22 +78,22 @@ export const newUserEmailTemplate = (nom, email, defaultPassword, url) => {
   return `<div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
   <div style=" max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <td align="center" style="padding-bottom: 20px;">
-        <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+        <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
     </td>
     <h2 style="color: #333333">Bienvenue ${nom} 👋!</h2>
     <p style="color: #555555">Votre compte a été créé avec succès pour l'adresse email : <strong style="text-align: center">${email}</strong></p>
     <p style="color: #555555">Voici votre mot de passe par défaut pour votre première connexion :</p>
     <div style="background-color: #f2f2f2; padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center;">
-      <strong style="font-size: 1.2em; color: #a42223;">${defaultPassword}</strong>
+      <strong style="font-size: 1.2em; color: #14422a;">${defaultPassword}</strong>
     </div>
     <p style="color: #555555"><strong>Important :</strong> Pour des raisons de sécurité, veuillez vous connecter au système en utilisant ce mot de passe par défaut et le modifier immédiatement avant d'accéder aux autres fonctionnalités.</p>
     <p style="color: #555555">Cliquez sur le lien ci-dessous pour accéder à la page de connexion :</p>
     <p style="text-align: center;">
-      <a href="${url}" style="background-color: #a42223; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">Se connecter au système</a>
+      <a href="${url}" style="background-color: #14422a; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">Se connecter au système</a>
     </p>
     <p style="color: #555555">Après votre connexion et le changement de mot de passe, vous pourrez profiter pleinement de toutes les fonctionnalités de notre système.</p>
     <p style="color: #555555">A très bientôt 😇,</p>
-    <p style="color: #555555">L'équipe de <a href="${url}" style="color: #a42223; text-decoration: none">Food For Life</a></p>
+    <p style="color: #555555">L'équipe de <a href="${url}" style="color: #14422a; text-decoration: none">Food For Life</a></p>
     <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 20px 0" />
     <p style="color: #999999">Ce message a été envoyé automatiquement suite à la création de votre compte. Merci de ne pas y répondre.</p>
     <p style="color: #999999; text-align: center;">&copy; ${currentYear} Food For Life – Tous droits réservés</p>
@@ -106,17 +106,17 @@ export const resetPasswordEmailTemplate = (nom, email, url, resetToken) => {
 <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
   <div style=" max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <td align="center" style="padding-bottom: 20px;">
-        <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+        <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
     </td>
     <h2 style="color: #333333">Salut ${nom} 👋!</h2>
     <p style="color: #555555">Nous avons reçu une demande de réinitialisation de votre mot de passe lié au compte <strong>${email}</strong></p>
     <p style="color: #555555">Cliquez sur ce bouton ci-dessous pour créer un nouveau mot de passe et récupérer l'accès à votre compte</p>
-    <p style="padding: 1.5rem 0"><a href="${url}/auth/resetpassword?token=${resetToken}" style="background-color: #a42223; color: #ffffff; padding: 15px; text-decoration: none; border-radius: 5px;">Réinitialiser votre mot de passe 🔐</a ></p>
-    <p style="color: #555555">Le bouton ne fonctionne pas?<br />Utiliser ce lien <a href="${url}/auth/resetpassword?token=${resetToken}" style="color: #a42223; text-decoration: none">${url}/auth/resetpassword?token=${resetToken}</a ></p>
+    <p style="padding: 1.5rem 0"><a href="${url}/auth/resetpassword?token=${resetToken}" style="background-color: #14422a; color: #ffffff; padding: 15px; text-decoration: none; border-radius: 5px;">Réinitialiser votre mot de passe 🔐</a ></p>
+    <p style="color: #555555">Le bouton ne fonctionne pas?<br />Utiliser ce lien <a href="${url}/auth/resetpassword?token=${resetToken}" style="color: #14422a; text-decoration: none">${url}/auth/resetpassword?token=${resetToken}</a ></p>
     <p style="color: #555555">A très vite 😇,</p>
-    <p style="color: #555555">L'équipe de <a href="${url}" style="color: #a42223; text-decoration: none">BurningHear</a ></p>
+    <p style="color: #555555">L'équipe de <a href="${url}" style="color: #14422a; text-decoration: none">Food For Life</a></p>
     <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 20px 0" />
-    <p style="color: #999999">Si vous n'avez pas demandé à réinitialiser votre mot de passe, tenez nous informer <a href="mailto:akonkwaushindi@gmail.com" style="color: #a42223; text-decoration: none">en cliquant ici</a ></p>
+    <p style="color: #999999">Si vous n'avez pas demandé à réinitialiser votre mot de passe, tenez nous informer <a href="mailto:akonkwaushindi@gmail.com" style="color: #14422a; text-decoration: none">en cliquant ici</a ></p>
     <p style="color: #999999 text-align: center;">&copy; ${currentYear} Food For Life – Tous droits réservés</p>
   </div>
 </div>
@@ -132,12 +132,12 @@ export const confirmationReceptionEmailTemplate = (nom, sujet, url) => {
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
   
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Confirmation de Réception
             </td>
           </tr>
@@ -161,7 +161,7 @@ export const confirmationReceptionEmailTemplate = (nom, sujet, url) => {
   
           <tr>
             <td align="center" style="padding: 20px 0;">
-              <a href="${url}" style="background-color: #a42223; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Visiter notre site</a>
+              <a href="${url}" style="background-color: #14422a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Visiter notre site</a>
             </td>
           </tr>
   
@@ -223,12 +223,12 @@ export const contactReplyEmailTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
           <tr>
-            <td align="center" style="color: #a42223; font-size: 22px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 22px; font-weight: bold; padding-bottom: 16px;">
               ${sujet}
             </td>
           </tr>
@@ -312,12 +312,12 @@ export const identitySubmissionConfirmationTemplate = (
 
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Identité soumise avec succès
             </td>
           </tr>
@@ -343,7 +343,7 @@ export const identitySubmissionConfirmationTemplate = (
 
           <tr>
             <td align="center" style="padding: 20px 0;">
-              <a href="${url}" style="background-color: #a42223; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Visiter notre site</a>
+              <a href="${url}" style="background-color: #14422a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Visiter notre site</a>
             </td>
           </tr>
 
@@ -405,12 +405,12 @@ export const newsletterEmailTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
   
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               ${sujet}
             </td>
           </tr>
@@ -430,7 +430,7 @@ export const newsletterEmailTemplate = (
           <tr>
             <td style="color: #555555; font-size: 15px; padding-bottom: 24px;">
               Merci de nous lire.<br>
-              Si vous ne souhaitez plus recevoir nos newsletters, vous pouvez vous <a href="${unsubscribeUrl}" style="color: #a42223; font-weight: bold;">désabonner</a>.
+              Si vous ne souhaitez plus recevoir nos newsletters, vous pouvez vous <a href="${unsubscribeUrl}" style="color: #14422a; font-weight: bold;">désabonner</a>.
             </td>
           </tr>
   
@@ -482,12 +482,12 @@ export const newsletterSubscriptionConfirmationTemplate = (nom, url) => {
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Abonnement Confirmé !
             </td>
           </tr>
@@ -512,7 +512,7 @@ export const newsletterSubscriptionConfirmationTemplate = (nom, url) => {
 
           <tr>
             <td align="center" style="padding: 20px 0;">
-              <a href="${url}" style="background-color: #a42223; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Découvrir nos articles</a>
+              <a href="${url}" style="background-color: #14422a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Découvrir nos articles</a>
             </td>
           </tr>
 
@@ -577,14 +577,14 @@ export const eventPublishedNotificationTemplate = (
           <!-- Logo -->
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" 
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" 
                 style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
           <!-- Title -->
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Nouvel Événement Publié !
             </td>
           </tr>
@@ -617,7 +617,7 @@ export const eventPublishedNotificationTemplate = (
           <tr>
             <td align="center" style="padding: 20px 0;">
               <a href="${url}" 
-                style="background-color: #a42223; color: #ffffff; text-decoration: none; 
+                style="background-color: #14422a; color: #ffffff; text-decoration: none; 
                 padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">
                 Découvrir l'événement
               </a>
@@ -686,12 +686,12 @@ export const eventRegistrationConfirmationTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Inscription Confirmée !
             </td>
           </tr>
@@ -724,7 +724,7 @@ export const eventRegistrationConfirmationTemplate = (
 
           <tr>
             <td align="center" style="padding: 20px 0;">
-              <a href="${url}" style="background-color: #a42223; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Voir l'événement</a>
+              <a href="${url}" style="background-color: #14422a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">Voir l'événement</a>
             </td>
           </tr>
 
@@ -789,7 +789,7 @@ export const eventRegistrationWithPDFTemplate = (
           <!-- Logo -->
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://food4life.vercel.app/logo-white.png" 
+              <img src="https://foodforlifedrc.org/logo-white.png" 
                    alt="Food For Life Logo" 
                    style="max-width: 100%; width: auto; height: 5rem;">
             </td>
@@ -797,7 +797,7 @@ export const eventRegistrationWithPDFTemplate = (
 
           <!-- Title -->
           <tr>
-            <td align="center" style="color: #a42223; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
+            <td align="center" style="color: #14422a; font-size: 24px; font-weight: bold; padding-bottom: 16px;">
               Inscription Confirmée 🎉
             </td>
           </tr>
@@ -837,7 +837,7 @@ export const eventRegistrationWithPDFTemplate = (
           <tr>
             <td align="center" style="padding: 20px 0;">
               <a href="${url}" 
-                style="background-color: #a42223; color: #ffffff; text-decoration: none; 
+                style="background-color: #14422a; color: #ffffff; text-decoration: none; 
                 padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">
                 Voir l'événement
               </a>
@@ -848,7 +848,7 @@ export const eventRegistrationWithPDFTemplate = (
           <tr>
             <td style="color: #555555; font-size: 15px; padding-bottom: 24px;">
               Pensez déjà remplir la fiche de renseignement pour la participation à la retraite si ce n'est pas encore fait.<br>
-              Le montant de participation est à payé au bureau de Burning Heart de 12h à 15h du 5 Avril 2026 au 12 Avril 2026.
+              Le montant de participation est à payé au bureau de Food For Life de 12h à 15h du 5 Avril 2026 au 12 Avril 2026.
             </td>
           </tr>
 
@@ -856,7 +856,7 @@ export const eventRegistrationWithPDFTemplate = (
           <tr>
             <td align="center" style="padding: 20px 0;">
               <a href="https://foodforlifedrc.org/identity" 
-                style="background-color: #a42223; color: #ffffff; text-decoration: none; 
+                style="background-color: #14422a; color: #ffffff; text-decoration: none; 
                 padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">
                 Cliquez pour remplir la fiche renseignement
               </a>

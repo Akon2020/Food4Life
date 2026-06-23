@@ -42,3 +42,17 @@
 - [x] Frontend : `next.config.mjs` → `eslint.ignoreDuringBuilds: true` (évite l'échec de build
       sur les warnings de lint préexistants).
 - [x] CI bumpé en **Node 22**. Tests revérifiés en local : 15/15 ✓.
+
+### Étape 3 — Rebrand des templates emails ✅
+- [x] Suppression de **toute trace « Burning Heart »** (texte + couleur rouge `#a42223`).
+- [x] Couleurs alignées au site : accent/boutons/liens en **vert `#14422a`**.
+- [x] Logo & liens : `food4life.vercel.app` → **`foodforlifedrc.org`** (12 URLs).
+- [x] Syntaxe vérifiée (`node --check`).
+
+### Étape 4 — Newsletter en 2 étapes (modal nom complet) ✅
+- [x] Backend `subscribe` : accepte `name`/`nomComplet`, le stocke (Abonne.nomComplet) et
+      l'utilise dans l'email de bienvenue ; sérialiseur abonné expose `name`.
+- [x] Types `NewsletterSubscriber`/`NewsletterPayload` : champ `name`. Schéma de validation MAJ.
+- [x] `newsletter-form` : saisie email → **modal** demandant le nom complet → l'envoi
+      déclenche la sauvegarde + l'email de bienvenue. Smoke test backend : 201 ✓.
+- [x] Email admin par défaut aligné sur `admin@foodforlifedrc.org`.

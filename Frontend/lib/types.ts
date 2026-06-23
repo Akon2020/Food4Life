@@ -124,6 +124,7 @@ export interface ContactMessage {
 
 export interface NewsletterSubscriber {
   id: string
+  name?: string
   email: string
   locale: Locale
   confirmed: boolean
@@ -181,5 +182,6 @@ export interface ApplicationPayload {
 
 export interface NewsletterPayload {
   email: string
+  name?: string
   locale: Locale
 }
