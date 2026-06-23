@@ -5,6 +5,12 @@ import path from "path";
 const dossierMap = {
   avatar: "uploads/avatars",
   image: "uploads/images",
+  logo: "uploads/images",
+  photo: "uploads/images",
+  cover: "uploads/images",
+  gallery: "uploads/images",
+  cv: "uploads/cv",
+  file: "uploads/files",
   autre: "uploads/autres",
 };
 

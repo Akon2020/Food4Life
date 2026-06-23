@@ -1,7 +1,7 @@
 // Soumissions publiques (formulaires) — réponses { ok: true, id }.
 import { ContactMessage, Abonne } from "../models/index.model.js";
 import transporter from "../config/nodemailer.js";
-import { EMAIL, FRONT_URL } from "../config/env.js";
+import { EMAIL, FRONT_URL, HOST_URL } from "../config/env.js";
 import { valideEmail } from "../middlewares/email.middleware.js";
 import {
   confirmationReceptionEmailTemplate,
@@ -48,6 +48,11 @@ export const createMessage = async (req, res, next) => {
     }
     const finalType = MESSAGE_TYPES.includes(type) ? type : "contact";
 
+    // CV uploadé (candidature) -> URL absolue ; sinon cvUrl/cvFileName du body
+    const uploadedCvUrl = req.file
+      ? `${HOST_URL}/${req.file.path.replace(/\\/g, "/")}`
+      : null;
+
     const record = await ContactMessage.create({
       type: finalType,
       name,
@@ -58,8 +63,8 @@ export const createMessage = async (req, res, next) => {
       position: position ?? null,
       subject: subject ?? null,
       message,
-      // cvUrl peut venir d'un upload (Goal 7) ; cvFileName en mode mock
-      cvUrl: cvUrl ?? (cvFileName ? cvFileName : null),
+      // Priorité au fichier uploadé, sinon cvUrl, sinon cvFileName (mode mock)
+      cvUrl: uploadedCvUrl ?? cvUrl ?? (cvFileName ? cvFileName : null),
       status: "new",
     });
 

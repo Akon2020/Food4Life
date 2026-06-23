@@ -4,7 +4,8 @@ import { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
-import { getAdminArticles } from "@/lib/api/admin"
+import { getAdminArticles, deleteArticle } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
 import { pick } from "@/lib/i18n-field"
 import { formatDate } from "@/lib/format"
 import type { Locale } from "@/lib/types"
@@ -35,6 +36,8 @@ export function ArticlesList() {
     queryKey: ["admin", "articles"],
     queryFn: getAdminArticles,
   })
+
+  const del = useRowDelete(deleteArticle, ["admin", "articles"])
 
   const rows = useMemo(() => {
     return (data ?? []).filter((a) => {
@@ -93,7 +96,11 @@ export function ArticlesList() {
                     {a.publishedAt ? formatDate(a.publishedAt, locale) : "—"}
                   </Td>
                   <Td>
-                    <RowActions viewHref={`/actualites/${a.slug}`} />
+                    <RowActions
+                      viewHref={`/actualites/${a.slug}`}
+                      onDelete={() => del.mutate(a.id)}
+                      deleting={del.isPending && del.variables === a.id}
+                    />
                   </Td>
                 </Tr>
               ))

@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
 import { getTeam } from "@/lib/api/content"
+import { deleteTeamMember } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
 import { pick } from "@/lib/i18n-field"
 import type { Locale } from "@/lib/types"
 import {
@@ -30,6 +32,8 @@ export function TeamList() {
     queryKey: ["team"],
     queryFn: getTeam,
   })
+
+  const del = useRowDelete(deleteTeamMember, ["team"])
 
   const rows = useMemo(() => {
     return (data ?? [])
@@ -76,7 +80,10 @@ export function TeamList() {
                   <Td className="text-ink-muted">{pick(m, "role", locale)}</Td>
                   <Td className="text-ink-muted">{m.order}</Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onDelete={() => del.mutate(m.id)}
+                      deleting={del.isPending && del.variables === m.id}
+                    />
                   </Td>
                 </Tr>
               ))

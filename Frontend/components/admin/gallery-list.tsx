@@ -7,6 +7,8 @@ import { useLocale, useTranslations } from "next-intl"
 import { Play, ImageIcon } from "lucide-react"
 
 import { getGallery } from "@/lib/api/content"
+import { deleteGalleryItem } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
 import { pick } from "@/lib/i18n-field"
 import type { Locale } from "@/lib/types"
 import {
@@ -35,6 +37,8 @@ export function GalleryList() {
     queryKey: ["gallery"],
     queryFn: getGallery,
   })
+
+  const del = useRowDelete(deleteGalleryItem, ["gallery"])
 
   const rows = useMemo(() => {
     return (data ?? [])
@@ -110,7 +114,10 @@ export function GalleryList() {
                     </span>
                   </Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onDelete={() => del.mutate(g.id)}
+                      deleting={del.isPending && del.variables === g.id}
+                    />
                   </Td>
                 </Tr>
               ))

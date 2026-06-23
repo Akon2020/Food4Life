@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl"
 import { ExternalLink } from "lucide-react"
 
 import { getPartners } from "@/lib/api/content"
+import { deletePartner } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
 import {
   TableCard,
   Thead,
@@ -37,6 +39,8 @@ export function PartnersList() {
     queryKey: ["partners"],
     queryFn: getPartners,
   })
+
+  const del = useRowDelete(deletePartner, ["partners"])
 
   const rows = useMemo(() => {
     return (data ?? [])
@@ -102,7 +106,10 @@ export function PartnersList() {
                   <Td className="text-ink-muted">{tp(p.category)}</Td>
                   <Td className="text-ink-muted">{p.order}</Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onDelete={() => del.mutate(p.id)}
+                      deleting={del.isPending && del.variables === p.id}
+                    />
                   </Td>
                 </Tr>
               ))

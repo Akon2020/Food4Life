@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
 import { getTestimonials } from "@/lib/api/content"
+import { deleteTestimonial } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
 import { pick } from "@/lib/i18n-field"
 import type { Locale } from "@/lib/types"
 import {
@@ -30,6 +32,8 @@ export function TestimonialsList() {
     queryKey: ["testimonials"],
     queryFn: getTestimonials,
   })
+
+  const del = useRowDelete(deleteTestimonial, ["testimonials"])
 
   const rows = useMemo(() => {
     return (data ?? [])
@@ -85,7 +89,10 @@ export function TestimonialsList() {
                   </Td>
                   <Td className="text-ink-muted">{m.order}</Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onDelete={() => del.mutate(m.id)}
+                      deleting={del.isPending && del.variables === m.id}
+                    />
                   </Td>
                 </Tr>
               ))

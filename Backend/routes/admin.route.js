@@ -3,6 +3,9 @@ import {
   authenticationJWT,
   authorizeRoles,
 } from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
+import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
+import { uploadFile } from "../controllers/upload.controller.js";
 import {
   productsCrud,
   partnersCrud,
@@ -44,6 +47,15 @@ function mountCrud(path, crud, guard) {
 
 // Dashboard
 adminRouter.get("/dashboard", adminOnly, getDashboard);
+
+// Upload d'image (admin + editeur) -> { url, path }
+adminRouter.post(
+  "/uploads",
+  editors,
+  upload.single("image"),
+  normalizeUploadPaths,
+  uploadFile,
+);
 
 // Contenus éditoriaux (admin + editeur)
 adminRouter.get("/articles", editors, listAdminArticles);
