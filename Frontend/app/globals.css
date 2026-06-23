@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme {
+  /* ---- Brand: Green (primary) ---- */
+  --color-green-50: #eef6ef;
+  --color-green-100: #d7ebdb;
+  --color-green-300: #5dbb46;
+  --color-green-500: #2e8b40;
+  --color-green-700: #1b6b2e;
+  --color-green-900: #14422a;
+
+  /* ---- Brand: Gold (accent) ---- */
+  --color-gold-400: #f8c53a;
+  --color-gold-500: #f4b400;
+  --color-gold-600: #d99a00;
+
+  /* ---- Warm neutrals ---- */
+  --color-cream: #f7f4ec;
+  --color-cream-200: #efeadd;
+  --color-paper: #ffffff;
+  --color-ink: #1a2b22;
+  --color-ink-muted: #5b6b61;
+
+  /* ---- Status ---- */
+  --color-success: #2e8b40;
+  --color-warning: #d99a00;
+  --color-danger: #c0392b;
+  --color-info: #2d6a8e;
+
+  /* ---- Typographic scale ---- */
+  --text-hero: clamp(2.5rem, 6vw, 5rem);
+  --text-h1: clamp(2rem, 4vw, 3.25rem);
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h3: 1.375rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+  --text-eyebrow: 0.8125rem;
+
+  /* ---- Layout ---- */
+  --container-content: 1200px;
+}
+
+@theme inline {
+  --font-heading: var(--font-poppins), 'Poppins Fallback';
+  --font-sans: var(--font-inter), 'Inter Fallback';
+  --font-mono: var(--font-inter), 'Inter Fallback';
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  color-scheme: light;
+  --radius: 0.75rem; /* 12px inputs base; cards use rounded-2xl (16px) */
+
+  --background: #ffffff;
+  --foreground: #1a2b22;
+  --card: #ffffff;
+  --card-foreground: #1a2b22;
+  --popover: #ffffff;
+  --popover-foreground: #1a2b22;
+
+  --primary: #2e8b40;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f7f4ec;
+  --secondary-foreground: #14422a;
+
+  --muted: #f7f4ec;
+  --muted-foreground: #5b6b61;
+
+  --accent: #f4b400;
+  --accent-foreground: #1a2b22;
+
+  --destructive: #c0392b;
+
+  --border: #efeadd;
+  --input: #efeadd;
+  --ring: #2e8b40;
+
+  --chart-1: #2e8b40;
+  --chart-2: #f4b400;
+  --chart-3: #1b6b2e;
+  --chart-4: #5dbb46;
+  --chart-5: #d99a00;
+
+  /* Admin sidebar — deep green */
+  --sidebar: #14422a;
+  --sidebar-foreground: #f7f4ec;
+  --sidebar-primary: #2e8b40;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1b6b2e;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(247, 244, 236, 0.12);
+  --sidebar-ring: #5dbb46;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--text-body);
+    line-height: 1.65;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-green-500);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+  width: max-content;
+}
+
+.marquee-paused:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
