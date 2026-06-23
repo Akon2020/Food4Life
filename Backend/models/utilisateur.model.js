@@ -5,9 +5,9 @@ const Utilisateur = db.define(
   "Utilisateur",
   {
     idUtilisateur: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     avatar: {
       type: DataTypes.STRING,

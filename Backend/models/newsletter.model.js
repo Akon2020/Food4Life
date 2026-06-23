@@ -5,9 +5,9 @@ const Newsletter = db.define(
   "Newsletter",
   {
     idNewsletter: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     titreInterne: {
       type: DataTypes.STRING(255),
@@ -34,7 +34,7 @@ const Newsletter = db.define(
       allowNull: true,
     },
     writedBy: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'utilisateurs',

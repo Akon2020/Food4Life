@@ -5,9 +5,9 @@ const Abonne = db.define(
   "Abonne",
   {
     idAbonne: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     nomComplet: {
       type: DataTypes.STRING(100),
@@ -20,6 +20,18 @@ const Abonne = db.define(
       validate: {
         isEmail: true,
       },
+    },
+    // Langue de l'abonné (pour l'envoi localisé) — aligné NewsletterSubscriber.locale
+    locale: {
+      type: DataTypes.ENUM('fr', 'en'),
+      allowNull: false,
+      defaultValue: 'fr',
+    },
+    // Inscription simple (D4) : confirmé d'office ; champ conservé pour évolution
+    confirmed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
     statut: {
       type: DataTypes.ENUM('actif', 'inactif', 'desabonne'),

@@ -5,12 +5,12 @@ const NewsletterAbonne = db.define(
   "NewsletterAbonne",
   {
     idNewsletterAbonne: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     idNewsletter: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'newsletters',
@@ -18,7 +18,7 @@ const NewsletterAbonne = db.define(
       },
     },
     idAbonne: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'abonnes',

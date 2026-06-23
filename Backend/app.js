@@ -11,10 +11,6 @@ import errorMiddleware, { errorLogs } from "./middlewares/error.middleware.js";
 import { setupSwagger } from "./swagger.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/utilisateur.route.js";
-import contactRouter from "./routes/contact.route.js";
-import categorieRouter from "./routes/categorie.route.js";
-import blogRouter from "./routes/blog.route.js";
-import commentaireRouter from "./routes/commentaire.route.js";
 import abonneRouter from "./routes/abonne.route.js";
 import newsletterRouter from "./routes/newsletter.route.js";
 
@@ -57,12 +53,10 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
-app.use("/api/contacts", contactRouter);
-app.use("/api/categories", categorieRouter);
-app.use("/api/blogs", blogRouter);
-app.use("/api/commentaires", commentaireRouter);
 app.use("/api/abonnes", abonneRouter);
 app.use("/api/newsletters", newsletterRouter);
+// Routes du domaine FFL (articles, products, partners, team, testimonials,
+// gallery, settings, messages, admin) montées au Goal 3.
 
 app.get("/error", errorLogs);
 app.use(errorMiddleware);

@@ -19,4 +19,5 @@ export const {
   HOST_URL,
   FRONT_URL,
   DEFAULT_PASSWD,
+  DB_SYNC_FORCE,
 } = process.env;
