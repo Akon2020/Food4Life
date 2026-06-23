@@ -87,3 +87,13 @@
       admin only, hash bcrypt, garde anti-auto-suppression). Vérifié (création éditeur).
 - [x] Frontend : `users-list` (table + create/edit bilingue + delete), page
       `/admin/utilisateurs`, entrée sidebar. Champ `password` ajouté au dialog générique.
+
+### Étape 9 — SEO ✅
+- [x] `app/robots.ts` (autorise tout sauf /admin, /api) + `app/sitemap.ts` (toutes locales,
+      pages statiques + produits/articles dynamiques).
+- [x] Métadonnées racine enrichies : OpenGraph, Twitter card, keywords, **hreflang**
+      (alternates fr/en), canonical, robots.
+- [x] **JSON-LD** : Organization (layout), NewsArticle (page article), Product (page produit).
+- [x] Pages détail produit/article : OG + canonical + alternates par locale.
+- [x] Bonus : `pick()` élargi (object) → **frontend 0 erreur TypeScript** (28 → 0),
+      build/CI au vert ; `not-found` et `admin-sidebar` nettoyés.

@@ -119,7 +119,10 @@ export function AdminSidebar({
         <ul className="grid gap-1">
           {items.map((item) => {
             const Icon = item.icon
-            const active = isActive(item.href, item.exact)
+            const active = isActive(
+              item.href,
+              "exact" in item ? item.exact : undefined
+            )
             return (
               <li key={item.key}>
                 <Link
