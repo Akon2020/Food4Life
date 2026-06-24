@@ -14,6 +14,7 @@ import {
   Check,
   Archive,
   Trash2,
+  Inbox,
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -36,6 +37,7 @@ import {
 import { StatusBadge, statusTone } from "@/components/admin/status-badge"
 import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 const types = ["all", "contact", "partenariat", "candidature"] as const
 
@@ -95,8 +97,17 @@ export function MessagesList() {
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
   }, [data, search, type])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statMessages"), value: all.length, icon: Inbox, accent: "green" as const },
+    { label: t("msgNew"), value: all.filter((m) => m.status === "new").length, icon: Mail, accent: "blue" as const },
+    { label: t("msgRead"), value: all.filter((m) => m.status === "read").length, icon: Check, accent: "stone" as const },
+    { label: t("msgArchived"), value: all.filter((m) => m.status === "archived").length, icon: Archive, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar
         search={search}
         onSearch={setSearch}

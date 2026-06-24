@@ -28,9 +28,11 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Quote } from "lucide-react"
 import { AdminToolbar } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 export function TestimonialsList() {
   const t = useTranslations("adminUI")
@@ -66,8 +68,13 @@ export function TestimonialsList() {
       .sort((a, b) => a.order - b.order)
   }, [data, search])
 
+  const stats = [
+    { label: t("testimonials"), value: (data ?? []).length, icon: Quote, accent: "green" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
 
       {isLoading ? (

@@ -19,20 +19,25 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Package, CheckCircle2, Clock } from "lucide-react"
 import { StatusBadge, statusTone } from "@/components/admin/status-badge"
-import { AdminToolbar } from "@/components/admin/admin-toolbar"
+import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 import {
   AdminFormDialog,
   type FieldDef,
 } from "@/components/admin/admin-form-dialog"
 import { useEntityForm } from "@/components/admin/use-entity-form"
 
+const STATUSES = ["all", "available", "coming_soon"] as const
+
 export function ProductsList() {
   const t = useTranslations("adminUI")
   const locale = useLocale() as Locale
   const [search, setSearch] = useState("")
+  const [status, setStatus] = useState<string>("all")
 
   const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
@@ -83,15 +88,53 @@ export function ProductsList() {
     { name: "gallery", label: t("gallery"), type: "stringList" },
   ]
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statProducts"), value: all.length, icon: Package, accent: "green" as const },
+    {
+      label: t("available"),
+      value: all.filter((p) => p.status === "available").length,
+      icon: CheckCircle2,
+      accent: "blue" as const,
+    },
+    {
+      label: t("comingSoon"),
+      value: all.filter((p) => p.status === "coming_soon").length,
+      icon: Clock,
+      accent: "gold" as const,
+    },
+  ]
+
   const rows = useMemo(() => {
-    return (data ?? [])
+    return all
       .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
+      .filter((p) => (status === "all" ? true : p.status === status))
       .sort((a, b) => a.order - b.order)
-  }, [data, search])
+  }, [all, search, status])
 
   return (
-    <div className="grid gap-4">
-      <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
+    <div className="grid gap-6">
+      <ListStats items={stats} />
+      <AdminToolbar
+        search={search}
+        onSearch={setSearch}
+        onAdd={form.openCreate}
+        filters={
+          <FilterPills
+            options={STATUSES.map((s) => ({
+              value: s,
+              label:
+                s === "all"
+                  ? t("filterAll")
+                  : s === "available"
+                    ? t("available")
+                    : t("comingSoon"),
+            }))}
+            active={status}
+            onChange={setStatus}
+          />
+        }
+      />
 
       {isLoading ? (
         <TableSkeleton columns={4} />

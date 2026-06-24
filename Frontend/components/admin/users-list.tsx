@@ -16,10 +16,12 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Users, Shield, Pencil } from "lucide-react"
 import { StatusBadge } from "@/components/admin/status-badge"
 import { AdminToolbar } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 import {
   AdminFormDialog,
   type FieldDef,
@@ -72,8 +74,16 @@ export function UsersList() {
     )
   }, [data, search])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statUsers"), value: all.length, icon: Users, accent: "green" as const },
+    { label: t("roleAdmin"), value: all.filter((u) => u.role === "admin").length, icon: Shield, accent: "blue" as const },
+    { label: t("roleEditor"), value: all.filter((u) => u.role === "editeur").length, icon: Pencil, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
 
       {isLoading ? (

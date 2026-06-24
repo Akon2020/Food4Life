@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import Image from "next/image"
 import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
-import { Play, ImageIcon } from "lucide-react"
+import { Play, ImageIcon, Images } from "lucide-react"
 
 import { getGallery } from "@/lib/api/content"
 import {
@@ -32,6 +32,7 @@ import {
 import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 const categories = ["all", "terrain", "produits", "evenements", "equipe"] as const
 
@@ -94,8 +95,16 @@ export function GalleryList() {
       .sort((a, b) => a.order - b.order)
   }, [data, search, category, locale])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("gallery"), value: all.length, icon: Images, accent: "green" as const },
+    { label: t("image"), value: all.filter((g) => g.type === "image").length, icon: ImageIcon, accent: "blue" as const },
+    { label: t("video"), value: all.filter((g) => g.type === "video").length, icon: Play, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar
         search={search}
         onSearch={setSearch}

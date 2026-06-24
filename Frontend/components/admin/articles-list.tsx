@@ -19,10 +19,12 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Newspaper, CheckCircle2, FileEdit } from "lucide-react"
 import { StatusBadge, statusTone } from "@/components/admin/status-badge"
 import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 const categories = ["all", "impact", "evenement", "presse"] as const
 
@@ -50,8 +52,16 @@ export function ArticlesList() {
     })
   }, [data, search, category, locale])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statArticles"), value: all.length, icon: Newspaper, accent: "green" as const },
+    { label: t("published"), value: all.filter((a) => a.status === "published").length, icon: CheckCircle2, accent: "blue" as const },
+    { label: t("draft"), value: all.filter((a) => a.status === "draft").length, icon: FileEdit, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar
         search={search}
         onSearch={setSearch}
