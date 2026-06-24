@@ -59,7 +59,7 @@
     "eyebrow": "Conception & développement",
     "name": "Isaac Akonkwa",
     "role": "Ingénieur logiciel & designer produit",
-    "bio": "Ce site a été imaginé, conçu et développé avec une attention particulière portée à la performance, à l'élégance et à une expérience utilisateur premium.",
+    "bio": "Ce site a été conçu et développé avec une attention particulière portée à la performance, à l'élégance et à une expérience utilisateur fluide.",
     "stackLabel": "Réalisé avec",
     "cta": "Voir le portfolio",
     "contact": "Me contacter",
@@ -72,9 +72,18 @@
     "introText": "Chez Food For Life, chaque talent contribue à une mission concrète : nourrir les familles congolaises et soutenir les producteurs locaux. Nous recherchons des personnes engagées, créatives et rigoureuses.",
     "whyTitle": "Pourquoi nous rejoindre",
     "perks": [
-      { "title": "Mission porteuse de sens", "text": "Votre travail a un impact direct sur la santé et l'économie des communautés." },
-      { "title": "Croissance & apprentissage", "text": "Évoluez dans une entreprise en pleine expansion, avec des responsabilités réelles." },
-      { "title": "Équipe bienveillante", "text": "Un environnement collaboratif, inclusif et tourné vers l'excellence." }
+      {
+        "title": "Mission porteuse de sens",
+        "text": "Votre travail a un impact direct sur la santé et l'économie des communautés."
+      },
+      {
+        "title": "Croissance & apprentissage",
+        "text": "Évoluez dans une entreprise en pleine expansion, avec des responsabilités réelles."
+      },
+      {
+        "title": "Équipe bienveillante",
+        "text": "Un environnement collaboratif, inclusif et tourné vers l'excellence."
+      }
     ],
     "formTitle": "Déposez votre candidature",
     "formText": "Remplissez le formulaire ci-dessous et joignez votre CV. Nous vous recontacterons rapidement."
@@ -84,11 +93,22 @@
     "subtitle": "Informations légales relatives au site et à l'entreprise.",
     "updated": "Dernière mise à jour : juin 2026",
     "sections": [
-      { "title": "Éditeur du site", "body": "Ce site est édité par AFRICA-SUN SERVICES SARL (Food For Life), entreprise sociale d'agro-transformation immatriculée en République Démocratique du Congo, dont le siège est situé à Bukavu, Sud-Kivu." },
-      { "title": "Directeur de la publication", "body": "Le directeur de la publication est le représentant légal de la société." },
-      { "title": "Hébergement", "body": "Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis." },
-      { "title": "Propriété intellectuelle", "body": "L'ensemble des contenus présents sur ce site (textes, images, logos, vidéos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite." },
-      { "title": "Responsabilité", "body": "Food For Life s'efforce d'assurer l'exactitude des informations diffusées mais ne saurait être tenue responsable d'éventuelles erreurs ou omissions." }
+      {
+        "title": "Éditeur du site",
+        "body": "Ce site est édité par FOOD FOR LIFE , entreprise sociale d'agro-transformation immatriculée en République Démocratique du Congo, dont le siège est situé à Bukavu, Sud-Kivu."
+      },
+      {
+        "title": "Directeur de la publication",
+        "body": "Le directeur de la publication est le représentant légal de la société."
+      },
+      {
+        "title": "Propriété intellectuelle",
+        "body": "L'ensemble des contenus présents sur ce site (textes, images, logos, vidéos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite."
+      },
+      {
+        "title": "Responsabilité",
+        "body": "Food For Life s'efforce d'assurer l'exactitude des informations diffusées mais ne saurait être tenue responsable d'éventuelles erreurs ou omissions."
+      }
     ]
   },
   "privacyPage": {
@@ -96,11 +116,26 @@
     "subtitle": "Comment nous collectons, utilisons et protégeons vos données personnelles.",
     "updated": "Dernière mise à jour : juin 2026",
     "sections": [
-      { "title": "Données collectées", "body": "Nous collectons les données que vous nous transmettez via nos formulaires de contact, de partenariat, de candidature et d'inscription à la newsletter (nom, email, téléphone, message)." },
-      { "title": "Utilisation des données", "body": "Vos données sont utilisées uniquement pour répondre à vos demandes, traiter votre candidature ou vous envoyer nos actualités si vous y avez consenti." },
-      { "title": "Conservation", "body": "Vos données sont conservées le temps nécessaire au traitement de votre demande, puis archivées ou supprimées conformément à la réglementation applicable." },
-      { "title": "Vos droits", "body": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous via la page Contact." },
-      { "title": "Cookies", "body": "Ce site utilise des cookies essentiels à son fonctionnement ainsi que des outils de mesure d'audience anonymisés." }
+      {
+        "title": "Données collectées",
+        "body": "Nous collectons les données que vous nous transmettez via nos formulaires de contact, de partenariat, de candidature et d'inscription à la newsletter (nom, email, téléphone, message)."
+      },
+      {
+        "title": "Utilisation des données",
+        "body": "Vos données sont utilisées uniquement pour répondre à vos demandes, traiter votre candidature ou vous envoyer nos actualités si vous y avez consenti."
+      },
+      {
+        "title": "Conservation",
+        "body": "Vos données sont conservées le temps nécessaire au traitement de votre demande, puis archivées ou supprimées conformément à la réglementation applicable."
+      },
+      {
+        "title": "Vos droits",
+        "body": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous via la page Contact."
+      },
+      {
+        "title": "Cookies",
+        "body": "Ce site utilise des cookies essentiels à son fonctionnement ainsi que des outils de mesure d'audience anonymisés."
+      }
     ]
   },
   "home": {
@@ -346,6 +381,7 @@
     "sentCount": "Envoyés",
     "campaignSent": "Campagne envoyée",
     "noCampaigns": "Aucune campagne pour le moment.",
+    "campaignsSubtitle": "Composez et envoyez des newsletters, suivez les destinataires.",
     "profile": "Profil",
     "security": "Sécurité",
     "avatar": "Photo de profil",
@@ -364,6 +400,12 @@
     "statTeam": "Équipe",
     "statMessages": "Messages",
     "statSubscribers": "Abonnés",
+    "statCampaigns": "Campagnes",
+    "statUsers": "Utilisateurs",
+    "dashboardActivity": "Activité (6 derniers mois)",
+    "dashboardContent": "Répartition du contenu",
+    "dashboardMessageTypes": "Messages par type",
+    "recentCampaigns": "Campagnes récentes",
     "recentMessages": "Messages récents",
     "quickActions": "Accès rapides",
     "noMessages": "Aucun message pour le moment.",
@@ -432,6 +474,8 @@
     "gallery": "Galerie",
     "messages": "Messages",
     "newsletter": "Newsletter",
+    "subscribers": "Abonnés",
+    "campaigns": "Campagnes",
     "settings": "Réglages",
     "users": "Utilisateurs",
     "profile": "Mon profil",

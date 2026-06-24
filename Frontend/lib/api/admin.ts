@@ -57,8 +57,33 @@ export interface DashboardData {
     messages: number
     newMessages: number
     subscribers: number
+    confirmedSubscribers: number
+    campaigns: number
+    emailsSent: number
+    users: number
   }
+  messagesByStatus: { new: number; read: number; archived: number }
+  messagesByType: {
+    contact: number
+    partenariat: number
+    candidature: number
+  }
+  contentDistribution: {
+    products: number
+    articles: number
+    partners: number
+    team: number
+    testimonials: number
+    gallery: number
+  }
+  monthly: { month: string; messages: number; subscribers: number }[]
   recentMessages: ContactMessage[]
+  recentCampaigns: {
+    id: string
+    subject: string
+    status: string
+    sentAt: string | null
+  }[]
 }
 
 export function getDashboard(): Promise<DashboardData> {
@@ -74,8 +99,32 @@ export function getDashboard(): Promise<DashboardData> {
       messages: mockMessages.length,
       newMessages: mockMessages.filter((m) => m.status === "new").length,
       subscribers: mockSubscribers.length,
+      confirmedSubscribers: mockSubscribers.filter((s) => s.confirmed).length,
+      campaigns: 0,
+      emailsSent: 0,
+      users: 0,
     },
+    messagesByStatus: {
+      new: mockMessages.filter((m) => m.status === "new").length,
+      read: mockMessages.filter((m) => m.status === "read").length,
+      archived: mockMessages.filter((m) => m.status === "archived").length,
+    },
+    messagesByType: {
+      contact: mockMessages.filter((m) => m.type === "contact").length,
+      partenariat: mockMessages.filter((m) => m.type === "partenariat").length,
+      candidature: mockMessages.filter((m) => m.type === "candidature").length,
+    },
+    contentDistribution: {
+      products: 0,
+      articles: 0,
+      partners: 0,
+      team: 0,
+      testimonials: 0,
+      gallery: 0,
+    },
+    monthly: [],
     recentMessages: [...mockMessages].slice(0, 5),
+    recentCampaigns: [],
   }))
 }
 

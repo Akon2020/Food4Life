@@ -40,7 +40,7 @@ export function CampaignsList() {
         </h2>
         <button
           type="button"
-          onClick={() => router.push("/admin/newsletter/nouvelle-campagne")}
+          onClick={() => router.push("/admin/campagnes/nouvelle")}
           className="inline-flex items-center gap-1.5 rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-800"
         >
           <Plus className="size-4" />
@@ -65,7 +65,7 @@ export function CampaignsList() {
               <EmptyRow colSpan={4} label={t("noCampaigns")} />
             ) : (
               (data ?? []).map((c) => (
-                <Tr key={c.id} className="cursor-pointer" onClick={() => router.push(`/admin/newsletter/campagnes/${c.id}`)}>
+                <Tr key={c.id} className="cursor-pointer" onClick={() => router.push(`/admin/campagnes/${c.id}`)}>
                   <Td className="font-medium text-ink">{c.subject}</Td>
                   <Td className="whitespace-nowrap text-ink-muted">
                     {c.sentAt ? formatDate(c.sentAt, locale) : "—"}
@@ -76,7 +76,7 @@ export function CampaignsList() {
                   <Td>
                     <div onClick={(e) => e.stopPropagation()}>
                       <RowActions
-                        onEdit={() => router.push(`/admin/newsletter/campagnes/${c.id}`)}
+                        onEdit={() => router.push(`/admin/campagnes/${c.id}`)}
                         onDelete={() => del.mutate(c.id)}
                         deleting={del.isPending && del.variables === c.id}
                       />

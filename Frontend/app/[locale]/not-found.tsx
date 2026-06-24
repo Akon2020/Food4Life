@@ -2,6 +2,8 @@ import { useTranslations } from "next-intl"
 import { Home, Package, Newspaper, Mail, Leaf } from "lucide-react"
 
 import { Link } from "@/i18n/navigation"
+import { SiteHeader } from "@/components/layout/site-header"
+import { SiteFooter } from "@/components/layout/site-footer"
 
 export default function NotFound() {
   const t = useTranslations("system")
@@ -16,7 +18,9 @@ export default function NotFound() {
   ] as const
 
   return (
-    <main className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-cream px-4 py-20 text-center">
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="relative flex flex-1 flex-col items-center justify-center overflow-hidden bg-cream px-4 py-20 text-center">
       {/* Décor */}
       <div className="pointer-events-none absolute -left-16 -top-16 size-64 rounded-full bg-green-100/60 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-16 -right-16 size-72 rounded-full bg-gold-400/20 blur-3xl" />
@@ -66,6 +70,8 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+      <SiteFooter />
+    </div>
   )
 }

@@ -37,3 +37,7 @@ Thumbs.db
 *.tsbuildinfo
 .cache/
 coverage/
+
+# Zip
+*.zip
+.zip

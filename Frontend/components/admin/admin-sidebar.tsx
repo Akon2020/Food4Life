@@ -14,6 +14,7 @@ import {
   Images,
   Inbox,
   Mail,
+  Send,
   Settings,
   UserCog,
   LogOut,
@@ -35,7 +36,8 @@ const items = [
   { key: "testimonials", href: "/admin/temoignages", icon: Quote },
   { key: "gallery", href: "/admin/galerie", icon: Images },
   { key: "messages", href: "/admin/messages", icon: Inbox },
-  { key: "newsletter", href: "/admin/newsletter", icon: Mail },
+  { key: "subscribers", href: "/admin/newsletter", icon: Mail },
+  { key: "campaigns", href: "/admin/campagnes", icon: Send },
   { key: "users", href: "/admin/utilisateurs", icon: UserCog },
   { key: "settings", href: "/admin/parametres", icon: Settings },
 ] as const

@@ -17,7 +17,7 @@ export const welcomeEmailTemplate = (nom, email, url) => {
 
       <!-- Logo Centré en Haut -->
       <div style="text-align: center; margin-bottom: 20px;">
-        <img src="https://foodforlifedrc.org/logo-white.png" 
+        <img src="https://food4life.vercel.app/logo-white.png" 
              alt="Food For Life Logo" 
              style="max-width: 120px; height: auto;" />
       </div>
@@ -78,7 +78,7 @@ export const newUserEmailTemplate = (nom, email, defaultPassword, url) => {
   return `<div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
   <div style=" max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <td align="center" style="padding-bottom: 20px;">
-        <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+        <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
     </td>
     <h2 style="color: #333333">Bienvenue ${nom} 👋!</h2>
     <p style="color: #555555">Votre compte a été créé avec succès pour l'adresse email : <strong style="text-align: center">${email}</strong></p>
@@ -106,7 +106,7 @@ export const resetPasswordEmailTemplate = (nom, email, url, resetToken) => {
 <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
   <div style=" max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <td align="center" style="padding-bottom: 20px;">
-        <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+        <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
     </td>
     <h2 style="color: #333333">Salut ${nom} 👋!</h2>
     <p style="color: #555555">Nous avons reçu une demande de réinitialisation de votre mot de passe lié au compte <strong>${email}</strong></p>
@@ -132,7 +132,7 @@ export const confirmationReceptionEmailTemplate = (nom, sujet, url) => {
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
   
@@ -223,7 +223,7 @@ export const contactReplyEmailTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
@@ -312,7 +312,7 @@ export const identitySubmissionConfirmationTemplate = (
 
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
@@ -405,7 +405,7 @@ export const newsletterEmailTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
   
@@ -482,7 +482,7 @@ export const newsletterSubscriptionConfirmationTemplate = (nom, url) => {
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
@@ -577,7 +577,7 @@ export const eventPublishedNotificationTemplate = (
           <!-- Logo -->
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" 
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" 
                 style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
@@ -686,7 +686,7 @@ export const eventRegistrationConfirmationTemplate = (
           
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
+              <img src="https://food4life.vercel.app/logo-white.png" alt="Logo" style="max-width: 100%; width: auto; height: 5rem;">
             </td>
           </tr>
 
@@ -789,7 +789,7 @@ export const eventRegistrationWithPDFTemplate = (
           <!-- Logo -->
           <tr>
             <td align="center" style="padding-bottom: 20px;">
-              <img src="https://foodforlifedrc.org/logo-white.png" 
+              <img src="https://food4life.vercel.app/logo-white.png" 
                    alt="Food For Life Logo" 
                    style="max-width: 100%; width: auto; height: 5rem;">
             </td>

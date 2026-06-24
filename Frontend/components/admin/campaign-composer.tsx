@@ -30,7 +30,7 @@ export function CampaignComposer() {
     onSuccess: () => {
       toast.success(t("campaignSent"))
       queryClient.invalidateQueries({ queryKey: ["admin", "campaigns"] })
-      intlRouter.push("/admin/newsletter")
+      intlRouter.push("/admin/campagnes")
     },
     onError: () => toast.error(t("saveError")),
   })
