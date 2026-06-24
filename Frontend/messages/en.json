@@ -51,7 +51,8 @@
     "notFoundText": "The page you are looking for doesn't exist or has been moved.",
     "errorTitle": "Something went wrong",
     "errorText": "An error occurred. You can try again.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "popularPages": "Popular pages"
   },
   "builtBy": {
     "trigger": "Built by Isaac Akonkwa",
@@ -220,7 +221,11 @@
     "empty": "No news yet.",
     "notFound": "Article not found.",
     "publishedOn": "Published on",
-    "related": "You may also like"
+    "related": "You may also like",
+    "searchPlaceholder": "Search news…",
+    "clear": "Clear",
+    "resultsSingular": "result",
+    "resultsPlural": "results"
   },
   "contact": {
     "title": "Contact us",

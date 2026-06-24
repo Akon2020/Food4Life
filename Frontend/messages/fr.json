@@ -51,7 +51,8 @@
     "notFoundText": "La page que vous recherchez n'existe pas ou a été déplacée.",
     "errorTitle": "Une erreur est survenue",
     "errorText": "Quelque chose s'est mal passé. Vous pouvez réessayer.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "popularPages": "Pages populaires"
   },
   "builtBy": {
     "trigger": "Conçu par Isaac Akonkwa",
@@ -220,7 +221,11 @@
     "empty": "Aucune actualité pour le moment.",
     "notFound": "Article introuvable.",
     "publishedOn": "Publié le",
-    "related": "À lire également"
+    "related": "À lire également",
+    "searchPlaceholder": "Rechercher une actualité…",
+    "clear": "Effacer",
+    "resultsSingular": "résultat",
+    "resultsPlural": "résultats"
   },
   "contact": {
     "title": "Contactez-nous",
