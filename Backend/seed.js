@@ -48,7 +48,7 @@ async function run() {
         contact: {
           address: "Avenue du Lac, Bukavu, Sud-Kivu, RDC",
           phone: "+243 990 000 000",
-          email: "contact@foodforlife.cd",
+          email: "contact@foodforlifedrc.org",
           mapUrl: "https://maps.google.com/?q=Bukavu+Sud-Kivu+RDC",
         },
         socials: {
@@ -75,7 +75,13 @@ async function run() {
           "Farine infantile enrichie à base de céréales et légumineuses locales, conçue pour combattre la malnutrition des jeunes enfants.",
         descriptionEn:
           "Enriched infant flour made from local cereals and legumes, designed to fight malnutrition in young children.",
-        ingredients: ["Maïs", "Soja", "Sorgho", "Arachide", "Vitamines & minéraux"],
+        ingredients: [
+          "Maïs",
+          "Soja",
+          "Sorgho",
+          "Arachide",
+          "Vitamines & minéraux",
+        ],
         benefitsFr: [
           "Riche en protéines et en énergie",
           "Enrichie en vitamines et minéraux",
@@ -111,8 +117,8 @@ async function run() {
         benefitsEn: ["Source of fiber", "Sustained energy", "No additives"],
         targetAudienceFr: "Toute la famille",
         targetAudienceEn: "The whole family",
-        imageUrl: "/images/product-power-mix.png",
-        gallery: ["/images/product-power-mix.png"],
+        imageUrl: "/images/product-petit-prince.png",
+        gallery: ["/images/product-petit-prince.png"],
         availabilityFr: "Bientôt disponible",
         availabilityEn: "Coming soon",
         status: "coming_soon",
@@ -127,7 +133,7 @@ async function run() {
     [
       {
         name: "UNICEF",
-        logoUrl: "/images/partner-unicef.png",
+        logoUrl: "",
         descriptionFr: "Partenaire institutionnel pour la nutrition infantile.",
         descriptionEn: "Institutional partner for child nutrition.",
         websiteUrl: "https://www.unicef.org",
@@ -136,7 +142,7 @@ async function run() {
       },
       {
         name: "PAM",
-        logoUrl: "/images/partner-pam.png",
+        logoUrl: "",
         descriptionFr: "Appui logistique et financier aux programmes.",
         descriptionEn: "Logistical and financial support to programs.",
         websiteUrl: "https://www.wfp.org",
@@ -145,7 +151,7 @@ async function run() {
       },
       {
         name: "Université de Bukavu",
-        logoUrl: "/images/partner-unibukavu.png",
+        logoUrl: "",
         descriptionFr: "Partenaire technique et de formation.",
         descriptionEn: "Technical and training partner.",
         websiteUrl: "https://example.org",
@@ -216,7 +222,7 @@ async function run() {
       {
         titleFr: "Sur le terrain",
         titleEn: "On the field",
-        imageUrl: "/images/gallery-1.png",
+        imageUrl: "/images/gallery-field-1.png",
         category: "terrain",
         captionFr: "Distribution à Bukavu",
         captionEn: "Distribution in Bukavu",
@@ -226,7 +232,7 @@ async function run() {
       {
         titleFr: "Atelier de production",
         titleEn: "Production workshop",
-        imageUrl: "/images/gallery-2.png",
+        imageUrl: "/images/gallery-production-1.png",
         category: "produits",
         captionFr: "Préparation des farines",
         captionEn: "Flour preparation",
@@ -236,7 +242,7 @@ async function run() {
       {
         titleFr: "Notre équipe",
         titleEn: "Our team",
-        imageUrl: "/images/gallery-3.png",
+        imageUrl: "/images/gallery-team-1.png",
         category: "equipe",
         captionFr: "L'équipe Food For Life",
         captionEn: "The Food For Life team",
@@ -260,7 +266,7 @@ async function run() {
           "Après des mois de recherche, Food For Life lance Super Energy Farina pour lutter contre la malnutrition au Sud-Kivu.",
         bodyEn:
           "After months of research, Food For Life launches Super Energy Farina to fight malnutrition in South Kivu.",
-        coverImageUrl: "/images/news-1.png",
+        coverImageUrl: "/images/news-children.png",
         category: "impact",
         status: "published",
         publishedAt: new Date("2026-01-15"),
@@ -274,7 +280,7 @@ async function run() {
         excerptEn: "A partnership to expand our impact.",
         bodyFr: "Food For Life et l'UNICEF unissent leurs forces.",
         bodyEn: "Food For Life and UNICEF join forces.",
-        coverImageUrl: "/images/news-2.png",
+        coverImageUrl: "/images/news-partnership.png",
         category: "presse",
         status: "published",
         publishedAt: new Date("2026-03-02"),
@@ -288,7 +294,7 @@ async function run() {
         excerptEn: "To be published.",
         bodyFr: "Contenu en cours de rédaction.",
         bodyEn: "Content being written.",
-        coverImageUrl: "/images/news-3.png",
+        coverImageUrl: "/images/news-workshop.png",
         category: "evenement",
         status: "draft",
         publishedAt: null,
@@ -301,8 +307,8 @@ async function run() {
   await seedIfEmpty(
     Abonne,
     [
-      { email: "demo1@foodforlife.cd", locale: "fr", confirmed: true },
-      { email: "demo2@foodforlife.cd", locale: "en", confirmed: true },
+      { email: "demo1@foodforlifedrc.org", locale: "fr", confirmed: true },
+      { email: "demo2@foodforlifedrc.org", locale: "en", confirmed: true },
     ],
     "Abonne (newsletter)",
   );

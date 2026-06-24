@@ -124,6 +124,7 @@ export interface ContactMessage {
 
 export interface NewsletterSubscriber {
   id: string
+  name?: string
   email: string
   locale: Locale
   confirmed: boolean
@@ -150,6 +151,41 @@ export interface SiteSetting {
     x: string
     youtube: string
   }
+}
+
+export type UserRole = "admin" | "editeur"
+
+export interface ManagedUser {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+  avatar?: string | null
+  lastLogin: string | null
+  createdAt: string | null
+}
+
+export type CampaignStatus = "brouillon" | "envoye" | "programme"
+
+export interface CampaignRecipient {
+  id: string
+  name: string | null
+  email: string | null
+  status: "envoye" | "echec" | "attente"
+  sentAt: string | null
+}
+
+export interface Campaign {
+  id: string
+  title: string
+  subject: string
+  content: string
+  status: CampaignStatus
+  sentAt: string | null
+  recipientCount?: number
+  sentCount?: number
+  createdAt: string | null
+  recipients?: CampaignRecipient[]
 }
 
 // ---- Form payloads ----
@@ -181,5 +217,6 @@ export interface ApplicationPayload {
 
 export interface NewsletterPayload {
   email: string
+  name?: string
   locale: Locale
 }

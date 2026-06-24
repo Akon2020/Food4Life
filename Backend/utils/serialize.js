@@ -140,6 +140,7 @@ export function serializeSubscriber(a) {
   if (!a) return null;
   return {
     id: a.idAbonne,
+    name: a.nomComplet ?? undefined,
     email: a.email,
     locale: a.locale,
     confirmed: a.confirmed,

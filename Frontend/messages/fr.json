@@ -51,14 +51,15 @@
     "notFoundText": "La page que vous recherchez n'existe pas ou a été déplacée.",
     "errorTitle": "Une erreur est survenue",
     "errorText": "Quelque chose s'est mal passé. Vous pouvez réessayer.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "popularPages": "Pages populaires"
   },
   "builtBy": {
     "trigger": "Conçu par Isaac Akonkwa",
     "eyebrow": "Conception & développement",
     "name": "Isaac Akonkwa",
     "role": "Ingénieur logiciel & designer produit",
-    "bio": "Ce site a été imaginé, conçu et développé avec une attention particulière portée à la performance, à l'élégance et à une expérience utilisateur premium.",
+    "bio": "Ce site a été conçu et développé avec une attention particulière portée à la performance, à l'élégance et à une expérience utilisateur fluide.",
     "stackLabel": "Réalisé avec",
     "cta": "Voir le portfolio",
     "contact": "Me contacter",
@@ -71,9 +72,18 @@
     "introText": "Chez Food For Life, chaque talent contribue à une mission concrète : nourrir les familles congolaises et soutenir les producteurs locaux. Nous recherchons des personnes engagées, créatives et rigoureuses.",
     "whyTitle": "Pourquoi nous rejoindre",
     "perks": [
-      { "title": "Mission porteuse de sens", "text": "Votre travail a un impact direct sur la santé et l'économie des communautés." },
-      { "title": "Croissance & apprentissage", "text": "Évoluez dans une entreprise en pleine expansion, avec des responsabilités réelles." },
-      { "title": "Équipe bienveillante", "text": "Un environnement collaboratif, inclusif et tourné vers l'excellence." }
+      {
+        "title": "Mission porteuse de sens",
+        "text": "Votre travail a un impact direct sur la santé et l'économie des communautés."
+      },
+      {
+        "title": "Croissance & apprentissage",
+        "text": "Évoluez dans une entreprise en pleine expansion, avec des responsabilités réelles."
+      },
+      {
+        "title": "Équipe bienveillante",
+        "text": "Un environnement collaboratif, inclusif et tourné vers l'excellence."
+      }
     ],
     "formTitle": "Déposez votre candidature",
     "formText": "Remplissez le formulaire ci-dessous et joignez votre CV. Nous vous recontacterons rapidement."
@@ -83,11 +93,22 @@
     "subtitle": "Informations légales relatives au site et à l'entreprise.",
     "updated": "Dernière mise à jour : juin 2026",
     "sections": [
-      { "title": "Éditeur du site", "body": "Ce site est édité par AFRICA-SUN SERVICES SARL (Food For Life), entreprise sociale d'agro-transformation immatriculée en République Démocratique du Congo, dont le siège est situé à Bukavu, Sud-Kivu." },
-      { "title": "Directeur de la publication", "body": "Le directeur de la publication est le représentant légal de la société." },
-      { "title": "Hébergement", "body": "Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis." },
-      { "title": "Propriété intellectuelle", "body": "L'ensemble des contenus présents sur ce site (textes, images, logos, vidéos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite." },
-      { "title": "Responsabilité", "body": "Food For Life s'efforce d'assurer l'exactitude des informations diffusées mais ne saurait être tenue responsable d'éventuelles erreurs ou omissions." }
+      {
+        "title": "Éditeur du site",
+        "body": "Ce site est édité par FOOD FOR LIFE , entreprise sociale d'agro-transformation immatriculée en République Démocratique du Congo, dont le siège est situé à Bukavu, Sud-Kivu."
+      },
+      {
+        "title": "Directeur de la publication",
+        "body": "Le directeur de la publication est le représentant légal de la société."
+      },
+      {
+        "title": "Propriété intellectuelle",
+        "body": "L'ensemble des contenus présents sur ce site (textes, images, logos, vidéos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite."
+      },
+      {
+        "title": "Responsabilité",
+        "body": "Food For Life s'efforce d'assurer l'exactitude des informations diffusées mais ne saurait être tenue responsable d'éventuelles erreurs ou omissions."
+      }
     ]
   },
   "privacyPage": {
@@ -95,14 +116,34 @@
     "subtitle": "Comment nous collectons, utilisons et protégeons vos données personnelles.",
     "updated": "Dernière mise à jour : juin 2026",
     "sections": [
-      { "title": "Données collectées", "body": "Nous collectons les données que vous nous transmettez via nos formulaires de contact, de partenariat, de candidature et d'inscription à la newsletter (nom, email, téléphone, message)." },
-      { "title": "Utilisation des données", "body": "Vos données sont utilisées uniquement pour répondre à vos demandes, traiter votre candidature ou vous envoyer nos actualités si vous y avez consenti." },
-      { "title": "Conservation", "body": "Vos données sont conservées le temps nécessaire au traitement de votre demande, puis archivées ou supprimées conformément à la réglementation applicable." },
-      { "title": "Vos droits", "body": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous via la page Contact." },
-      { "title": "Cookies", "body": "Ce site utilise des cookies essentiels à son fonctionnement ainsi que des outils de mesure d'audience anonymisés." }
+      {
+        "title": "Données collectées",
+        "body": "Nous collectons les données que vous nous transmettez via nos formulaires de contact, de partenariat, de candidature et d'inscription à la newsletter (nom, email, téléphone, message)."
+      },
+      {
+        "title": "Utilisation des données",
+        "body": "Vos données sont utilisées uniquement pour répondre à vos demandes, traiter votre candidature ou vous envoyer nos actualités si vous y avez consenti."
+      },
+      {
+        "title": "Conservation",
+        "body": "Vos données sont conservées le temps nécessaire au traitement de votre demande, puis archivées ou supprimées conformément à la réglementation applicable."
+      },
+      {
+        "title": "Vos droits",
+        "body": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous via la page Contact."
+      },
+      {
+        "title": "Cookies",
+        "body": "Ce site utilise des cookies essentiels à son fonctionnement ainsi que des outils de mesure d'audience anonymisés."
+      }
     ]
   },
   "home": {
+    "emptyTitle": "Bientôt disponible",
+    "emptyProducts": "Nos produits seront bientôt présentés ici.",
+    "emptyNews": "Aucune actualité publiée pour le moment. Revenez bientôt !",
+    "emptyTestimonials": "Les témoignages de notre communauté arrivent bientôt.",
+    "emptyGallery": "Les médias de nos actions seront ajoutés ici prochainement.",
     "heroEyebrow": "Agro-transformation · RDC",
     "heroTitle": "Nourrir aujourd'hui, bâtir demain",
     "heroSubtitle": "Food For Life transforme les récoltes locales en farines infantiles enrichies, abordables et de qualité — pour lutter contre la malnutrition et soutenir les producteurs congolais.",
@@ -122,6 +163,7 @@
     "productsText": "Des farines enrichies, élaborées à partir d'ingrédients locaux et de standards de qualité élevés.",
     "partnersEyebrow": "Ils nous font confiance",
     "partnersTitle": "Nos partenaires",
+    "partnersTrust": "Ils nous soutiennent dans la lutte contre la malnutrition",
     "testimonialsEyebrow": "Témoignages",
     "testimonialsTitle": "Des vies transformées",
     "galleryEyebrow": "En images",
@@ -174,7 +216,9 @@
     "valueImpact": "Impact",
     "valueImpactText": "Mesurer et maximiser notre effet social sur le terrain.",
     "teamTitle": "Notre équipe",
-    "teamSubtitle": "Des femmes et des hommes engagés au service de la nutrition."
+    "teamSubtitle": "Des femmes et des hommes engagés au service de la nutrition.",
+    "teamEmptyTitle": "Équipe à venir",
+    "teamEmpty": "Les membres de notre équipe seront présentés ici très bientôt."
   },
   "products": {
     "title": "Nos produits",
@@ -184,7 +228,9 @@
     "audience": "Pour qui ?",
     "availability": "Disponibilité",
     "backToProducts": "Tous les produits",
-    "notFound": "Produit introuvable."
+    "notFound": "Produit introuvable.",
+    "emptyTitle": "Bientôt disponible",
+    "empty": "Nos produits seront présentés ici très prochainement. Revenez bientôt !"
   },
   "gallery": {
     "title": "Galerie",
@@ -195,11 +241,15 @@
     "evenements": "Événements",
     "equipe": "Équipe",
     "playVideo": "Lire la vidéo",
-    "close": "Fermer"
+    "close": "Fermer",
+    "emptyTitle": "Galerie en préparation",
+    "empty": "Les photos et vidéos de nos actions seront ajoutées ici prochainement."
   },
   "partners": {
     "title": "Nos partenaires",
     "subtitle": "Ensemble, nous amplifions notre impact sur la nutrition et l'agriculture en RDC.",
+    "emptyTitle": "Bientôt nos partenaires",
+    "empty": "Nous présenterons ici les organisations qui nous accompagnent.",
     "financier": "Financiers",
     "technique": "Techniques",
     "formation": "Formation",
@@ -217,9 +267,14 @@
     "evenement": "Événements",
     "presse": "Presse",
     "backToBlog": "Toutes les actualités",
+    "empty": "Aucune actualité pour le moment.",
     "notFound": "Article introuvable.",
     "publishedOn": "Publié le",
-    "related": "À lire également"
+    "related": "À lire également",
+    "searchPlaceholder": "Rechercher une actualité…",
+    "clear": "Effacer",
+    "resultsSingular": "résultat",
+    "resultsPlural": "résultats"
   },
   "contact": {
     "title": "Contactez-nous",
@@ -288,6 +343,70 @@
     "markRead": "Marquer comme lu",
     "markArchived": "Archiver",
     "markNew": "Marquer comme nouveau",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "saveError": "Échec de l'enregistrement",
+    "createTitle": "Créer",
+    "editTitle": "Modifier",
+    "draft": "Brouillon",
+    "published": "Publié",
+    "onePerLine": "Un élément par ligne",
+    "chooseFile": "Choisir un fichier",
+    "slug": "Slug",
+    "tagline": "Accroche",
+    "description": "Description",
+    "ingredients": "Ingrédients",
+    "benefits": "Bienfaits",
+    "audience": "Public cible",
+    "availability": "Disponibilité",
+    "gallery": "Galerie (URLs)",
+    "excerpt": "Extrait",
+    "body": "Contenu",
+    "cover": "Image de couverture",
+    "bio": "Biographie",
+    "photo": "Photo",
+    "linkedin": "LinkedIn",
+    "website": "Site web",
+    "logo": "Logo",
+    "quote": "Citation",
+    "authorName": "Nom de l'auteur",
+    "authorRole": "Rôle de l'auteur",
+    "caption": "Légende",
+    "mediaType": "Type de média",
+    "videoUrl": "URL vidéo",
+    "mapUrl": "URL de la carte",
+    "password": "Mot de passe",
+    "passwordEditHint": "Laisser vide pour ne pas changer",
+    "roleAdmin": "Administrateur",
+    "roleEditor": "Éditeur",
+    "lastLogin": "Dernière connexion",
+    "never": "Jamais",
+    "usersSubtitle": "Gérez les comptes administrateurs et éditeurs.",
+    "newCampaign": "Nouvelle campagne",
+    "campaigns": "Campagnes",
+    "subscribers": "Abonnés",
+    "subject": "Objet",
+    "internalTitle": "Titre interne",
+    "content": "Contenu",
+    "send": "Envoyer",
+    "recipients": "Destinataires",
+    "sentAt": "Envoyé le",
+    "sentCount": "Envoyés",
+    "campaignSent": "Campagne envoyée",
+    "noCampaigns": "Aucune campagne pour le moment.",
+    "campaignsSubtitle": "Composez et envoyez des newsletters, suivez les destinataires.",
+    "profile": "Profil",
+    "security": "Sécurité",
+    "avatar": "Photo de profil",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "profileUpdated": "Profil mis à jour",
+    "passwordChanged": "Mot de passe modifié",
+    "changePassword": "Changer le mot de passe",
+    "profileSubtitle": "Gérez vos informations et votre sécurité.",
     "dashboardSubtitle": "Vue d'ensemble du contenu et des demandes entrantes.",
     "statArticles": "Articles",
     "statProducts": "Produits",
@@ -295,6 +414,12 @@
     "statTeam": "Équipe",
     "statMessages": "Messages",
     "statSubscribers": "Abonnés",
+    "statCampaigns": "Campagnes",
+    "statUsers": "Utilisateurs",
+    "dashboardActivity": "Activité (6 derniers mois)",
+    "dashboardContent": "Répartition du contenu",
+    "dashboardMessageTypes": "Messages par type",
+    "recentCampaigns": "Campagnes récentes",
     "recentMessages": "Messages récents",
     "quickActions": "Accès rapides",
     "noMessages": "Aucun message pour le moment.",
@@ -363,7 +488,11 @@
     "gallery": "Galerie",
     "messages": "Messages",
     "newsletter": "Newsletter",
+    "subscribers": "Abonnés",
+    "campaigns": "Campagnes",
     "settings": "Réglages",
+    "users": "Utilisateurs",
+    "profile": "Mon profil",
     "backToSite": "Voir le site",
     "navigation": "Navigation"
   }

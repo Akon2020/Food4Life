@@ -3,9 +3,17 @@
 import { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslations } from "next-intl"
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, Handshake } from "lucide-react"
 
 import { getPartners } from "@/lib/api/content"
+import { deletePartner, createPartner, updatePartner } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
+import type { Partner } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -18,6 +26,7 @@ import {
 import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 const categories = [
   "all",
@@ -38,6 +47,31 @@ export function PartnersList() {
     queryFn: getPartners,
   })
 
+  const del = useRowDelete(deletePartner, ["partners"])
+
+  const form = useEntityForm<Partner>({
+    create: (v) => createPartner(v as Partial<Partner>),
+    update: (id, v) => updatePartner(id, v as Partial<Partner>),
+    queryKey: ["partners"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "name", label: t("name"), type: "text", required: true },
+    {
+      name: "category",
+      label: t("category"),
+      type: "select",
+      options: ["financier", "technique", "formation", "institutionnel"].map(
+        (c) => ({ value: c, label: tp(c) })
+      ),
+    },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "websiteUrl", label: t("website"), type: "text" },
+    { name: "descriptionFr", label: `${t("description")} (FR)`, type: "textarea" },
+    { name: "descriptionEn", label: `${t("description")} (EN)`, type: "textarea" },
+    { name: "logoUrl", label: t("logo"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((p) => {
@@ -48,11 +82,20 @@ export function PartnersList() {
       .sort((a, b) => a.order - b.order)
   }, [data, search, category])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statPartners"), value: all.length, icon: Handshake, accent: "green" as const },
+    { label: tp("institutionnel"), value: all.filter((p) => p.category === "institutionnel").length, icon: Handshake, accent: "blue" as const },
+    { label: tp("financier"), value: all.filter((p) => p.category === "financier").length, icon: Handshake, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar
         search={search}
         onSearch={setSearch}
+        onAdd={form.openCreate}
         filters={
           <FilterPills
             options={categories.map((c) => ({
@@ -102,7 +145,11 @@ export function PartnersList() {
                   <Td className="text-ink-muted">{tp(p.category)}</Td>
                   <Td className="text-ink-muted">{p.order}</Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onEdit={() => form.openEdit(p)}
+                      onDelete={() => del.mutate(p.id)}
+                      deleting={del.isPending && del.variables === p.id}
+                    />
                   </Td>
                 </Tr>
               ))
@@ -110,6 +157,16 @@ export function PartnersList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }

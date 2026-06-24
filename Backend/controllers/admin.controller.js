@@ -1,6 +1,7 @@
 // CRUD admin — protégé par JWT + rôles (voir admin.route.js).
 import slugify from "slugify";
-import { Op } from "sequelize";
+import { fn, col, literal, Op } from "sequelize";
+import { sanitizeHtml } from "../utils/sanitize.js";
 import {
   Article,
   Product,
@@ -11,6 +12,9 @@ import {
   ContactMessage,
   SiteSetting,
   Abonne,
+  Newsletter,
+  NewsletterAbonne,
+  Utilisateur,
 } from "../models/index.model.js";
 import {
   serializeArticle,
@@ -176,6 +180,9 @@ function pickArticle(body) {
   for (const key of ARTICLE_FIELDS) {
     if (body[key] !== undefined) data[key] = body[key];
   }
+  // Le corps est du HTML riche -> on le sanitise (défense en profondeur).
+  if (data.bodyFr !== undefined) data.bodyFr = sanitizeHtml(data.bodyFr);
+  if (data.bodyEn !== undefined) data.bodyEn = sanitizeHtml(data.bodyEn);
   return data;
 }
 
@@ -346,6 +353,34 @@ export const updateSettings = async (req, res, next) => {
 };
 
 // ---- Dashboard (KPIs) ----
+// Série mensuelle (6 derniers mois) du nombre de lignes d'un modèle.
+async function monthlySeries(Model, dateField) {
+  const start = new Date();
+  start.setMonth(start.getMonth() - 5);
+  start.setDate(1);
+  start.setHours(0, 0, 0, 0);
+
+  const rows = await Model.findAll({
+    attributes: [
+      [fn("DATE_FORMAT", col(dateField), "%Y-%m"), "month"],
+      [fn("COUNT", literal("*")), "count"],
+    ],
+    where: { [dateField]: { [Op.gte]: start } },
+    group: [literal("month")],
+    raw: true,
+  });
+
+  const map = Object.fromEntries(rows.map((r) => [r.month, Number(r.count)]));
+  const result = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date();
+    d.setMonth(d.getMonth() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    result.push({ month: key, count: map[key] ?? 0 });
+  }
+  return result;
+}
+
 export const getDashboard = async (req, res, next) => {
   try {
     const [
@@ -358,7 +393,16 @@ export const getDashboard = async (req, res, next) => {
       gallery,
       messages,
       newMessages,
+      readMessages,
+      archivedMessages,
+      contactMessages,
+      partnerMessages,
+      applicationMessages,
       subscribers,
+      confirmedSubscribers,
+      campaigns,
+      emailsSent,
+      users,
     ] = await Promise.all([
       Product.count(),
       Article.count(),
@@ -369,13 +413,25 @@ export const getDashboard = async (req, res, next) => {
       GalleryItem.count(),
       ContactMessage.count(),
       ContactMessage.count({ where: { status: "new" } }),
+      ContactMessage.count({ where: { status: "read" } }),
+      ContactMessage.count({ where: { status: "archived" } }),
+      ContactMessage.count({ where: { type: "contact" } }),
+      ContactMessage.count({ where: { type: "partenariat" } }),
+      ContactMessage.count({ where: { type: "candidature" } }),
       Abonne.count(),
+      Abonne.count({ where: { confirmed: true } }),
+      Newsletter.count(),
+      NewsletterAbonne.count({ where: { statut: "envoye" } }),
+      Utilisateur.count(),
     ]);
 
-    const recentMessages = await ContactMessage.findAll({
-      order: [["createdAt", "DESC"]],
-      limit: 5,
-    });
+    const [recentMessages, recentCampaigns, messagesSeries, subscribersSeries] =
+      await Promise.all([
+        ContactMessage.findAll({ order: [["createdAt", "DESC"]], limit: 5 }),
+        Newsletter.findAll({ order: [["createdAt", "DESC"]], limit: 5 }),
+        monthlySeries(ContactMessage, "createdAt"),
+        monthlySeries(Abonne, "dateAbonnement"),
+      ]);
 
     return res.status(200).json({
       counts: {
@@ -389,8 +445,41 @@ export const getDashboard = async (req, res, next) => {
         messages,
         newMessages,
         subscribers,
+        confirmedSubscribers,
+        campaigns,
+        emailsSent,
+        users,
       },
+      messagesByStatus: {
+        new: newMessages,
+        read: readMessages,
+        archived: archivedMessages,
+      },
+      messagesByType: {
+        contact: contactMessages,
+        partenariat: partnerMessages,
+        candidature: applicationMessages,
+      },
+      contentDistribution: {
+        products,
+        articles,
+        partners,
+        team,
+        testimonials,
+        gallery,
+      },
+      monthly: messagesSeries.map((m, i) => ({
+        month: m.month,
+        messages: m.count,
+        subscribers: subscribersSeries[i]?.count ?? 0,
+      })),
       recentMessages: recentMessages.map(serializeMessage),
+      recentCampaigns: recentCampaigns.map((n) => ({
+        id: n.idNewsletter,
+        subject: n.objetMail,
+        status: n.statut,
+        sentAt: n.dateEnvoi ? n.dateEnvoi.toISOString() : null,
+      })),
     });
   } catch (e) {
     next(e);

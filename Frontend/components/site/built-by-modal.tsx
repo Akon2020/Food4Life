@@ -119,7 +119,7 @@ export function BuiltByModal() {
 
                 <div className="mt-7 flex w-full flex-col gap-2.5 sm:flex-row">
                   <a
-                    href="https://github.com/isaac-akonkwa"
+                    href="https://isaacakonkwa.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-gold-500 px-5 py-2.5 text-sm font-semibold text-green-950 transition-colors hover:bg-gold-400"
@@ -128,7 +128,7 @@ export function BuiltByModal() {
                     <ArrowUpRight className="size-4" />
                   </a>
                   <a
-                    href="mailto:isaac@example.com"
+                    href="mailto:akonkwaushindi@gmail.com.com"
                     className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-white/10"
                   >
                     <Mail className="size-4" />

@@ -7,6 +7,28 @@
 
 ---
 
+## ✅ Avancement (mis à jour)
+
+| Goal | État |
+|---|---|
+| G1 — Backend démarre | ✅ fait & vérifié |
+| G2 — Modèles UUID bilingues | ✅ fait & vérifié |
+| G3 — Endpoints publics + formulaires | ✅ fait & vérifié |
+| G4 — Auth réelle | ✅ fait & vérifié |
+| G5 — Interconnexion + seed | ✅ API/CORS vérifiés · ⚠️ rendu navigateur bloqué (SWC) |
+| G6 — CRUD admin | ✅ backend vérifié · 🔵 front : API + suppression + **formulaires create/edit (6b)** |
+| G7 — Uploads | ✅ backend vérifié · 🔵 front : helper + composant d'upload (dialog) |
+| G8 — Emails/settings/seed | ✅ accusés, bienvenue, **notif admin**, settings éditables, seed |
+| G9 — Sécurité (rate-limit, validation, honeypot, uploads durcis) | ✅ fait & vérifié |
+| G10 — UI/UX | ✅ toasts, skeletons, états vides, confirmations, dashboard 1-requête typé · 🔵 polish navigateur |
+| G11 — Tests/docs/déploiement | ✅ README, 15 tests unitaires (vérifiés), CI GitHub Actions |
+| G12 — Responsive | ✅ admin (drawer mobile) + public (header burger) · 🔵 à valider navigateur |
+
+> Légende : ✅ fait/vérifié · 🔵 code-complete, validation navigateur en attente (SWC bloque `next dev` ici).
+> Reste hors code : whitelister SWC pour lancer le front, configurer SMTP/SPF/DKIM, déployer cPanel.
+
+---
+
 ## 0. Décisions verrouillées (ne plus rediscuter)
 
 Ces choix sont actés et conditionnent tous les goals ci-dessous :

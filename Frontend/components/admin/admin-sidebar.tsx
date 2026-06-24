@@ -14,10 +14,13 @@ import {
   Images,
   Inbox,
   Mail,
+  Send,
   Settings,
+  UserCog,
   LogOut,
   ChevronLeft,
   ExternalLink,
+  X,
 } from "lucide-react"
 
 import { Link } from "@/i18n/navigation"
@@ -33,11 +36,19 @@ const items = [
   { key: "testimonials", href: "/admin/temoignages", icon: Quote },
   { key: "gallery", href: "/admin/galerie", icon: Images },
   { key: "messages", href: "/admin/messages", icon: Inbox },
-  { key: "newsletter", href: "/admin/newsletter", icon: Mail },
+  { key: "subscribers", href: "/admin/newsletter", icon: Mail },
+  { key: "campaigns", href: "/admin/campagnes", icon: Send },
+  { key: "users", href: "/admin/utilisateurs", icon: UserCog },
   { key: "settings", href: "/admin/parametres", icon: Settings },
 ] as const
 
-export function AdminSidebar() {
+export function AdminSidebar({
+  mobileOpen = false,
+  onClose,
+}: {
+  mobileOpen?: boolean
+  onClose?: () => void
+} = {}) {
   const t = useTranslations("admin")
   const locale = useLocale()
   const pathname = usePathname()
@@ -69,8 +80,11 @@ export function AdminSidebar() {
   return (
     <aside
       className={cn(
-        "sticky top-0 flex h-screen flex-col bg-[#14422A] text-cream transition-all duration-300",
-        collapsed ? "w-[76px]" : "w-64"
+        // Mobile : drawer off-canvas (fixed, glissant). Desktop (md+) : colonne sticky.
+        "fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col bg-[#14422A] text-cream transition-transform duration-300",
+        "md:sticky md:top-0 md:z-auto md:translate-x-0",
+        mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
+        collapsed ? "md:w-[76px]" : "md:w-64"
       )}
     >
       <div className="flex items-center justify-between gap-2 px-4 py-5">
@@ -83,11 +97,21 @@ export function AdminSidebar() {
             className="h-9 w-auto"
           />
         ) : null}
+        {/* Fermer (mobile) */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close sidebar"
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-cream/70 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+        >
+          <X className="size-4" />
+        </button>
+        {/* Replier (desktop seulement) */}
         <button
           type="button"
           onClick={() => setCollapsed((c) => !c)}
           aria-label="Toggle sidebar"
-          className="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-cream/70 transition-colors hover:bg-white/10 hover:text-white"
+          className="hidden size-8 shrink-0 items-center justify-center rounded-md text-cream/70 transition-colors hover:bg-white/10 hover:text-white md:inline-flex"
         >
           <ChevronLeft className={cn("size-4 transition-transform", collapsed && "rotate-180")} />
         </button>
@@ -97,11 +121,15 @@ export function AdminSidebar() {
         <ul className="grid gap-1">
           {items.map((item) => {
             const Icon = item.icon
-            const active = isActive(item.href, item.exact)
+            const active = isActive(
+              item.href,
+              "exact" in item ? item.exact : undefined
+            )
             return (
               <li key={item.key}>
                 <Link
                   href={item.href}
+                  onClick={onClose}
                   title={collapsed ? t(item.key) : undefined}
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
@@ -134,10 +162,14 @@ export function AdminSidebar() {
         </a>
 
         {!collapsed && user ? (
-          <div className="mb-2 rounded-lg bg-white/5 px-3 py-2">
+          <Link
+            href="/admin/profil"
+            onClick={onClose}
+            className="mb-2 block rounded-lg bg-white/5 px-3 py-2 transition-colors hover:bg-white/10"
+          >
             <p className="truncate text-sm font-semibold capitalize text-white">{user.name}</p>
             <p className="truncate text-xs text-cream/60">{user.email}</p>
-          </div>
+          </Link>
         ) : null}
 
         <button

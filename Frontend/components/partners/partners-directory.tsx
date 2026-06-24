@@ -1,8 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Handshake } from "lucide-react"
 import { motion } from "framer-motion"
 
 import type { Locale, PartnerCategory } from "@/lib/types"
@@ -10,6 +11,7 @@ import { getPartners } from "@/lib/api/content"
 import { pick } from "@/lib/i18n-field"
 import { Link } from "@/i18n/navigation"
 import { StaggerGroup, fadeUp } from "@/components/motion/reveal"
+import { EmptyState } from "@/components/site/empty-state"
 
 const ORDER: PartnerCategory[] = [
   "financier",
@@ -21,12 +23,15 @@ const ORDER: PartnerCategory[] = [
 export function PartnersDirectory() {
   const t = useTranslations("partners")
   const locale = useLocale() as Locale
-  const { data } = useQuery({ queryKey: ["partners"], queryFn: getPartners })
+  const { data, isLoading } = useQuery({ queryKey: ["partners"], queryFn: getPartners })
   const partners = data ?? []
 
   return (
     <section className="bg-background py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4">
+        {!isLoading && partners.length === 0 ? (
+          <EmptyState icon={Handshake} title={t("emptyTitle")} message={t("empty")} />
+        ) : null}
         {ORDER.map((category) => {
           const group = partners.filter((p) => p.category === category)
           if (group.length === 0) return null
@@ -44,9 +49,19 @@ export function PartnersDirectory() {
                     className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="flex h-16 items-center">
-                      <span className="font-heading text-xl font-bold text-foreground">
-                        {partner.name}
-                      </span>
+                      {partner.logoUrl ? (
+                        <Image
+                          src={partner.logoUrl}
+                          alt={partner.name}
+                          width={160}
+                          height={56}
+                          className="max-h-14 w-auto max-w-[70%] object-contain"
+                        />
+                      ) : (
+                        <span className="font-heading text-xl font-bold text-foreground">
+                          {partner.name}
+                        </span>
+                      )}
                     </div>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                       {pick(partner, "description", locale)}

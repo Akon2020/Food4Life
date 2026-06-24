@@ -4,14 +4,16 @@ import { NODE_ENV } from "./env.js";
 export const SESSION_COOKIE = "ffl_admin_session";
 
 // Options du cookie de session JWT.
-// secure uniquement en prod (sinon le navigateur refuse le cookie sur http://localhost).
-// sameSite "lax" : suffisant car front et API sont "same-site" (localhost en dev,
-// *.foodforlife.cd en prod). En prod, ajouter `domain: ".foodforlife.cd"` pour le
-// partager entre le site et l'API (voir README déploiement).
+// - secure uniquement en prod (le navigateur refuse un cookie Secure sur http://localhost).
+// - En prod : sameSite "none" pour que le cookie httpOnly de l'API soit envoyé sur les
+//   requêtes cross-site (ex. front foodforlifedrc.org ou localhost -> api.foodforlifedrc.org).
+//   "none" exige Secure (OK en prod, HTTPS). En dev (localhost, http) on garde "lax".
+const isProd = NODE_ENV === "production";
+
 export const sessionCookieOptions = {
   httpOnly: true,
-  secure: NODE_ENV === "production",
-  sameSite: "lax",
+  secure: isProd,
+  sameSite: isProd ? "none" : "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
   path: "/",
 };

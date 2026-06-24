@@ -51,14 +51,15 @@
     "notFoundText": "The page you are looking for doesn't exist or has been moved.",
     "errorTitle": "Something went wrong",
     "errorText": "An error occurred. You can try again.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "popularPages": "Popular pages"
   },
   "builtBy": {
     "trigger": "Built by Isaac Akonkwa",
     "eyebrow": "Design & development",
     "name": "Isaac Akonkwa",
     "role": "Software engineer & product designer",
-    "bio": "This website was imagined, designed and built with great care — balancing performance, elegance and a premium user experience.",
+    "bio": "This website was designed and built with great care balancing performance, elegance and a fluid user experience.",
     "stackLabel": "Built with",
     "cta": "View portfolio",
     "contact": "Get in touch",
@@ -71,9 +72,18 @@
     "introText": "At Food For Life, every talent contributes to a tangible mission: feeding Congolese families and supporting local farmers. We look for committed, creative and rigorous people.",
     "whyTitle": "Why join us",
     "perks": [
-      { "title": "Meaningful mission", "text": "Your work has a direct impact on the health and economy of communities." },
-      { "title": "Growth & learning", "text": "Grow within a fast-expanding company with real responsibilities." },
-      { "title": "Caring team", "text": "A collaborative, inclusive environment focused on excellence." }
+      {
+        "title": "Meaningful mission",
+        "text": "Your work has a direct impact on the health and economy of communities."
+      },
+      {
+        "title": "Growth & learning",
+        "text": "Grow within a fast-expanding company with real responsibilities."
+      },
+      {
+        "title": "Caring team",
+        "text": "A collaborative, inclusive environment focused on excellence."
+      }
     ],
     "formTitle": "Submit your application",
     "formText": "Fill in the form below and attach your CV. We'll get back to you shortly."
@@ -83,11 +93,22 @@
     "subtitle": "Legal information about the website and the company.",
     "updated": "Last updated: June 2026",
     "sections": [
-      { "title": "Site publisher", "body": "This website is published by AFRICA-SUN SERVICES SARL (Food For Life), a social agri-processing enterprise registered in the Democratic Republic of Congo, headquartered in Bukavu, South Kivu." },
-      { "title": "Publication director", "body": "The publication director is the company's legal representative." },
-      { "title": "Hosting", "body": "The website is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, United States." },
-      { "title": "Intellectual property", "body": "All content on this website (text, images, logos, videos) is protected by intellectual property law. Any reproduction without prior authorization is prohibited." },
-      { "title": "Liability", "body": "Food For Life strives to ensure the accuracy of the information published but cannot be held liable for any errors or omissions." }
+      {
+        "title": "Site publisher",
+        "body": "This website is published by FOOD FOR LIFE , a social agri-processing enterprise registered in the Democratic Republic of Congo, headquartered in Bukavu, South Kivu."
+      },
+      {
+        "title": "Publication director",
+        "body": "The publication director is the company's legal representative."
+      },
+      {
+        "title": "Intellectual property",
+        "body": "All content on this website (text, images, logos, videos) is protected by intellectual property law. Any reproduction without prior authorization is prohibited."
+      },
+      {
+        "title": "Liability",
+        "body": "Food For Life strives to ensure the accuracy of the information published but cannot be held liable for any errors or omissions."
+      }
     ]
   },
   "privacyPage": {
@@ -95,14 +116,34 @@
     "subtitle": "How we collect, use and protect your personal data.",
     "updated": "Last updated: June 2026",
     "sections": [
-      { "title": "Data we collect", "body": "We collect the data you submit through our contact, partnership, application and newsletter forms (name, email, phone, message)." },
-      { "title": "Use of data", "body": "Your data is used solely to respond to your requests, process your application, or send you our news if you have consented." },
-      { "title": "Retention", "body": "Your data is kept for as long as needed to process your request, then archived or deleted in accordance with applicable regulations." },
-      { "title": "Your rights", "body": "You have the right to access, rectify and delete your data. To exercise it, contact us via the Contact page." },
-      { "title": "Cookies", "body": "This website uses cookies essential to its operation as well as anonymized audience-measurement tools." }
+      {
+        "title": "Data we collect",
+        "body": "We collect the data you submit through our contact, partnership, application and newsletter forms (name, email, phone, message)."
+      },
+      {
+        "title": "Use of data",
+        "body": "Your data is used solely to respond to your requests, process your application, or send you our news if you have consented."
+      },
+      {
+        "title": "Retention",
+        "body": "Your data is kept for as long as needed to process your request, then archived or deleted in accordance with applicable regulations."
+      },
+      {
+        "title": "Your rights",
+        "body": "You have the right to access, rectify and delete your data. To exercise it, contact us via the Contact page."
+      },
+      {
+        "title": "Cookies",
+        "body": "This website uses cookies essential to its operation as well as anonymized audience-measurement tools."
+      }
     ]
   },
   "home": {
+    "emptyTitle": "Coming soon",
+    "emptyProducts": "Our products will be showcased here soon.",
+    "emptyNews": "No news published yet. Check back soon!",
+    "emptyTestimonials": "Testimonials from our community are coming soon.",
+    "emptyGallery": "Media from our work will be added here soon.",
     "heroEyebrow": "Agro-processing · DRC",
     "heroTitle": "Nourishing today, building tomorrow",
     "heroSubtitle": "Food For Life turns local harvests into fortified, affordable, high-quality infant flours — fighting malnutrition while supporting Congolese farmers.",
@@ -122,6 +163,7 @@
     "productsText": "Fortified flours made from local ingredients to the highest quality standards.",
     "partnersEyebrow": "They trust us",
     "partnersTitle": "Our partners",
+    "partnersTrust": "They support us in the fight against malnutrition",
     "testimonialsEyebrow": "Testimonials",
     "testimonialsTitle": "Lives transformed",
     "galleryEyebrow": "In pictures",
@@ -174,7 +216,9 @@
     "valueImpact": "Impact",
     "valueImpactText": "Measuring and maximizing our social effect on the ground.",
     "teamTitle": "Our team",
-    "teamSubtitle": "Committed women and men in the service of nutrition."
+    "teamSubtitle": "Committed women and men in the service of nutrition.",
+    "teamEmptyTitle": "Team coming soon",
+    "teamEmpty": "Our team members will be introduced here very soon."
   },
   "products": {
     "title": "Our products",
@@ -184,7 +228,9 @@
     "audience": "Who is it for?",
     "availability": "Availability",
     "backToProducts": "All products",
-    "notFound": "Product not found."
+    "notFound": "Product not found.",
+    "emptyTitle": "Coming soon",
+    "empty": "Our products will be showcased here very soon. Check back shortly!"
   },
   "gallery": {
     "title": "Gallery",
@@ -195,11 +241,15 @@
     "evenements": "Events",
     "equipe": "Team",
     "playVideo": "Play video",
-    "close": "Close"
+    "close": "Close",
+    "emptyTitle": "Gallery in progress",
+    "empty": "Photos and videos of our work will be added here soon."
   },
   "partners": {
     "title": "Our partners",
     "subtitle": "Together we amplify our impact on nutrition and agriculture in the DRC.",
+    "emptyTitle": "Partners coming soon",
+    "empty": "We will showcase here the organizations that support us.",
     "financier": "Financial",
     "technique": "Technical",
     "formation": "Training",
@@ -217,9 +267,14 @@
     "evenement": "Events",
     "presse": "Press",
     "backToBlog": "All news",
+    "empty": "No news yet.",
     "notFound": "Article not found.",
     "publishedOn": "Published on",
-    "related": "You may also like"
+    "related": "You may also like",
+    "searchPlaceholder": "Search news…",
+    "clear": "Clear",
+    "resultsSingular": "result",
+    "resultsPlural": "results"
   },
   "contact": {
     "title": "Contact us",
@@ -288,6 +343,70 @@
     "markRead": "Mark as read",
     "markArchived": "Archive",
     "markNew": "Mark as new",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saved": "Saved",
+    "saveError": "Save failed",
+    "createTitle": "Create",
+    "editTitle": "Edit",
+    "draft": "Draft",
+    "published": "Published",
+    "onePerLine": "One item per line",
+    "chooseFile": "Choose a file",
+    "slug": "Slug",
+    "tagline": "Tagline",
+    "description": "Description",
+    "ingredients": "Ingredients",
+    "benefits": "Benefits",
+    "audience": "Target audience",
+    "availability": "Availability",
+    "gallery": "Gallery (URLs)",
+    "excerpt": "Excerpt",
+    "body": "Content",
+    "cover": "Cover image",
+    "bio": "Biography",
+    "photo": "Photo",
+    "linkedin": "LinkedIn",
+    "website": "Website",
+    "logo": "Logo",
+    "quote": "Quote",
+    "authorName": "Author name",
+    "authorRole": "Author role",
+    "caption": "Caption",
+    "mediaType": "Media type",
+    "videoUrl": "Video URL",
+    "mapUrl": "Map URL",
+    "password": "Password",
+    "passwordEditHint": "Leave blank to keep unchanged",
+    "roleAdmin": "Administrator",
+    "roleEditor": "Editor",
+    "lastLogin": "Last login",
+    "never": "Never",
+    "usersSubtitle": "Manage administrator and editor accounts.",
+    "newCampaign": "New campaign",
+    "campaigns": "Campaigns",
+    "subscribers": "Subscribers",
+    "subject": "Subject",
+    "internalTitle": "Internal title",
+    "content": "Content",
+    "send": "Send",
+    "recipients": "Recipients",
+    "sentAt": "Sent on",
+    "sentCount": "Sent",
+    "campaignSent": "Campaign sent",
+    "noCampaigns": "No campaigns yet.",
+    "campaignsSubtitle": "Compose and send newsletters, track recipients.",
+    "profile": "Profile",
+    "security": "Security",
+    "avatar": "Profile photo",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordMismatch": "Passwords do not match",
+    "profileUpdated": "Profile updated",
+    "passwordChanged": "Password changed",
+    "changePassword": "Change password",
+    "profileSubtitle": "Manage your information and security.",
     "dashboardSubtitle": "Overview of content and incoming requests.",
     "statArticles": "Articles",
     "statProducts": "Products",
@@ -295,6 +414,12 @@
     "statTeam": "Team",
     "statMessages": "Messages",
     "statSubscribers": "Subscribers",
+    "statCampaigns": "Campaigns",
+    "statUsers": "Users",
+    "dashboardActivity": "Activity (last 6 months)",
+    "dashboardContent": "Content breakdown",
+    "dashboardMessageTypes": "Messages by type",
+    "recentCampaigns": "Recent campaigns",
     "recentMessages": "Recent messages",
     "quickActions": "Quick actions",
     "noMessages": "No messages yet.",
@@ -363,7 +488,11 @@
     "gallery": "Gallery",
     "messages": "Messages",
     "newsletter": "Newsletter",
+    "subscribers": "Subscribers",
+    "campaigns": "Campaigns",
     "settings": "Settings",
+    "users": "Users",
+    "profile": "My profile",
     "backToSite": "View site",
     "navigation": "Navigation"
   }

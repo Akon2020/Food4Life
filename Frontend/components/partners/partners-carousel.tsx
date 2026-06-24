@@ -1,13 +1,25 @@
 "use client"
 
+import Image from "next/image"
+
 import type { Partner } from "@/lib/types"
 
 function PartnerTile({ partner }: { partner: Partner }) {
   return (
     <div className="flex h-20 w-44 shrink-0 items-center justify-center rounded-xl border border-cream-200 bg-paper px-4 grayscale transition-all duration-300 hover:grayscale-0">
-      <span className="text-center font-heading text-base font-bold leading-tight text-ink-muted transition-colors hover:text-green-700">
-        {partner.name}
-      </span>
+      {partner.logoUrl ? (
+        <Image
+          src={partner.logoUrl}
+          alt={partner.name}
+          width={140}
+          height={48}
+          className="max-h-12 w-auto max-w-[85%] object-contain"
+        />
+      ) : (
+        <span className="text-center font-heading text-base font-bold leading-tight text-ink-muted transition-colors hover:text-green-700">
+          {partner.name}
+        </span>
+      )}
     </div>
   )
 }

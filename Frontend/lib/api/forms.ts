@@ -50,3 +50,10 @@ export function subscribeNewsletter(
     id: fakeId(),
   }))
 }
+
+export function unsubscribeNewsletter(email: string): Promise<SubmitResult> {
+  return apiSend("/newsletter/unsubscribe", { email }, () => ({
+    ok: true,
+    id: fakeId(),
+  }))
+}

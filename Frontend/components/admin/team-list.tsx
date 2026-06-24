@@ -6,8 +6,19 @@ import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
 import { getTeam } from "@/lib/api/content"
+import {
+  deleteTeamMember,
+  createTeamMember,
+  updateTeamMember,
+} from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
+import {
+  AdminFormDialog,
+  type FieldDef,
+} from "@/components/admin/admin-form-dialog"
+import { useEntityForm } from "@/components/admin/use-entity-form"
 import { pick } from "@/lib/i18n-field"
-import type { Locale } from "@/lib/types"
+import type { Locale, TeamMember } from "@/lib/types"
 import {
   TableCard,
   Thead,
@@ -17,9 +28,11 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Users } from "lucide-react"
 import { AdminToolbar } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 export function TeamList() {
   const t = useTranslations("adminUI")
@@ -31,15 +44,39 @@ export function TeamList() {
     queryFn: getTeam,
   })
 
+  const del = useRowDelete(deleteTeamMember, ["team"])
+
+  const form = useEntityForm<TeamMember>({
+    create: (v) => createTeamMember(v as Partial<TeamMember>),
+    update: (id, v) => updateTeamMember(id, v as Partial<TeamMember>),
+    queryKey: ["team"],
+  })
+
+  const fields: FieldDef[] = [
+    { name: "name", label: t("name"), type: "text", required: true },
+    { name: "roleFr", label: `${t("role")} (FR)`, type: "text" },
+    { name: "roleEn", label: `${t("role")} (EN)`, type: "text" },
+    { name: "bioFr", label: `${t("bio")} (FR)`, type: "textarea" },
+    { name: "bioEn", label: `${t("bio")} (EN)`, type: "textarea" },
+    { name: "linkedinUrl", label: t("linkedin"), type: "text" },
+    { name: "order", label: t("order"), type: "number" },
+    { name: "photoUrl", label: t("photo"), type: "image" },
+  ]
+
   const rows = useMemo(() => {
     return (data ?? [])
       .filter((m) => m.name.toLowerCase().includes(search.toLowerCase()))
       .sort((a, b) => a.order - b.order)
   }, [data, search])
 
+  const stats = [
+    { label: t("statTeam"), value: (data ?? []).length, icon: Users, accent: "green" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
-      <AdminToolbar search={search} onSearch={setSearch} />
+    <div className="grid gap-6">
+      <ListStats items={stats} />
+      <AdminToolbar search={search} onSearch={setSearch} onAdd={form.openCreate} />
 
       {isLoading ? (
         <TableSkeleton columns={3} />
@@ -76,7 +113,11 @@ export function TeamList() {
                   <Td className="text-ink-muted">{pick(m, "role", locale)}</Td>
                   <Td className="text-ink-muted">{m.order}</Td>
                   <Td>
-                    <RowActions />
+                    <RowActions
+                      onEdit={() => form.openEdit(m)}
+                      onDelete={() => del.mutate(m.id)}
+                      deleting={del.isPending && del.variables === m.id}
+                    />
                   </Td>
                 </Tr>
               ))
@@ -84,6 +125,16 @@ export function TeamList() {
           </Tbody>
         </TableCard>
       )}
+
+      <AdminFormDialog
+        open={form.open}
+        onOpenChange={form.setOpen}
+        title={form.editing ? t("editTitle") : t("createTitle")}
+        fields={fields}
+        initial={form.editing as Record<string, unknown> | null}
+        onSubmit={form.submit}
+        submitting={form.submitting}
+      />
     </div>
   )
 }

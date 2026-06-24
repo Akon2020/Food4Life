@@ -4,7 +4,9 @@ import { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useLocale, useTranslations } from "next-intl"
 
-import { getAdminArticles } from "@/lib/api/admin"
+import { getAdminArticles, deleteArticle } from "@/lib/api/admin"
+import { useRowDelete } from "@/components/admin/use-row-delete"
+import { useRouter } from "@/i18n/navigation"
 import { pick } from "@/lib/i18n-field"
 import { formatDate } from "@/lib/format"
 import type { Locale } from "@/lib/types"
@@ -17,10 +19,12 @@ import {
   Td,
   EmptyRow,
 } from "@/components/admin/admin-table"
+import { Newspaper, CheckCircle2, FileEdit } from "lucide-react"
 import { StatusBadge, statusTone } from "@/components/admin/status-badge"
 import { AdminToolbar, FilterPills } from "@/components/admin/admin-toolbar"
 import { RowActions } from "@/components/admin/row-actions"
 import { TableSkeleton } from "@/components/admin/table-skeleton"
+import { ListStats } from "@/components/admin/list-stats"
 
 const categories = ["all", "impact", "evenement", "presse"] as const
 
@@ -36,6 +40,9 @@ export function ArticlesList() {
     queryFn: getAdminArticles,
   })
 
+  const del = useRowDelete(deleteArticle, ["admin", "articles"])
+  const router = useRouter()
+
   const rows = useMemo(() => {
     return (data ?? []).filter((a) => {
       const title = pick(a, "title", locale).toLowerCase()
@@ -45,11 +52,20 @@ export function ArticlesList() {
     })
   }, [data, search, category, locale])
 
+  const all = data ?? []
+  const stats = [
+    { label: t("statArticles"), value: all.length, icon: Newspaper, accent: "green" as const },
+    { label: t("published"), value: all.filter((a) => a.status === "published").length, icon: CheckCircle2, accent: "blue" as const },
+    { label: t("draft"), value: all.filter((a) => a.status === "draft").length, icon: FileEdit, accent: "gold" as const },
+  ]
+
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
+      <ListStats items={stats} />
       <AdminToolbar
         search={search}
         onSearch={setSearch}
+        onAdd={() => router.push("/admin/actualites/nouveau")}
         filters={
           <FilterPills
             options={categories.map((c) => ({
@@ -93,7 +109,12 @@ export function ArticlesList() {
                     {a.publishedAt ? formatDate(a.publishedAt, locale) : "—"}
                   </Td>
                   <Td>
-                    <RowActions viewHref={`/actualites/${a.slug}`} />
+                    <RowActions
+                      viewHref={`/actualites/${a.slug}`}
+                      onEdit={() => router.push(`/admin/actualites/${a.id}`)}
+                      onDelete={() => del.mutate(a.id)}
+                      deleting={del.isPending && del.variables === a.id}
+                    />
                   </Td>
                 </Tr>
               ))

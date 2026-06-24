@@ -3,6 +3,21 @@ import {
   authenticationJWT,
   authorizeRoles,
 } from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
+import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
+import { uploadFile } from "../controllers/upload.controller.js";
+import {
+  listCampaigns,
+  getCampaign,
+  createCampaign,
+  deleteCampaign,
+} from "../controllers/campaign.controller.js";
+import {
+  listUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/adminUser.controller.js";
 import {
   productsCrud,
   partnersCrud,
@@ -45,6 +60,15 @@ function mountCrud(path, crud, guard) {
 // Dashboard
 adminRouter.get("/dashboard", adminOnly, getDashboard);
 
+// Upload d'image (admin + editeur) -> { url, path }
+adminRouter.post(
+  "/uploads",
+  editors,
+  upload.single("image"),
+  normalizeUploadPaths,
+  uploadFile,
+);
+
 // Contenus éditoriaux (admin + editeur)
 adminRouter.get("/articles", editors, listAdminArticles);
 adminRouter.get("/articles/:id", editors, getAdminArticle);
@@ -68,6 +92,18 @@ adminRouter.delete("/messages/:id", adminOnly, deleteMessage);
 // Abonnés newsletter
 adminRouter.get("/subscribers", adminOnly, listSubscribers);
 adminRouter.delete("/subscribers/:id", adminOnly, deleteSubscriber);
+
+// Campagnes newsletter (composition, envoi, suivi des destinataires)
+adminRouter.get("/newsletters", adminOnly, listCampaigns);
+adminRouter.get("/newsletters/:id", adminOnly, getCampaign);
+adminRouter.post("/newsletters", adminOnly, createCampaign);
+adminRouter.delete("/newsletters/:id", adminOnly, deleteCampaign);
+
+// Gestion des utilisateurs
+adminRouter.get("/users", adminOnly, listUsers);
+adminRouter.post("/users", adminOnly, createUser);
+adminRouter.put("/users/:id", adminOnly, updateUser);
+adminRouter.delete("/users/:id", adminOnly, deleteUser);
 
 // Paramètres du site
 adminRouter.get("/settings", adminOnly, getAdminSettings);

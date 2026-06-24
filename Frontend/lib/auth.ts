@@ -14,7 +14,9 @@
 export const AUTH_COOKIE = "ffl_admin_session"
 const ADMIN_USER_KEY = "ffl_admin_user"
 
-const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false"
+const USE_MOCKS =
+  process.env.NODE_ENV !== "production" &&
+  process.env.NEXT_PUBLIC_USE_MOCKS === "true"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
 
 export type AdminUser = {
@@ -76,6 +78,12 @@ export async function login(email: string, password: string): Promise<AdminUser>
     role: info.role,
   }
   cacheUser(user)
+  // Cookie-marqueur sur le domaine du FRONTEND : c'est lui que le proxy Next lit
+  // pour ouvrir /admin/*. Le vrai JWT reste httpOnly sur le domaine de l'API
+  // (envoyé sur les requêtes via credentials:"include"). Indispensable quand le
+  // front et l'API sont sur des domaines différents (le cookie httpOnly de l'API
+  // n'est jamais visible côté front).
+  setCookie(AUTH_COOKIE, "1")
   return user
 }
 
@@ -89,12 +97,16 @@ export async function logout() {
     } catch {
       /* ignore network errors on logout */
     }
-  } else {
-    deleteCookie(AUTH_COOKIE)
   }
+  // Toujours retirer le cookie-marqueur côté frontend (mock comme réel).
+  deleteCookie(AUTH_COOKIE)
   if (typeof window !== "undefined") {
     window.localStorage.removeItem(ADMIN_USER_KEY)
   }
+}
+
+export function setStoredUser(user: AdminUser) {
+  cacheUser(user)
 }
 
 export function getCurrentUser(): AdminUser | null {

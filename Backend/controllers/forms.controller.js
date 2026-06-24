@@ -1,7 +1,7 @@
 // Soumissions publiques (formulaires) — réponses { ok: true, id }.
 import { ContactMessage, Abonne } from "../models/index.model.js";
 import transporter from "../config/nodemailer.js";
-import { EMAIL, FRONT_URL } from "../config/env.js";
+import { EMAIL, FRONT_URL, HOST_URL, CONTACT_EMAIL } from "../config/env.js";
 import { valideEmail } from "../middlewares/email.middleware.js";
 import {
   confirmationReceptionEmailTemplate,
@@ -24,6 +24,10 @@ async function sendMailSafe(mailOptions) {
 // POST /messages -> persiste un message (contact|partenariat|candidature)
 export const createMessage = async (req, res, next) => {
   try {
+    // Honeypot anti-spam : champ caché `_hp`. Rempli => bot, on ignore silencieusement.
+    if (req.body._hp) {
+      return res.status(201).json({ ok: true, id: "ignored" });
+    }
     const {
       type = "contact",
       name,
@@ -48,6 +52,11 @@ export const createMessage = async (req, res, next) => {
     }
     const finalType = MESSAGE_TYPES.includes(type) ? type : "contact";
 
+    // CV uploadé (candidature) -> URL absolue ; sinon cvUrl/cvFileName du body
+    const uploadedCvUrl = req.file
+      ? `${HOST_URL}/${req.file.path.replace(/\\/g, "/")}`
+      : null;
+
     const record = await ContactMessage.create({
       type: finalType,
       name,
@@ -58,8 +67,8 @@ export const createMessage = async (req, res, next) => {
       position: position ?? null,
       subject: subject ?? null,
       message,
-      // cvUrl peut venir d'un upload (Goal 7) ; cvFileName en mode mock
-      cvUrl: cvUrl ?? (cvFileName ? cvFileName : null),
+      // Priorité au fichier uploadé, sinon cvUrl, sinon cvFileName (mode mock)
+      cvUrl: uploadedCvUrl ?? cvUrl ?? (cvFileName ? cvFileName : null),
       status: "new",
     });
 
@@ -75,6 +84,29 @@ export const createMessage = async (req, res, next) => {
       ),
     });
 
+    // Notification interne à l'équipe (best-effort, non bloquant)
+    const adminRecipient = CONTACT_EMAIL || EMAIL;
+    if (adminRecipient) {
+      void sendMailSafe({
+        from: `"Food For Life" <${EMAIL}>`,
+        to: adminRecipient,
+        replyTo: email,
+        subject: `[${finalType}] Nouveau message de ${name}`,
+        html: `
+          <h2>Nouveau message (${finalType})</h2>
+          <p><strong>Nom :</strong> ${name}</p>
+          <p><strong>Email :</strong> ${email}</p>
+          ${phone ? `<p><strong>Téléphone :</strong> ${phone}</p>` : ""}
+          ${organization ? `<p><strong>Organisation :</strong> ${organization}</p>` : ""}
+          ${partnershipType ? `<p><strong>Type de partenariat :</strong> ${partnershipType}</p>` : ""}
+          ${position ? `<p><strong>Poste :</strong> ${position}</p>` : ""}
+          ${subject ? `<p><strong>Objet :</strong> ${subject}</p>` : ""}
+          <p><strong>Message :</strong></p>
+          <p>${String(message).replace(/\n/g, "<br/>")}</p>
+        `,
+      });
+    }
+
     return res.status(201).json({ ok: true, id: record.id });
   } catch (error) {
     next(error);
@@ -84,7 +116,8 @@ export const createMessage = async (req, res, next) => {
 // POST /newsletter/subscribe -> inscription simple (confirmed=true) + bienvenue
 export const subscribeNewsletter = async (req, res, next) => {
   try {
-    const { email, locale = "fr" } = req.body;
+    const { email, locale = "fr", name, nomComplet } = req.body;
+    const fullName = (nomComplet || name || "").trim() || null;
 
     if (!email || !valideEmail(email)) {
       return res.status(400).json({ message: "Adresse email invalide." });
@@ -95,6 +128,7 @@ export const subscribeNewsletter = async (req, res, next) => {
     let abonne;
     if (existing) {
       abonne = await existing.update({
+        nomComplet: fullName ?? existing.nomComplet,
         locale: finalLocale,
         confirmed: true,
         statut: "actif",
@@ -102,6 +136,7 @@ export const subscribeNewsletter = async (req, res, next) => {
       });
     } else {
       abonne = await Abonne.create({
+        nomComplet: fullName,
         email,
         locale: finalLocale,
         confirmed: true,
@@ -114,10 +149,35 @@ export const subscribeNewsletter = async (req, res, next) => {
       from: `"Food For Life" <${EMAIL}>`,
       to: email,
       subject: "Bienvenue dans la newsletter Food For Life",
-      html: newsletterSubscriptionConfirmationTemplate(email, FRONT_URL),
+      html: newsletterSubscriptionConfirmationTemplate(
+        fullName || abonne.nomComplet || email,
+        FRONT_URL,
+      ),
     });
 
     return res.status(201).json({ ok: true, id: abonne.idAbonne });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// POST /newsletter/unsubscribe -> désinscription d'un abonné
+export const unsubscribeNewsletter = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email || !valideEmail(email)) {
+      return res.status(400).json({ message: "Adresse email invalide." });
+    }
+    const ab = await Abonne.findOne({ where: { email } });
+    if (ab) {
+      await ab.update({
+        statut: "desabonne",
+        confirmed: false,
+        dateDesabonnement: new Date(),
+      });
+    }
+    // Réponse identique que l'email existe ou non (pas de fuite d'information)
+    return res.status(200).json({ ok: true });
   } catch (error) {
     next(error);
   }

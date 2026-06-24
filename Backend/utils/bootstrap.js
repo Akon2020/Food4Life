@@ -13,7 +13,7 @@ export const bootstrapAdmin = async () => {
   const count = await Utilisateur.count();
   if (count > 0) return;
 
-  const email = ADMIN_EMAIL || "admin@foodforlife.cd";
+  const email = ADMIN_EMAIL || "admin@foodforlifedrc.org";
   const password = DEFAULT_PASSWD || "Food4Life@2026";
   const salt = await bcrypt.genSalt();
   const hashed = await bcrypt.hash(password, salt);

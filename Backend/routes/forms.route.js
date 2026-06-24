@@ -2,12 +2,35 @@ import { Router } from "express";
 import {
   createMessage,
   subscribeNewsletter,
+  unsubscribeNewsletter,
 } from "../controllers/forms.controller.js";
+import upload from "../middlewares/upload.middleware.js";
+import { normalizeUploadPaths } from "../utils/normalizeUploadPaths.js";
+import { formLimiter } from "../middlewares/rateLimit.middleware.js";
+import {
+  validate,
+  messageSchema,
+  subscribeSchema,
+} from "../middlewares/validate.middleware.js";
 
 // Routes formulaires (écriture publique, non authentifiées) — montées sous /api.
 const formsRouter = Router();
 
-formsRouter.post("/messages", createMessage);
-formsRouter.post("/newsletter/subscribe", subscribeNewsletter);
+// upload.single("cv") gère le multipart (candidature) ET laisse passer le JSON.
+formsRouter.post(
+  "/messages",
+  formLimiter,
+  upload.single("cv"),
+  normalizeUploadPaths,
+  validate(messageSchema),
+  createMessage,
+);
+formsRouter.post(
+  "/newsletter/subscribe",
+  formLimiter,
+  validate(subscribeSchema),
+  subscribeNewsletter,
+);
+formsRouter.post("/newsletter/unsubscribe", formLimiter, unsubscribeNewsletter);
 
 export default formsRouter;
