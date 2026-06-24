@@ -217,6 +217,7 @@
     "evenement": "Événements",
     "presse": "Presse",
     "backToBlog": "Toutes les actualités",
+    "empty": "Aucune actualité pour le moment.",
     "notFound": "Article introuvable.",
     "publishedOn": "Publié le",
     "related": "À lire également"

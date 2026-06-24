@@ -217,6 +217,7 @@
     "evenement": "Events",
     "presse": "Press",
     "backToBlog": "All news",
+    "empty": "No news yet.",
     "notFound": "Article not found.",
     "publishedOn": "Published on",
     "related": "You may also like"

@@ -11,22 +11,37 @@ import { ArticleCard } from "@/components/blog/article-card"
 import { StaggerGroup } from "@/components/motion/reveal"
 import { Skeleton } from "@/components/ui/skeleton"
 
-const CATEGORIES: (ArticleCategory | "all")[] = ["all", "impact", "evenement", "presse"]
+const CATEGORIES: (ArticleCategory | "all")[] = [
+  "all",
+  "impact",
+  "evenement",
+  "presse",
+]
 
 export function BlogList() {
   const t = useTranslations("blog")
   const [filter, setFilter] = useState<ArticleCategory | "all">("all")
 
-  const { data, isLoading } = useQuery({ queryKey: ["articles"], queryFn: () => getArticles() })
+  const { data, isLoading } = useQuery({
+    queryKey: ["articles"],
+    queryFn: () => getArticles(),
+  })
   const articles = useMemo(
-    () => (data ?? []).filter((a) => (filter === "all" ? true : a.category === filter)),
+    () =>
+      (data ?? []).filter((a) =>
+        filter === "all" ? true : a.category === filter
+      ),
     [data, filter]
   )
+
+  const featured = articles[0]
+  const rest = articles.slice(1)
 
   return (
     <section className="bg-background py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
+        {/* Filtres */}
+        <div className="mb-12 flex flex-wrap justify-center gap-2">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -47,15 +62,31 @@ export function BlogList() {
         {isLoading ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-96 rounded-2xl" />
+              <Skeleton key={i} className="h-80 rounded-2xl" />
             ))}
           </div>
+        ) : articles.length === 0 ? (
+          <p className="py-16 text-center text-muted-foreground">
+            {t("empty")}
+          </p>
         ) : (
-          <StaggerGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </StaggerGroup>
+          <>
+            {/* À la une */}
+            {featured ? (
+              <div className="mb-14 border-b border-border pb-14">
+                <ArticleCard article={featured} featured />
+              </div>
+            ) : null}
+
+            {/* Grille */}
+            {rest.length > 0 ? (
+              <StaggerGroup className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                {rest.map((article) => (
+                  <ArticleCard key={article.id} article={article} />
+                ))}
+              </StaggerGroup>
+            ) : null}
+          </>
         )}
       </div>
     </section>
