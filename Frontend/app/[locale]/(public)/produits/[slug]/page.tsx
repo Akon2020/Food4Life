@@ -9,6 +9,9 @@ interface PageProps {
   params: Promise<{ slug: string; locale: string }>
 }
 
+// Rendu à la demande (données dynamiques du backend, pas de pré-rendu au build).
+export const dynamic = "force-dynamic"
+
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://foodforlifedrc.org"
 

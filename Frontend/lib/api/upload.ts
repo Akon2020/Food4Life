@@ -1,7 +1,9 @@
 // Upload d'image vers le backend (champ "image") -> URL absolue persistable.
 // En mode mock, renvoie une URL placeholder sans réseau.
 
-const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false"
+const USE_MOCKS =
+  process.env.NODE_ENV !== "production" &&
+  process.env.NEXT_PUBLIC_USE_MOCKS === "true"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
 
 export interface UploadResult {

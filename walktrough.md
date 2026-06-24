@@ -119,3 +119,16 @@
 - [x] `article-detail` redesignée : hero plus immersif, méta (date + temps de lecture),
       chapeau accentué, corps `.ffl-prose`, blocs de **partage** (haut + bas).
 - [x] `share-buttons` : Facebook, X, LinkedIn, WhatsApp + **copier le lien**.
+
+### Étape 14 — Fix CI (lock) + interdiction des mocks en prod ✅
+- [x] **CI rouge** (Frontend build) : `npm ci` échouait (lock désynchronisé, `@swc/helpers`
+      manquant après l'ajout de TipTap). `npm install` régénère le lock ; `npm ci --dry-run`
+      confirme la cohérence (« up to date »).
+- [x] **Mocks jamais en production** : `USE_MOCKS` devient **opt-in ET interdit en prod**
+      (`NODE_ENV !== "production" && NEXT_PUBLIC_USE_MOCKS === "true"`) dans
+      `lib/api/client.ts`, `lib/api/upload.ts`, `lib/auth.ts`. En prod, seul le vrai backend
+      est utilisé.
+- [x] Pages détail produit/article en `force-dynamic` (rendu à la demande, pas de pré-rendu
+      au build) ; sitemap déjà tolérant (fallback). Build CI sans backend = OK.
+- [x] CI nettoyé (var mock retirée), README mis à jour (build prod doit définir
+      `NEXT_PUBLIC_API_BASE_URL`). Frontend : 0 erreur TypeScript.

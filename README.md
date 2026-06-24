@@ -82,14 +82,17 @@ Scripts : `npm run dev` · `npm run seed` · `npm run seed:reset` (vide puis re-
 cd Frontend
 # .env.local :
 #   NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
-#   NEXT_PUBLIC_USE_MOCKS=false        # true = données mock, sans backend
+#   NEXT_PUBLIC_USE_MOCKS=true         # (dev uniquement) données mock sans backend
 #   NEXT_PUBLIC_SITE_URL=http://localhost:3000
 npm install
 npm run dev        # http://localhost:3000  (→ /fr ou /en)
 ```
 
-> **Mode mock** : `NEXT_PUBLIC_USE_MOCKS=true` fait tourner tout le front sans backend
-> (données dans `Frontend/lib/mock-data`). Pratique pour le design/offline.
+> **Mode mock (dev uniquement, opt-in)** : les mocks ne sont utilisés que si
+> `NEXT_PUBLIC_USE_MOCKS=true` **et** hors production. En **production**, les mocks sont
+> **toujours désactivés** (garde-fou `NODE_ENV` dans `lib/api/client.ts`) : le frontend
+> consomme exclusivement le vrai backend. **Le build de prod doit donc définir
+> `NEXT_PUBLIC_API_BASE_URL`** vers l'API réelle (ex. `https://api.foodforlifedrc.org/api`).
 
 #### ⚠️ Note environnement Windows (binaire SWC bloqué)
 

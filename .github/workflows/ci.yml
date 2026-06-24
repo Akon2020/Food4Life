@@ -27,9 +27,10 @@ jobs:
     defaults:
       run:
         working-directory: Frontend
+    # Build "production-like" : les mocks sont désactivés en prod (voir lib/api/client.ts),
+    # le build n'a pas besoin du backend (données client-side + sitemap avec fallback).
     env:
-      NEXT_PUBLIC_USE_MOCKS: "true"
-      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      NEXT_PUBLIC_SITE_URL: "https://foodforlifedrc.org"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -1,9 +1,10 @@
 // Single source of truth for mock-vs-real data switching.
-// Flip NEXT_PUBLIC_USE_MOCKS=false + set NEXT_PUBLIC_API_BASE_URL to hit the
-// real Express backend. Component code NEVER imports lib/mock-data directly —
-// it always goes through lib/api/* (which calls these helpers).
-
-const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false"
+// Les mocks sont OPT-IN et **jamais utilisés en production** : il faut à la fois
+// NODE_ENV !== "production" ET NEXT_PUBLIC_USE_MOCKS === "true". En prod (build Next),
+// USE_MOCKS vaut toujours false → seul le vrai backend est utilisé.
+const USE_MOCKS =
+  process.env.NODE_ENV !== "production" &&
+  process.env.NEXT_PUBLIC_USE_MOCKS === "true"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
 
 // Simulate network latency so loading states / skeletons are exercised.

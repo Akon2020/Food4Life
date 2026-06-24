@@ -14,7 +14,9 @@
 export const AUTH_COOKIE = "ffl_admin_session"
 const ADMIN_USER_KEY = "ffl_admin_user"
 
-const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false"
+const USE_MOCKS =
+  process.env.NODE_ENV !== "production" &&
+  process.env.NEXT_PUBLIC_USE_MOCKS === "true"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
 
 export type AdminUser = {
