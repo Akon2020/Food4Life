@@ -32,44 +32,9 @@ export function ArticleDetail({ article }: { article: Article }) {
 
   return (
     <article className="bg-background pb-24">
-      {/* Hero */}
-      <header className="relative h-[48vh] min-h-[22rem] w-full overflow-hidden">
-        <Image
-          src={article.coverImageUrl || "/placeholder.svg"}
-          alt={title}
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/50 to-ink/10" />
-        <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-3xl px-4 pb-10">
-            <Badge className="bg-accent capitalize text-accent-foreground">
-              {t(article.category)}
-            </Badge>
-            <h1 className="mt-4 text-balance font-heading text-3xl font-bold leading-tight text-paper md:text-5xl">
-              {title}
-            </h1>
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-paper/80">
-              {article.publishedAt ? (
-                <span className="inline-flex items-center gap-1.5">
-                  <CalendarDays className="size-4" />
-                  {formatDate(article.publishedAt, locale)}
-                </span>
-              ) : null}
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="size-4" />
-                {minutes} {locale === "en" ? "min read" : "min de lecture"}
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="mx-auto max-w-3xl px-4">
-        {/* Barre : retour + partage */}
-        <div className="flex flex-col gap-4 border-b border-border py-6 sm:flex-row sm:items-center sm:justify-between">
+        {/* Retour */}
+        <div className="pt-8 md:pt-12">
           <Link
             href="/actualites"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -77,18 +42,57 @@ export function ArticleDetail({ article }: { article: Article }) {
             <ArrowLeft className="size-4" />
             {t("backToBlog")}
           </Link>
-          <ShareButtons title={title} />
         </div>
 
-        <Reveal>
-          {/* Chapeau */}
+        {/* En-tête : catégorie + titre + méta + chapeau */}
+        <header className="mt-8">
+          <Badge className="bg-green-100 capitalize text-green-800 hover:bg-green-100">
+            {t(article.category)}
+          </Badge>
+          <h1 className="mt-4 text-balance font-heading text-3xl font-bold leading-tight text-ink md:text-5xl">
+            {title}
+          </h1>
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ink-muted">
+            {article.publishedAt ? (
+              <span className="inline-flex items-center gap-1.5">
+                <CalendarDays className="size-4 text-green-700" />
+                {formatDate(article.publishedAt, locale)}
+              </span>
+            ) : null}
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="size-4 text-green-700" />
+              {minutes} {locale === "en" ? "min read" : "min de lecture"}
+            </span>
+          </div>
           {excerpt ? (
-            <p className="mt-8 border-l-4 border-gold-400 pl-4 text-lg font-medium leading-relaxed text-foreground">
+            <p className="mt-6 text-lg leading-relaxed text-foreground/90">
               {excerpt}
             </p>
           ) : null}
+        </header>
 
-          {/* Corps */}
+        {/* Image de couverture — pleine et nette (pas d'assombrissement) */}
+        {article.coverImageUrl ? (
+          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-stone-100 shadow-sm">
+            <Image
+              src={article.coverImageUrl}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        ) : null}
+
+        {/* Ligne de partage (sous l'image) */}
+        <div className="mt-6 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between">
+          <span className="text-sm font-medium text-ink">Food For Life</span>
+          <ShareButtons title={title} />
+        </div>
+
+        {/* Corps */}
+        <Reveal>
           {isHtml ? (
             <div
               className="ffl-prose mt-8 text-base leading-relaxed text-foreground"
@@ -103,7 +107,7 @@ export function ArticleDetail({ article }: { article: Article }) {
           )}
         </Reveal>
 
-        {/* Pied : partage + retour */}
+        {/* Pied : partage */}
         <div className="mt-12 flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-heading text-base font-semibold text-ink">
