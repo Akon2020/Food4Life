@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
 import { motion } from "framer-motion"
+import { Users } from "lucide-react"
 
 import { LinkedinIcon } from "@/components/icons/social-icons"
 
@@ -12,17 +13,23 @@ import { getTeam } from "@/lib/api/content"
 import { pick } from "@/lib/i18n-field"
 import { SectionHeading } from "@/components/site/section-heading"
 import { StaggerGroup, fadeUp } from "@/components/motion/reveal"
+import { EmptyState } from "@/components/site/empty-state"
 
 export function AboutTeam() {
   const t = useTranslations("about")
   const locale = useLocale() as Locale
-  const { data } = useQuery({ queryKey: ["team"], queryFn: getTeam })
+  const { data, isLoading } = useQuery({ queryKey: ["team"], queryFn: getTeam })
   const team = data ?? []
 
   return (
     <section className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4">
         <SectionHeading title={t("teamTitle")} description={t("teamSubtitle")} />
+        {!isLoading && team.length === 0 ? (
+          <div className="mt-12">
+            <EmptyState icon={Users} title={t("teamEmptyTitle")} message={t("teamEmpty")} />
+          </div>
+        ) : (
         <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
             <motion.article
@@ -62,6 +69,7 @@ export function AboutTeam() {
             </motion.article>
           ))}
         </StaggerGroup>
+        )}
       </div>
     </section>
   )

@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { HeroSection } from "@/components/home/hero-section"
+import { HomePartnersStrip } from "@/components/home/partners-strip"
 import { ImpactSection } from "@/components/home/impact-section"
 import { ServicesSection } from "@/components/home/services-section"
 import { HomeProductsSection } from "@/components/home/products-section"
-import { HomePartnersSection } from "@/components/home/partners-section"
 import { TestimonialsSection } from "@/components/home/testimonials-section"
 import { GalleryTeaser } from "@/components/home/gallery-teaser"
 import { NewsSection } from "@/components/home/news-section"
@@ -41,10 +41,10 @@ export default async function HomePage({
   return (
     <>
       <HeroSection />
+      <HomePartnersStrip />
       <ImpactSection />
       <ServicesSection />
       <HomeProductsSection />
-      <HomePartnersSection />
       <TestimonialsSection />
       <GalleryTeaser />
       <NewsSection />

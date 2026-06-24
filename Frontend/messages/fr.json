@@ -139,6 +139,11 @@
     ]
   },
   "home": {
+    "emptyTitle": "Bientôt disponible",
+    "emptyProducts": "Nos produits seront bientôt présentés ici.",
+    "emptyNews": "Aucune actualité publiée pour le moment. Revenez bientôt !",
+    "emptyTestimonials": "Les témoignages de notre communauté arrivent bientôt.",
+    "emptyGallery": "Les médias de nos actions seront ajoutés ici prochainement.",
     "heroEyebrow": "Agro-transformation · RDC",
     "heroTitle": "Nourrir aujourd'hui, bâtir demain",
     "heroSubtitle": "Food For Life transforme les récoltes locales en farines infantiles enrichies, abordables et de qualité — pour lutter contre la malnutrition et soutenir les producteurs congolais.",
@@ -158,6 +163,7 @@
     "productsText": "Des farines enrichies, élaborées à partir d'ingrédients locaux et de standards de qualité élevés.",
     "partnersEyebrow": "Ils nous font confiance",
     "partnersTitle": "Nos partenaires",
+    "partnersTrust": "Ils nous soutiennent dans la lutte contre la malnutrition",
     "testimonialsEyebrow": "Témoignages",
     "testimonialsTitle": "Des vies transformées",
     "galleryEyebrow": "En images",
@@ -210,7 +216,9 @@
     "valueImpact": "Impact",
     "valueImpactText": "Mesurer et maximiser notre effet social sur le terrain.",
     "teamTitle": "Notre équipe",
-    "teamSubtitle": "Des femmes et des hommes engagés au service de la nutrition."
+    "teamSubtitle": "Des femmes et des hommes engagés au service de la nutrition.",
+    "teamEmptyTitle": "Équipe à venir",
+    "teamEmpty": "Les membres de notre équipe seront présentés ici très bientôt."
   },
   "products": {
     "title": "Nos produits",
@@ -220,7 +228,9 @@
     "audience": "Pour qui ?",
     "availability": "Disponibilité",
     "backToProducts": "Tous les produits",
-    "notFound": "Produit introuvable."
+    "notFound": "Produit introuvable.",
+    "emptyTitle": "Bientôt disponible",
+    "empty": "Nos produits seront présentés ici très prochainement. Revenez bientôt !"
   },
   "gallery": {
     "title": "Galerie",
@@ -231,11 +241,15 @@
     "evenements": "Événements",
     "equipe": "Équipe",
     "playVideo": "Lire la vidéo",
-    "close": "Fermer"
+    "close": "Fermer",
+    "emptyTitle": "Galerie en préparation",
+    "empty": "Les photos et vidéos de nos actions seront ajoutées ici prochainement."
   },
   "partners": {
     "title": "Nos partenaires",
     "subtitle": "Ensemble, nous amplifions notre impact sur la nutrition et l'agriculture en RDC.",
+    "emptyTitle": "Bientôt nos partenaires",
+    "empty": "Nous présenterons ici les organisations qui nous accompagnent.",
     "financier": "Financiers",
     "technique": "Techniques",
     "formation": "Formation",

@@ -5,13 +5,14 @@ import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
 import { AnimatePresence, motion } from "framer-motion"
-import { Play, X } from "lucide-react"
+import { Play, X, Images } from "lucide-react"
 
 import type { GalleryCategory, GalleryItem, Locale } from "@/lib/types"
 import { getGallery } from "@/lib/api/content"
 import { pick } from "@/lib/i18n-field"
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
+import { EmptyState } from "@/components/site/empty-state"
 
 const CATEGORIES: (GalleryCategory | "all")[] = [
   "all",
@@ -61,6 +62,8 @@ export function GalleryExperience() {
               <Skeleton key={i} className="mb-4 h-64 w-full rounded-2xl" />
             ))}
           </div>
+        ) : items.length === 0 ? (
+          <EmptyState icon={Images} title={t("emptyTitle")} message={t("empty")} />
         ) : (
           <motion.div layout className="columns-1 gap-4 sm:columns-2 lg:columns-3">
             {items.map((item) => (

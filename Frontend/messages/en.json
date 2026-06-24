@@ -139,6 +139,11 @@
     ]
   },
   "home": {
+    "emptyTitle": "Coming soon",
+    "emptyProducts": "Our products will be showcased here soon.",
+    "emptyNews": "No news published yet. Check back soon!",
+    "emptyTestimonials": "Testimonials from our community are coming soon.",
+    "emptyGallery": "Media from our work will be added here soon.",
     "heroEyebrow": "Agro-processing · DRC",
     "heroTitle": "Nourishing today, building tomorrow",
     "heroSubtitle": "Food For Life turns local harvests into fortified, affordable, high-quality infant flours — fighting malnutrition while supporting Congolese farmers.",
@@ -158,6 +163,7 @@
     "productsText": "Fortified flours made from local ingredients to the highest quality standards.",
     "partnersEyebrow": "They trust us",
     "partnersTitle": "Our partners",
+    "partnersTrust": "They support us in the fight against malnutrition",
     "testimonialsEyebrow": "Testimonials",
     "testimonialsTitle": "Lives transformed",
     "galleryEyebrow": "In pictures",
@@ -210,7 +216,9 @@
     "valueImpact": "Impact",
     "valueImpactText": "Measuring and maximizing our social effect on the ground.",
     "teamTitle": "Our team",
-    "teamSubtitle": "Committed women and men in the service of nutrition."
+    "teamSubtitle": "Committed women and men in the service of nutrition.",
+    "teamEmptyTitle": "Team coming soon",
+    "teamEmpty": "Our team members will be introduced here very soon."
   },
   "products": {
     "title": "Our products",
@@ -220,7 +228,9 @@
     "audience": "Who is it for?",
     "availability": "Availability",
     "backToProducts": "All products",
-    "notFound": "Product not found."
+    "notFound": "Product not found.",
+    "emptyTitle": "Coming soon",
+    "empty": "Our products will be showcased here very soon. Check back shortly!"
   },
   "gallery": {
     "title": "Gallery",
@@ -231,11 +241,15 @@
     "evenements": "Events",
     "equipe": "Team",
     "playVideo": "Play video",
-    "close": "Close"
+    "close": "Close",
+    "emptyTitle": "Gallery in progress",
+    "empty": "Photos and videos of our work will be added here soon."
   },
   "partners": {
     "title": "Our partners",
     "subtitle": "Together we amplify our impact on nutrition and agriculture in the DRC.",
+    "emptyTitle": "Partners coming soon",
+    "empty": "We will showcase here the organizations that support us.",
     "financier": "Financial",
     "technique": "Technical",
     "formation": "Training",

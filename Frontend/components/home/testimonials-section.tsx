@@ -7,18 +7,35 @@ import { Quote } from "lucide-react"
 import { getTestimonials } from "@/lib/api/content"
 import { SectionHeading } from "@/components/site/section-heading"
 import { Reveal, RevealGroup } from "@/components/motion/reveal"
+import { EmptyState } from "@/components/site/empty-state"
 import type { Locale } from "@/i18n/routing"
 
 export function TestimonialsSection() {
   const t = useTranslations("home")
   const locale = useLocale() as Locale
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["testimonials"],
     queryFn: getTestimonials,
   })
 
   const testimonials = data ?? []
+
+  if (!isLoading && testimonials.length === 0) {
+    return (
+      <section className="bg-secondary py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeading
+            eyebrow={t("testimonialsEyebrow")}
+            title={t("testimonialsTitle")}
+          />
+          <div className="mt-14">
+            <EmptyState icon={Quote} title={t("emptyTitle")} message={t("emptyTestimonials")} />
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="bg-secondary py-20 md:py-28">
