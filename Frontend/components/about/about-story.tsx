@@ -15,7 +15,7 @@ export function AboutStory() {
         <Reveal>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl">
             <Image
-              src="/images/about-story.png"
+              src="/images/about-story.jpg"
               alt={t("storyTitle")}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
