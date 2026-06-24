@@ -133,10 +133,6 @@ export default function AdminLoginPage() {
           </form>
         </Form>
 
-        <p className="mt-6 rounded-lg bg-green-50 px-4 py-3 text-center text-xs text-green-800">
-          {t("loginHint")}
-        </p>
-
         <p className="mt-4 text-center text-xs text-ink-muted">
           <a href={`/${locale}`} className="underline-offset-2 hover:underline">
             {tc("backHome")}
