@@ -20,9 +20,15 @@ export async function uploadImage(file: File): Promise<UploadResult> {
   const form = new FormData()
   form.append("image", file)
 
+  const token =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("ffl_admin_token")
+      : null
+
   const res = await fetch(`${API_BASE_URL}/admin/uploads`, {
     method: "POST",
     credentials: "include",
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     body: form,
   })
   if (!res.ok) throw new Error(`Upload échoué (${res.status})`)

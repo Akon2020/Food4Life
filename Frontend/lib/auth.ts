@@ -13,6 +13,23 @@
 
 export const AUTH_COOKIE = "ffl_admin_session"
 const ADMIN_USER_KEY = "ffl_admin_user"
+const ADMIN_TOKEN_KEY = "ffl_admin_token"
+
+/**
+ * Jeton JWT renvoyé par le backend à la connexion. Stocké côté client et envoyé
+ * en `Authorization: Bearer` sur les appels admin — fiable quel que soit le domaine
+ * (le cookie httpOnly de l'API peut ne pas être visible/transmis en cross-domaine).
+ */
+export function getToken(): string | null {
+  if (typeof window === "undefined") return null
+  return window.localStorage.getItem(ADMIN_TOKEN_KEY)
+}
+
+function setToken(token: string | null) {
+  if (typeof window === "undefined") return
+  if (token) window.localStorage.setItem(ADMIN_TOKEN_KEY, token)
+  else window.localStorage.removeItem(ADMIN_TOKEN_KEY)
+}
 
 const USE_MOCKS =
   process.env.NODE_ENV !== "production" &&
@@ -78,6 +95,9 @@ export async function login(email: string, password: string): Promise<AdminUser>
     role: info.role,
   }
   cacheUser(user)
+  // Stocke le JWT pour l'envoyer en Authorization: Bearer sur les appels admin.
+  const token = data.data?.token ?? data.token ?? null
+  setToken(token)
   // Cookie-marqueur sur le domaine du FRONTEND : c'est lui que le proxy Next lit
   // pour ouvrir /admin/*. Le vrai JWT reste httpOnly sur le domaine de l'API
   // (envoyé sur les requêtes via credentials:"include"). Indispensable quand le
@@ -98,8 +118,9 @@ export async function logout() {
       /* ignore network errors on logout */
     }
   }
-  // Toujours retirer le cookie-marqueur côté frontend (mock comme réel).
+  // Toujours retirer le cookie-marqueur + le jeton côté frontend (mock comme réel).
   deleteCookie(AUTH_COOKIE)
+  setToken(null)
   if (typeof window !== "undefined") {
     window.localStorage.removeItem(ADMIN_USER_KEY)
   }

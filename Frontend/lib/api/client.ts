@@ -14,6 +14,15 @@ function delay<T>(value: T, ms = MOCK_LATENCY): Promise<T> {
   return new Promise((resolve) => setTimeout(() => resolve(value), ms))
 }
 
+// En-tête Authorization: Bearer <jwt> si un jeton est stocké (auth admin fiable
+// en cross-domaine, indépendamment du cookie). Lecture directe du localStorage
+// pour éviter un cycle d'import avec lib/auth.
+function authHeaders(base: Record<string, string>): Record<string, string> {
+  if (typeof window === "undefined") return base
+  const token = window.localStorage.getItem("ffl_admin_token")
+  return token ? { ...base, Authorization: `Bearer ${token}` } : base
+}
+
 export async function apiGet<T>(
   path: string,
   mock: () => T | Promise<T>
@@ -21,7 +30,7 @@ export async function apiGet<T>(
   if (USE_MOCKS) return delay(await mock())
   const res = await fetch(`${API_BASE_URL}${path}`, {
     credentials: "include",
-    headers: { Accept: "application/json" },
+    headers: authHeaders({ Accept: "application/json" }),
   })
   if (!res.ok) throw new Error(`API ${res.status} on GET ${path}`)
   return res.json()
@@ -34,11 +43,15 @@ export async function apiSend<T, B = unknown>(
   method: "POST" | "PUT" | "PATCH" | "DELETE" = "POST"
 ): Promise<T> {
   if (USE_MOCKS) return delay(await mock(body))
+  const isForm = body instanceof FormData
+  const headers = authHeaders(
+    isForm ? { Accept: "application/json" } : { "Content-Type": "application/json", Accept: "application/json" }
+  )
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
     credentials: "include",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: body instanceof FormData ? body : JSON.stringify(body),
+    headers,
+    body: isForm ? body : JSON.stringify(body),
   })
   if (!res.ok) throw new Error(`API ${res.status} on ${method} ${path}`)
   return res.json()
