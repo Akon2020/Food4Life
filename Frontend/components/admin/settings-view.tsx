@@ -15,6 +15,45 @@ import { TableSkeleton } from "@/components/admin/table-skeleton"
 const inputCls =
   "w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-green-600 focus:ring-2 focus:ring-green-600/20"
 
+// Un champ JSON (impact/contact/socials) peut revenir en objet OU en chaîne :
+// on garantit des objets pour éviter d'itérer une chaîne caractère par caractère.
+function asObject<T extends object>(v: unknown, fallback: T): T {
+  if (v && typeof v === "object" && !Array.isArray(v)) return v as T
+  if (typeof v === "string") {
+    try {
+      const p = JSON.parse(v)
+      return p && typeof p === "object" && !Array.isArray(p) ? (p as T) : fallback
+    } catch {
+      return fallback
+    }
+  }
+  return fallback
+}
+
+function normalizeSettings(s: SiteSetting): SiteSetting {
+  return {
+    impact: asObject(s.impact, {
+      tonnesProduced: 0,
+      householdsServed: 0,
+      farmersSupported: 0,
+      jobsCreated: 0,
+    }),
+    contact: asObject(s.contact, {
+      address: "",
+      phone: "",
+      email: "",
+      mapUrl: "",
+    }),
+    socials: asObject(s.socials, {
+      facebook: "",
+      instagram: "",
+      linkedin: "",
+      x: "",
+      youtube: "",
+    }),
+  }
+}
+
 export function SettingsView() {
   const t = useTranslations("adminUI")
   const queryClient = useQueryClient()
@@ -26,7 +65,7 @@ export function SettingsView() {
 
   const [draft, setDraft] = useState<SiteSetting | null>(null)
   useEffect(() => {
-    if (data) setDraft(data)
+    if (data) setDraft(normalizeSettings(data))
   }, [data])
 
   const mutation = useMutation({
@@ -61,7 +100,14 @@ export function SettingsView() {
     { key: "email", label: t("email") },
     { key: "mapUrl", label: t("mapUrl") },
   ]
-  const socialKeys = Object.keys(draft.socials) as (keyof SiteSetting["socials"])[]
+  // Liste FIXE des réseaux (jamais Object.keys, qui casse si socials revient en chaîne).
+  const socialKeys: (keyof SiteSetting["socials"])[] = [
+    "facebook",
+    "instagram",
+    "linkedin",
+    "x",
+    "youtube",
+  ]
 
   return (
     <form

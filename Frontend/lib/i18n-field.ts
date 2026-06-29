@@ -20,5 +20,15 @@ export function pickArray(
 ): string[] {
   const suffix = locale === "en" ? "En" : "Fr"
   const value = (entity as Record<string, unknown>)[`${base}${suffix}`]
-  return Array.isArray(value) ? (value as string[]) : []
+  if (Array.isArray(value)) return value as string[]
+  // Tolère un champ JSON revenu sous forme de chaîne.
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value)
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+  return []
 }

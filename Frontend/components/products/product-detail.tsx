@@ -10,11 +10,26 @@ import { pick, pickArray } from "@/lib/i18n-field"
 import { cn } from "@/lib/utils"
 import { Reveal } from "@/components/motion/reveal"
 
+// Coercion défensive : un champ JSON peut arriver en tableau OU en chaîne selon la base.
+function toStringArray(v: unknown): string[] {
+  if (Array.isArray(v)) return v as string[]
+  if (typeof v === "string") {
+    try {
+      const p = JSON.parse(v)
+      return Array.isArray(p) ? p : []
+    } catch {
+      return []
+    }
+  }
+  return []
+}
+
 export function ProductDetail({ product }: { product: Product }) {
   const locale = useLocale() as Locale
   const t = useTranslations("products")
   const tc = useTranslations("common")
   const available = product.status === "available"
+  const ingredients = toStringArray(product.ingredients)
 
   return (
     <article className="bg-background pb-24">
@@ -71,7 +86,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 {t("ingredients")}
               </h2>
               <div className="mt-3 flex flex-wrap gap-2">
-                {product.ingredients.map((ing) => (
+                {ingredients.map((ing) => (
                   <span
                     key={ing}
                     className="rounded-full bg-secondary px-3 py-1 text-sm text-secondary-foreground"

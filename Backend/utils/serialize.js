@@ -2,6 +2,34 @@
 // au contrat du frontend (Frontend/lib/types.ts). Réponses SANS enveloppe (D7).
 // Les dates sont renvoyées en ISO (res.json le fait déjà pour les objets Date).
 
+// Coercion robuste des champs JSON : selon la base/le driver, un champ JSON peut
+// revenir déjà parsé (tableau/objet) OU sous forme de chaîne. On garantit le bon type.
+function asArray(v) {
+  if (Array.isArray(v)) return v;
+  if (typeof v === "string") {
+    try {
+      const p = JSON.parse(v);
+      return Array.isArray(p) ? p : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+function asObject(v, fallback = {}) {
+  if (v && typeof v === "object" && !Array.isArray(v)) return v;
+  if (typeof v === "string") {
+    try {
+      const p = JSON.parse(v);
+      return p && typeof p === "object" && !Array.isArray(p) ? p : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
+}
+
 export function serializeArticle(a) {
   if (!a) return null;
   return {
@@ -33,13 +61,13 @@ export function serializeProduct(p) {
     taglineEn: p.taglineEn ?? "",
     descriptionFr: p.descriptionFr ?? "",
     descriptionEn: p.descriptionEn ?? "",
-    ingredients: p.ingredients ?? [],
-    benefitsFr: p.benefitsFr ?? [],
-    benefitsEn: p.benefitsEn ?? [],
+    ingredients: asArray(p.ingredients),
+    benefitsFr: asArray(p.benefitsFr),
+    benefitsEn: asArray(p.benefitsEn),
     targetAudienceFr: p.targetAudienceFr ?? "",
     targetAudienceEn: p.targetAudienceEn ?? "",
     imageUrl: p.imageUrl ?? "",
-    gallery: p.gallery ?? [],
+    gallery: asArray(p.gallery),
     availabilityFr: p.availabilityFr ?? "",
     availabilityEn: p.availabilityEn ?? "",
     status: p.status,
@@ -111,9 +139,9 @@ export function serializeGalleryItem(g) {
 export function serializeSettings(s) {
   if (!s) return null;
   return {
-    impact: s.impact,
-    contact: s.contact,
-    socials: s.socials,
+    impact: asObject(s.impact),
+    contact: asObject(s.contact),
+    socials: asObject(s.socials),
   };
 }
 

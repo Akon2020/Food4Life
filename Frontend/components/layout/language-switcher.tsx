@@ -1,27 +1,37 @@
 "use client"
 
 import { useLocale } from "next-intl"
-import { useParams } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useTransition } from "react"
-import { usePathname, useRouter } from "@/i18n/navigation"
+
 import { routing } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale()
   const router = useRouter()
+  // pathname natif : inclut le préfixe de langue, ex. /fr/produits/super-energy
   const pathname = usePathname()
-  const params = useParams()
   const [isPending, startTransition] = useTransition()
 
   function switchTo(next: string) {
     if (next === locale) return
-    startTransition(() => {
-      router.replace(
-        // @ts-expect-error -- pathname + params typing from next-intl
-        { pathname, params },
-        { locale: next }
+
+    const segments = pathname.split("/")
+    // segments[0] = "" (avant le 1er /). segments[1] = locale courante.
+    if (
+      routing.locales.includes(
+        segments[1] as (typeof routing.locales)[number]
       )
+    ) {
+      segments[1] = next
+    } else {
+      segments.splice(1, 0, next)
+    }
+    const url = segments.join("/") || `/${next}`
+
+    startTransition(() => {
+      router.replace(url)
     })
   }
 

@@ -2,7 +2,6 @@ import type { ReactNode } from "react"
 import type { Metadata, Viewport } from "next"
 import { getLocale } from "next-intl/server"
 import { NextIntlClientProvider } from "next-intl"
-import { Analytics } from "@vercel/analytics/next"
 import { Poppins, Inter } from "next/font/google"
 
 import { Providers } from "@/components/providers"
@@ -111,7 +110,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <Providers>{children}</Providers>
           <Toaster position="top-center" richColors />
         </NextIntlClientProvider>
-        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
   )
